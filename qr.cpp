@@ -195,7 +195,7 @@ void apply_Q_transpose(const QR<M, N> &qr, Matrix<M, K> &b) {
 }
 
 template <size_t M, size_t N, size_t K>
-void apply_Q(const QR<M, N> &qr, Matrix<M, K> &b) {
+void apply_Q_inplace(const QR<M, N> &qr, Matrix<M, K> &b) {
     for (size_t c = 0; c < K; ++c) {
         for (size_t r = N; r-- > 0;) {
             double dot_product = 0;
@@ -227,7 +227,7 @@ void extract_Q(const QR<M, N> &qr, Matrix<M, M> &Q) {
     Q = {};
     for (size_t i = 0; i < M; ++i)
         Q[i][i] = 1;
-    apply_Q(qr, Q);
+    apply_Q_inplace(qr, Q);
 }
 
 template <size_t M, size_t N>

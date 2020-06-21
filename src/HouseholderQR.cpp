@@ -1,202 +1,10 @@
-#include <algorithm>
-#include <cassert>
-#include <cmath> // std::sqrt, std::copysign
-#include <limits>
-#include <random>
-#include <vector>
+#include "HouseholderQR.hpp"
 
+#include <cassert>
 #include <iomanip>
 #include <iostream>
 
-using std::size_t;
-
-class Matrix {
-    friend class Vector;
-
-  protected:
-    explicit Matrix(std::vector<double> &&storage)
-        : rows_(storage.size()), cols_(1), storage(std::move(storage)) {}
-
-    explicit Matrix(const std::vector<double> &storage)
-        : rows_(storage.size()), cols_(1), storage(storage) {}
-
-  public:
-    Matrix(size_t rows = 0, size_t cols = 0)
-        : rows_(rows), cols_(cols), storage(rows * cols) {}
-
-    size_t rows() const { return rows_; }
-    size_t cols() const { return cols_; }
-
-    double &operator()(size_t row, size_t col) {
-#ifdef COL_MAJ_ORDER
-        return storage[row + rows_ * col];
-#else
-        return storage[row * cols_ + col];
-#endif
-    }
-    const double &operator()(size_t row, size_t col) const {
-#ifdef COL_MAJ_ORDER
-        return storage[row + rows_ * col];
-#else
-        return storage[row * cols_ + col];
-#endif
-    }
-
-    void fill(double value) {
-        std::fill(storage.begin(), storage.end(), value);
-    }
-
-    void fill_identity() {
-        fill(0);
-        for (size_t i = 0; i < std::min(rows(), cols()); ++i)
-            (*this)(i, i) = 1;
-    }
-
-    void fill_random(double min = 0, double max = 1) {
-        std::default_random_engine gen;
-        std::uniform_real_distribution<double> dist(min, max);
-        std::generate(storage.begin(), storage.end(),
-                      [&] { return dist(gen); });
-    }
-
-    static Matrix random(size_t rows, size_t cols, double min = 0,
-                         double max = 1) {
-        Matrix m(rows, cols);
-        m.fill_random(min, max);
-        return m;
-    }
-
-    static Matrix identity(size_t rows) {
-        Matrix m(rows, rows);
-        m.fill_identity();
-        return m;
-    }
-
-    static Matrix zeros(size_t rows, size_t cols) {
-        Matrix m(rows, cols);
-        return m;
-    }
-
-    static Matrix constant(size_t rows, size_t cols, double value) {
-        Matrix m(rows, cols);
-        m.fill(value);
-        return m;
-    }
-
-    static Matrix ones(size_t rows, size_t cols) {
-        return constant(rows, cols, 1);
-    }
-
-  private:
-    size_t rows_, cols_;
-    std::vector<double> storage;
-};
-
-class Vector {
-  public:
-    Vector(size_t size = 0) : storage(size) {}
-
-    explicit Vector(Matrix &&matrix) : storage(std::move(matrix.storage)) {}
-
-    double &operator()(size_t index) { return storage[index]; }
-    const double &operator()(size_t index) const { return storage[index]; }
-
-    void resize(size_t size) { storage.resize(size); }
-
-    size_t size() const { return storage.size(); }
-
-    Matrix to_matrix() && { return Matrix(std::move(storage)); }
-    Matrix to_matrix() const & { return Matrix(storage); }
-
-  private:
-    std::vector<double> storage;
-};
-
-class HouseholderQR {
-  public:
-    HouseholderQR() = default;
-
-  private:
-    /// Result of a Householder QR factorization: stores the strict
-    /// upper-triangular part of matrix R and the full matrix of scaled
-    /// Householder reflection vectors W. The reflection vectors have norm √2.
-    Matrix RW;
-    /// Contains the diagonal elements of R.
-    Vector R_diag;
-
-    enum {
-        NotFactored = 0,
-        Factored    = 1,
-    } state = NotFactored;
-
-  private:
-    void factor_impl();
-    void back_subs(const Matrix &B, Matrix &X) const;
-
-  public:
-    void factor(Matrix &&matrix) {
-        RW = std::move(matrix);
-        R_diag.resize(RW.cols());
-        factor_impl();
-    }
-
-    void factor(const Matrix &matrix) {
-        RW = matrix;
-        R_diag.resize(RW.cols());
-        factor_impl();
-    }
-
-    void apply_QT(Matrix &B) const;
-    Matrix apply_QT_copy(const Matrix &B) const {
-        Matrix result = B;
-        apply_QT(result);
-        return result;
-    }
-
-    void apply_Q(Matrix &X) const;
-    Matrix apply_Q_copy(const Matrix &X) const {
-        Matrix result = X;
-        apply_Q(result);
-        return result;
-    }
-
-    void get_R(Matrix &R) const;
-    Matrix get_R_copy() const {
-        Matrix R(RW.rows(), RW.cols());
-        get_R(R);
-        return R;
-    }
-
-    Matrix steal_R();
-
-    void get_Q(Matrix &R) const;
-    Matrix get_Q_copy() const {
-        Matrix Q(RW.rows(), RW.rows());
-        get_Q(Q);
-        return Q;
-    }
-
-    bool is_factored() const { return state == Factored; }
-
-    const Matrix &get_RW() const { return RW; }
-    const Vector &get_R_diag() const { return R_diag; }
-
-    void solve(Matrix &B) const;
-    Matrix solve_copy(const Matrix &B) const;
-    void solve(Vector &b) const {
-        Matrix B = std::move(b).to_matrix();
-        solve(B);
-        b = Vector(std::move(B));
-    }
-    Vector solve_copy(const Vector &b) const {
-        Matrix B = b.to_matrix();
-        return Vector(solve_copy(B));
-    }
-};
-
-std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr);
-
-void HouseholderQR::factor_impl() {
+void HouseholderQR::compute_impl() {
     // For the intermediate calculations, we'll be working with RW.
     // It is initialized to the rectangular matrix to be factored.
     // At the end of this function, RW will contain the strict
@@ -204,6 +12,9 @@ void HouseholderQR::factor_impl() {
     // and the complete scaled matrix of reflection vectors W, which is a
     // lower-triangular matrix. The diagonal of R is stored separately in
     // R_diag.
+
+    assert(RW.rows() >= RW.cols());
+    assert(R_diag.size() == RW.cols());
 
     // Helper function to square a number
     auto sq = [](double x) { return x * x; };
@@ -293,7 +104,8 @@ void HouseholderQR::factor_impl() {
             // the other components of x (xₛ) are already equal to zero, since
             // ‖x‖ = 0.
 
-            // R_diag is already initialized to zero.
+            // Save the first component of xₕ:
+            R_diag(k) = 0;
         }
 
         // Now that the reflection vector vₖ (wₖ) is known, the rest of the
@@ -348,7 +160,7 @@ void HouseholderQR::factor_impl() {
     state = Factored;
 }
 
-void HouseholderQR::apply_QT(Matrix &B) const {
+void HouseholderQR::apply_QT_inplace(Matrix &B) const {
     assert(state == Factored);
     assert(RW.rows() == B.rows());
     for (size_t c = 0; c < B.cols(); ++c) {
@@ -362,7 +174,7 @@ void HouseholderQR::apply_QT(Matrix &B) const {
     }
 }
 
-void HouseholderQR::apply_Q(Matrix &X) const {
+void HouseholderQR::apply_Q_inplace(Matrix &X) const {
     assert(state == Factored);
     assert(RW.rows() == X.rows());
     for (size_t c = 0; c < X.cols(); ++c) {
@@ -376,7 +188,8 @@ void HouseholderQR::apply_Q(Matrix &X) const {
     }
 }
 
-void HouseholderQR::get_R(Matrix &R) const {
+void HouseholderQR::get_R_inplace(Matrix &R) const {
+    assert(state == Factored);
     assert(R.rows() == RW.rows());
     assert(R.cols() == RW.cols());
     for (size_t r = 0; r < R.cols(); ++r) {
@@ -392,26 +205,25 @@ void HouseholderQR::get_R(Matrix &R) const {
     }
 }
 
-Matrix HouseholderQR::steal_R() {
-    state    = NotFactored;
-    Matrix R = std::move(RW);
-    for (size_t r = 0; r < R.cols(); ++r) {
+Matrix &&HouseholderQR::steal_R() {
+    state = NotFactored;
+    for (size_t r = 0; r < RW.cols(); ++r) {
         for (size_t c = 0; c < r; ++c)
-            R(r, c) = 0;
-        R(r, r) = R_diag(r);
+            RW(r, c) = 0;
+        RW(r, r) = R_diag(r);
     }
-    for (size_t r = R.cols(); r < R.rows(); ++r) {
-        for (size_t c = 0; c < R.cols(); ++c)
-            R(r, c) = 0;
+    for (size_t r = RW.cols(); r < RW.rows(); ++r) {
+        for (size_t c = 0; c < RW.cols(); ++c)
+            RW(r, c) = 0;
     }
-    return R;
+    return std::move(RW);
 }
 
-void HouseholderQR::get_Q(Matrix &Q) const {
+void HouseholderQR::get_Q_inplace(SquareMatrix &Q) const {
     assert(Q.rows() == RW.rows());
     assert(Q.cols() == RW.rows());
     Q.fill_identity();
-    apply_Q(Q);
+    apply_Q_inplace(Q);
 }
 
 void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
@@ -426,8 +238,8 @@ void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
     }
 }
 
-void HouseholderQR::solve(Matrix &B) const {
-    apply_QT(B);
+void HouseholderQR::solve_inplace(Matrix &B) const {
+    apply_QT_inplace(B);
 
     // If the matrix is square, operate on B directly
     if (RW.cols() == RW.rows()) {
@@ -441,36 +253,25 @@ void HouseholderQR::solve(Matrix &B) const {
     }
 }
 
-Matrix HouseholderQR::solve_copy(const Matrix &B) const {
-    Matrix B_cpy = B;
-    apply_QT(B_cpy);
+Matrix HouseholderQR::solve(const Matrix &B) const {
+    Matrix B_cpy = apply_QT(B);
     Matrix X(RW.cols(), B.cols());
     back_subs(B_cpy, X);
     return X;
 }
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
-
-void transpose(Matrix &A) {
-    assert(A.cols() == A.rows());
-    for (size_t n = 0; n < A.rows() - 1; ++n)
-        for (size_t m = n + 1; m < A.rows(); ++m)
-            std::swap(A(n, m), A(m, n));
+Matrix HouseholderQR::solve(Matrix &&B) const {
+    solve_inplace(B);
+    return B;
 }
 
-void print(std::ostream &os, const Matrix &Q, int w) {
-    for (size_t r = 0; r < Q.rows(); ++r) {
-        for (size_t c = 0; c < Q.cols(); ++c)
-            os << std::setw(w) << Q(r, c);
-        os << std::endl;
-    }
+Vector HouseholderQR::solve(const Vector &b) const {
+    return Vector(solve(static_cast<const Matrix &>(b)));
 }
 
-void print(std::ostream &os, const Vector &v, int w) {
-    for (size_t r = 0; r < v.size(); ++r) {
-        os << std::setw(w) << v(r);
-        os << std::endl;
-    }
+Vector HouseholderQR::solve(Vector &&b) const {
+    solve_inplace(b);
+    return b;
 }
 
 std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr) {
@@ -479,73 +280,26 @@ std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr) {
         return os;
     }
 
-    Matrix Q = qr.get_Q_copy();
+    int w = os.precision() + 9;
 
+    Matrix Q = qr.get_Q();
     os << "Q = " << std::endl;
-    print(os, Q, 17);
+    Q.print(os, w);
 
     const auto &RW     = qr.get_RW();
     const auto &R_diag = qr.get_R_diag();
-
     os << "R = " << std::endl;
     for (size_t r = 0; r < RW.cols(); ++r) {
         for (size_t c = 0; c < r; ++c)
-            os << std::setw(17) << 0;
-        os << std::setw(17) << R_diag(r);
+            os << std::setw(w) << 0;
+        os << std::setw(w) << R_diag(r);
         for (size_t c = r + 1; c < RW.cols(); ++c)
-            os << std::setw(17) << RW(r, c);
+            os << std::setw(w) << RW(r, c);
         os << std::endl;
     }
     for (size_t r = RW.cols(); r < RW.rows(); ++r) {
         for (size_t c = 0; c < RW.cols(); ++c)
-            os << std::setw(17) << 0;
+            os << std::setw(w) << 0;
     }
     return os;
-}
-
-Matrix operator*(const Matrix &A, const Matrix &B) {
-    assert(A.cols() == B.rows());
-    Matrix C(A.rows(), B.cols());
-    for (size_t j = 0; j < B.cols(); ++j)
-        for (size_t k = 0; k < A.cols(); ++k)
-            for (size_t i = 0; i < A.rows(); ++i)
-                C(i, j) += A(i, k) * B(k, j);
-    return C;
-}
-
-int main() {
-    constexpr size_t M = 4, N = 3;
-    Matrix m(M, N);
-
-    std::array<std::array<double, N>, M> init = {{
-        {1, 2, 1},
-        {3, 4, 3},
-        {1, 2, 3},
-        {6, 5, 4},
-    }};
-
-    for (size_t r = 0; r < M; ++r)
-        for (size_t c = 0; c < N; ++c)
-            m(r, c) = init[r][c];
-
-    HouseholderQR qr;
-    qr.factor(std::move(m));
-
-    std::cout << std::scientific << std::setprecision(8);
-    std::cout << qr << std::endl;
-
-    Matrix R    = qr.get_R_copy();
-    Matrix prod = qr.apply_Q_copy(R);
-
-    std::cout << "Q×R = " << std::endl;
-    print(std::cout, prod, 17);
-
-    Vector b(4);
-    b(0)     = 4;
-    b(1)     = 3;
-    b(2)     = 2;
-    b(3)     = 1;
-    Vector x = qr.solve_copy(b);
-    std::cout << "A \\ b = " << std::endl;
-    print(std::cout, x, 17);
 }
