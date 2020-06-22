@@ -260,18 +260,18 @@ Matrix HouseholderQR::solve(const Matrix &B) const {
     return X;
 }
 
-Matrix HouseholderQR::solve(Matrix &&B) const {
+Matrix &&HouseholderQR::solve(Matrix &&B) const {
     solve_inplace(B);
-    return B;
+    return std::move(B);
 }
 
 Vector HouseholderQR::solve(const Vector &b) const {
     return Vector(solve(static_cast<const Matrix &>(b)));
 }
 
-Vector HouseholderQR::solve(Vector &&b) const {
+Vector &&HouseholderQR::solve(Vector &&b) const {
     solve_inplace(b);
-    return b;
+    return std::move(b);
 }
 
 std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr) {

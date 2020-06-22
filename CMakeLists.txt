@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 project(matrix)
 
 # find_package(GTest REQUIRED PATHS "$ENV{HOME}/.local/lib/cmake" NO_DEFAULT_PATH)

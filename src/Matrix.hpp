@@ -39,6 +39,12 @@ class Matrix {
     explicit Matrix(const storage_t &storage, bool column = true)
         : rows_(column ? storage.size() : 1),
           cols_(column ? 1 : storage.size()), storage(storage) {}
+    /// Convert raw storage to a matrix.
+    explicit Matrix(storage_t &&storage, size_t rows, size_t cols)
+        : rows_(rows), cols_(cols), storage(std::move(storage)) {}
+    /// Convert raw storage to a matrix.
+    explicit Matrix(const storage_t &storage, size_t rows, size_t cols)
+        : rows_(rows), cols_(cols), storage(storage) {}
 
   public:
     /// Create a matrix of zeros.
@@ -66,6 +72,8 @@ class Matrix {
     size_t rows() const { return rows_; }
     /// Get the number of columns of the matrix.
     size_t cols() const { return cols_; }
+    /// Get the number of elements in the matrix:
+    size_t num_elems() const { return storage.size(); }
 
     /// Get the element at the given position in the matrix.
     double &operator()(size_t row, size_t col) {
@@ -83,6 +91,11 @@ class Matrix {
         return storage[row * cols_ + col];
 #endif
     }
+
+    /// Get the element at the given position in the linearized matrix.
+    double &operator()(size_t index) { return storage[index]; }
+    /// Get the element at the given position in the linearlized matrix.
+    const double &operator()(size_t index) const { return storage[index]; }
 
     void reshape(size_t newrows, size_t newcols) {
         assert(newrows * newcols == rows() * cols());
@@ -208,16 +221,11 @@ class Vector : public Matrix {
     /// Convert an m×n matrix to a mn column vector.
     explicit Vector(Matrix &&matrix) : Matrix(std::move(matrix.storage)) {}
 
-    /// Get the element at the given position in the vector.
-    double &operator()(size_t index) { return storage[index]; }
-    /// Get the element at the given position in the vector.
-    const double &operator()(size_t index) const { return storage[index]; }
-
     /// Resize the vector.
     void resize(size_t size) { storage.resize(size); }
 
     /// Get the number of elements in the vector.
-    size_t size() const { return storage.size(); }
+    size_t size() const { return num_elems(); }
 
     static Vector ones(size_t size) { return Vector(Matrix::ones(size, 1)); }
     static Vector zeros(size_t size) { return Vector(Matrix::zeros(size, 1)); }
@@ -230,29 +238,132 @@ class Vector : public Matrix {
         return Vector(Matrix::random(size, 1, min, max, seed));
     }
 
+    /// @name Dot products and cross products.
+    /// @{
+
+    /// Compute the dot product of two vectors. Reinterprets matrices as
+    /// vectors.
+    static double dot_unchecked(const Matrix &a, const Matrix &b);
+    /// Compute the dot product of two vectors. Reinterprets matrices as
+    /// vectors.
+    static double dot_unchecked(Matrix &&a, const Matrix &b) {
+        auto result = dot_unchecked(static_cast<const Matrix &>(a), b);
+        a.clear_and_deallocate();
+        return result;
+    }
+    /// Compute the dot product of two vectors. Reinterprets matrices as
+    /// vectors.
+    static double dot_unchecked(const Matrix &a, Matrix &&b) {
+        return dot_unchecked(std::move(b), a);
+    }
+    /// Compute the dot product of two vectors. Reinterprets matrices as
+    /// vectors.
+    static double dot_unchecked(Matrix &&a, Matrix &&b) {
+        auto result = dot_unchecked(static_cast<const Matrix &>(a),
+                                    static_cast<const Matrix &>(b));
+        a.clear_and_deallocate();
+        b.clear_and_deallocate();
+        return result;
+    }
+
     /// Compute the dot product of two vectors.
-    static double dot(const Vector &a, const Vector &b);
+    static double dot(const Vector &a, const Vector &b) {
+        return dot_unchecked(a, b);
+    }
+    /// Compute the dot product of two vectors.
+    static double dot(Vector &&a, const Vector &b) {
+        return dot_unchecked(std::move(a), b);
+    }
+    /// Compute the dot product of two vectors.
+    static double dot(const Vector &a, Vector &&b) {
+        return dot_unchecked(a, std::move(b));
+    }
+    /// Compute the dot product of two vectors.
+    static double dot(Vector &&a, Vector &&b) {
+        return dot_unchecked(std::move(a), std::move(b));
+    }
+
     /// Compute the dot product of this vector with another vector.
-    double dot(const Vector &b) const { return dot(*this, b); }
+    double dot(const Vector &b) const & { return dot(*this, b); }
+    /// Compute the dot product of this vector with another vector.
+    double dot(const Vector &b) && { return dot(std::move(*this), b); }
+    /// Compute the dot product of this vector with another vector.
+    double dot(Vector &&b) const & { return dot(*this, std::move(b)); }
+    /// Compute the dot product of this vector with another vector.
+    double dot(Vector &&b) && { return dot(std::move(*this), std::move(b)); }
+
+    /// Compute the cross product of two 3-vectors, overwriting the first vector
+    /// with the result. Reinterprets matrices as vectors.
+    static void cross_inplace_unchecked(Matrix &a, const Matrix &b);
+    /// Compute the opposite of the cross product of two 3-vectors, overwriting
+    /// the first vector with the result. Reinterprets matrices as vectors.
+    static void cross_inplace_unchecked_neg(Matrix &a, const Matrix &b);
 
     /// Compute the cross product of two 3-vectors, overwriting the first vector
     /// with the result.
-    static void cross_inplace(Vector &a, const Vector &b);
+    static void cross_inplace(Vector &a, const Vector &b) {
+        cross_inplace_unchecked(a, b);
+    }
+    /// Compute the cross product of two 3-vectors, overwriting the first vector
+    /// with the result.
+    static void cross_inplace(Vector &a, Vector &&b) {
+        cross_inplace_unchecked(a, b);
+        b.clear_and_deallocate();
+    }
+    /// Compute the opposite of the cross product of two 3-vectors, overwriting
+    /// the first vector with the result.
+    static void cross_inplace_neg(Vector &a, const Vector &b) {
+        cross_inplace_unchecked_neg(a, b);
+    }
+    /// Compute the opposite of the cross product of two 3-vectors, overwriting
+    /// the first vector with the result.
+    static void cross_inplace_neg(Vector &a, Vector &&b) {
+        cross_inplace_unchecked_neg(a, b);
+        b.clear_and_deallocate();
+    }
+
     /// Compute the cross product of two 3-vectors.
     static Vector cross(const Vector &a, const Vector &b) {
         Vector result = a;
         cross_inplace(result, b);
         return result;
     }
-    /// Compute the cross product of this 3-vector with another 3-vector,
-    /// overwriting this vector with the result.
-    void cross_inplace(const Vector &b) { cross_inplace(*this, b); }
-    /// Compute the cross product of this 3-vector with another 3-vector.
-    Vector cross(const Vector &b) const { return cross(*this, b); }
+    /// Compute the cross product of two 3-vectors.
+    static Vector &&cross(Vector &&a, const Vector &b) {
+        cross_inplace(a, b);
+        return std::move(a);
+    }
+    /// Compute the cross product of two 3-vectors.
+    static Vector &&cross(const Vector &a, Vector &&b) {
+        cross_inplace_neg(b, a);
+        return std::move(b);
+    }
+    /// Compute the cross product of two 3-vectors.
+    static Vector &&cross(Vector &&a, Vector &&b) {
+        cross_inplace(a, std::move(b));
+        return std::move(a);
+    }
 
-  private:
+    /// Compute the cross product of this 3-vector with another 3-vector.
+    Vector cross(const Vector &b) const & { return cross(*this, b); }
+    /// Compute the cross product of this 3-vector with another 3-vector,
+    Vector &&cross(const Vector &b) && { return cross(std::move(*this), b); }
+    /// Compute the cross product of this 3-vector with another 3-vector,
+    Vector &&cross(Vector &&b) const & { return cross(*this, std::move(b)); }
+    /// Compute the cross product of this 3-vector with another 3-vector,
+    Vector &&cross(Vector &&b) && {
+        return cross(std::move(*this), std::move(b));
+    }
+
+    /// @}
+
+    /// Compute the 2-norm of the vector.
+    double norm2() const & { return std::sqrt(dot(*this)); }
+    /// Compute the 2-norm of the vector.
+    double norm2() && { return std::sqrt(dot(std::move(*this))); }
+
     /// Reshaping a vector to a matrix requires an explicit cast.
-    using Matrix::reshape;
+    void reshape(size_t, size_t) = delete;
 };
 
 /// A row vector (1×n matrix).
@@ -276,16 +387,11 @@ class RowVector : public Matrix {
     explicit RowVector(Matrix &&matrix)
         : Matrix(std::move(matrix.storage), false) {}
 
-    /// Get the element at the given position in the vector.
-    double &operator()(size_t index) { return storage[index]; }
-    /// Get the element at the given position in the vector.
-    const double &operator()(size_t index) const { return storage[index]; }
-
     /// Resize the vector.
     void resize(size_t size) { storage.resize(size); }
 
     /// Get the number of elements in the vector.
-    size_t size() const { return storage.size(); }
+    size_t size() const { return num_elems(); }
 
     static RowVector ones(size_t size) {
         return RowVector(Matrix::ones(1, size));
@@ -302,9 +408,104 @@ class RowVector : public Matrix {
         return RowVector(Matrix::random(1, size, min, max, seed));
     }
 
-  private:
+    /// @name   Dot products and cross products.
+    /// @{
+
+    /// Compute the dot product of two vectors.
+    static double dot(const RowVector &a, const RowVector &b) {
+        return Vector::dot_unchecked(a, b);
+    }
+    /// Compute the dot product of two vectors.
+    static double dot(RowVector &&a, const RowVector &b) {
+        return Vector::dot_unchecked(std::move(a), b);
+    }
+    /// Compute the dot product of two vectors.
+    static double dot(const RowVector &a, RowVector &&b) {
+        return Vector::dot_unchecked(a, std::move(b));
+    }
+    /// Compute the dot product of two vectors.
+    static double dot(RowVector &&a, RowVector &&b) {
+        return Vector::dot_unchecked(std::move(a), std::move(b));
+    }
+
+    /// Compute the dot product of this vector with another vector.
+    double dot(const RowVector &b) const & { return dot(*this, b); }
+    /// Compute the dot product of this vector with another vector.
+    double dot(const RowVector &b) && { return dot(std::move(*this), b); }
+    /// Compute the dot product of this vector with another vector.
+    double dot(RowVector &&b) const & { return dot(*this, std::move(b)); }
+    /// Compute the dot product of this vector with another vector.
+    double dot(RowVector &&b) && { return dot(std::move(*this), std::move(b)); }
+
+    /// Compute the cross product of two 3-vectors, overwriting the first vector
+    /// with the result.
+    static void cross_inplace(RowVector &a, const RowVector &b) {
+        Vector::cross_inplace_unchecked(a, b);
+    }
+    /// Compute the cross product of two 3-vectors, overwriting the first vector
+    /// with the result.
+    static void cross_inplace(RowVector &a, RowVector &&b) {
+        Vector::cross_inplace_unchecked(a, b);
+        b.clear_and_deallocate();
+    }
+    /// Compute the opposite of the cross product of two 3-vectors, overwriting
+    /// the first vector with the result.
+    static void cross_inplace_neg(RowVector &a, const RowVector &b) {
+        Vector::cross_inplace_unchecked_neg(a, b);
+    }
+    /// Compute the opposite of the cross product of two 3-vectors, overwriting
+    /// the first vector with the result.
+    static void cross_inplace_neg(RowVector &a, RowVector &&b) {
+        Vector::cross_inplace_unchecked_neg(a, b);
+        b.clear_and_deallocate();
+    }
+
+    /// Compute the cross product of two 3-vectors.
+    static RowVector cross(const RowVector &a, const RowVector &b) {
+        RowVector result = a;
+        cross_inplace(result, b);
+        return result;
+    }
+    /// Compute the cross product of two 3-vectors.
+    static RowVector &&cross(RowVector &&a, const RowVector &b) {
+        cross_inplace(a, b);
+        return std::move(a);
+    }
+    /// Compute the cross product of two 3-vectors.
+    static RowVector &&cross(const RowVector &a, RowVector &&b) {
+        cross_inplace_neg(b, a);
+        return std::move(b);
+    }
+    /// Compute the cross product of two 3-vectors.
+    static RowVector &&cross(RowVector &&a, RowVector &&b) {
+        cross_inplace(a, std::move(b));
+        return std::move(a);
+    }
+
+    /// Compute the cross product of this 3-vector with another 3-vector.
+    RowVector cross(const RowVector &b) const & { return cross(*this, b); }
+    /// Compute the cross product of this 3-vector with another 3-vector,
+    RowVector &&cross(const RowVector &b) && {
+        return cross(std::move(*this), b);
+    }
+    /// Compute the cross product of this 3-vector with another 3-vector,
+    RowVector &&cross(RowVector &&b) const & {
+        return cross(*this, std::move(b));
+    }
+    /// Compute the cross product of this 3-vector with another 3-vector,
+    RowVector &&cross(RowVector &&b) && {
+        return cross(std::move(*this), std::move(b));
+    }
+
+    /// @}
+
+    /// Compute the 2-norm of the vector.
+    double norm2() const & { return std::sqrt(dot(*this)); }
+    /// Compute the 2-norm of the vector.
+    double norm2() && { return std::sqrt(dot(std::move(*this))); }
+
     /// Reshaping a vector to a matrix requires an explicit cast.
-    using Matrix::reshape;
+    void reshape(size_t, size_t) = delete;
 };
 
 /// Square matrix class.
@@ -336,12 +537,14 @@ class SquareMatrix : public Matrix {
     }
 
     /// Transpose the matrix in-place.
-    void transpose_inplace() {
-        assert(cols() == rows() && "Matrix should be square.");
-        for (size_t n = 0; n < rows() - 1; ++n)
-            for (size_t m = n + 1; m < rows(); ++m)
-                std::swap((*this)(n, m), (*this)(m, n));
+    static void transpose_inplace(Matrix &A) {
+        assert(A.cols() == A.rows() && "Matrix should be square.");
+        for (size_t n = 0; n < A.rows() - 1; ++n)
+            for (size_t m = n + 1; m < A.rows(); ++m)
+                std::swap(A(n, m), A(m, n));
     }
+    /// Transpose the matrix in-place.
+    void transpose_inplace() { transpose_inplace(*this); }
 
     /// Create a square identity matrix.
     static SquareMatrix identity(size_t rows) {
@@ -350,9 +553,8 @@ class SquareMatrix : public Matrix {
         return m;
     }
 
-  private:
     /// Reshaping a square matrix to a general matrix requires an explicit cast.
-    using Matrix::reshape;
+    void reshape(size_t, size_t) = delete;
 };
 
 // Matrix multiplication
@@ -369,19 +571,19 @@ inline Matrix operator*(const Matrix &A, const Matrix &B) {
     return C;
 }
 inline Matrix operator*(Matrix &&A, const Matrix &B) {
-    auto &&result = static_cast<const Matrix &>(A) * //
+    Matrix result = static_cast<const Matrix &>(A) * //
                     static_cast<const Matrix &>(B);
     A.clear_and_deallocate();
     return result;
 }
 inline Matrix operator*(const Matrix &A, Matrix &&B) {
-    auto &&result = static_cast<const Matrix &>(A) * //
+    Matrix result = static_cast<const Matrix &>(A) * //
                     static_cast<const Matrix &>(B);
     B.clear_and_deallocate();
     return result;
 }
 inline Matrix operator*(Matrix &&A, Matrix &&B) {
-    auto &&result = static_cast<const Matrix &>(A) * //
+    Matrix result = static_cast<const Matrix &>(A) * //
                     static_cast<const Matrix &>(B);
     A.clear_and_deallocate();
     B.clear_and_deallocate();
@@ -394,23 +596,16 @@ inline SquareMatrix operator*(const SquareMatrix &A, const SquareMatrix &B) {
                         static_cast<const Matrix &>(B));
 }
 inline SquareMatrix operator*(SquareMatrix &&A, const SquareMatrix &B) {
-    auto &&result = SquareMatrix(static_cast<const Matrix &>(A) *
-                                 static_cast<const Matrix &>(B));
-    A.clear_and_deallocate();
-    return result;
+    return SquareMatrix(static_cast<Matrix &&>(A) *
+                        static_cast<const Matrix &>(B));
 }
 inline SquareMatrix operator*(const SquareMatrix &A, SquareMatrix &&B) {
-    auto &&result = SquareMatrix(static_cast<const Matrix &>(A) *
-                                 static_cast<const Matrix &>(B));
-    B.clear_and_deallocate();
-    return result;
+    return SquareMatrix(static_cast<const Matrix &>(A) *
+                        static_cast<Matrix &&>(B));
 }
 inline SquareMatrix operator*(SquareMatrix &&A, SquareMatrix &&B) {
-    auto &&result = SquareMatrix(static_cast<const Matrix &>(A) *
-                                 static_cast<const Matrix &>(B));
-    A.clear_and_deallocate();
-    B.clear_and_deallocate();
-    return result;
+    return SquareMatrix(static_cast<Matrix &&>(A) * //
+                        static_cast<Matrix &&>(B));
 }
 
 /// Matrix-vector multiplication.
@@ -418,20 +613,13 @@ inline Vector operator*(const Matrix &A, const Vector &b) {
     return Vector(A * static_cast<const Matrix &>(b));
 }
 inline Vector operator*(Matrix &&A, const Vector &b) {
-    auto &&result = Vector(A * static_cast<const Matrix &>(b));
-    A.clear_and_deallocate();
-    return result;
+    return Vector(std::move(A) * static_cast<const Matrix &>(b));
 }
 inline Vector operator*(const Matrix &A, Vector &&b) {
-    auto &&result = Vector(A * static_cast<const Matrix &>(b));
-    b.clear_and_deallocate();
-    return result;
+    return Vector(A * static_cast<Matrix &&>(b));
 }
 inline Vector operator*(Matrix &&A, Vector &&b) {
-    auto &&result = Vector(A * static_cast<const Matrix &>(b));
-    A.clear_and_deallocate();
-    b.clear_and_deallocate();
-    return result;
+    return Vector(std::move(A) * static_cast<Matrix &&>(b));
 }
 
 /// Matrix-vector multiplication.
@@ -439,20 +627,46 @@ inline RowVector operator*(const RowVector &a, const Matrix &B) {
     return RowVector(static_cast<const Matrix &>(a) * B);
 }
 inline RowVector operator*(RowVector &&a, const Matrix &B) {
-    auto &&result = RowVector(static_cast<const Matrix &>(a) * B);
-    a.clear_and_deallocate();
-    return result;
+    return RowVector(static_cast<Matrix &&>(a) * B);
 }
 inline RowVector operator*(const RowVector &a, Matrix &&B) {
-    auto &&result = RowVector(static_cast<const Matrix &>(a) * B);
-    B.clear_and_deallocate();
-    return result;
+    return RowVector(static_cast<const Matrix &>(a) * std::move(B));
 }
 inline RowVector operator*(RowVector &&a, Matrix &&B) {
-    auto &&result = RowVector(static_cast<const Matrix &>(a) * B);
-    a.clear_and_deallocate();
-    B.clear_and_deallocate();
-    return result;
+    return RowVector(static_cast<Matrix &&>(a) * std::move(B));
+}
+
+/// Vector-vector multiplication.
+inline double operator*(const Vector &a, const RowVector &b) {
+    return Vector::dot_unchecked(a, b);
+}
+/// Vector-vector multiplication.
+inline double operator*(Vector &&a, const RowVector &b) {
+    return Vector::dot_unchecked(std::move(a), b);
+}
+/// Vector-vector multiplication.
+inline double operator*(const Vector &a, RowVector &&b) {
+    return Vector::dot_unchecked(a, std::move(b));
+}
+/// Vector-vector multiplication.
+inline double operator*(Vector &&a, RowVector &&b) {
+    return Vector::dot_unchecked(std::move(a), std::move(b));
+}
+/// Vector-vector multiplication.
+inline double operator*(const RowVector &a, const Vector &b) {
+    return Vector::dot_unchecked(a, b);
+}
+/// Vector-vector multiplication.
+inline double operator*(RowVector &&a, const Vector &b) {
+    return Vector::dot_unchecked(std::move(a), b);
+}
+/// Vector-vector multiplication.
+inline double operator*(const RowVector &a, Vector &&b) {
+    return Vector::dot_unchecked(a, std::move(b));
+}
+/// Vector-vector multiplication.
+inline double operator*(RowVector &&a, Vector &&b) {
+    return Vector::dot_unchecked(std::move(a), std::move(b));
 }
 
 // Matrix addition
@@ -461,13 +675,15 @@ inline RowVector operator*(RowVector &&a, Matrix &&B) {
 inline void operator+=(Matrix &A, const Matrix &B) {
     assert(A.rows() == B.rows());
     assert(A.cols() == B.cols());
-    std::transform(A.begin(), A.end(), B.begin(), A.begin(), std::plus<>());
+    std::transform(A.begin(), A.end(), B.begin(), A.begin(),
+                   std::plus<double>());
 }
 inline Matrix operator+(const Matrix &A, const Matrix &B) {
     assert(A.rows() == B.rows());
     assert(A.cols() == B.cols());
     Matrix C(A.rows(), A.cols());
-    std::transform(A.begin(), A.end(), B.begin(), C.begin(), std::plus<>());
+    std::transform(A.begin(), A.end(), B.begin(), C.begin(),
+                   std::plus<double>());
     return C;
 }
 inline Matrix &&operator+(Matrix &&A, const Matrix &B) {
@@ -541,13 +757,15 @@ inline SquareMatrix operator+(const SquareMatrix &a, const SquareMatrix &b) {
 inline void operator-=(Matrix &A, const Matrix &B) {
     assert(A.rows() == B.rows());
     assert(A.cols() == B.cols());
-    std::transform(A.begin(), A.end(), B.begin(), A.begin(), std::minus<>());
+    std::transform(A.begin(), A.end(), B.begin(), A.begin(),
+                   std::minus<double>());
 }
 inline Matrix operator-(const Matrix &A, const Matrix &B) {
     assert(A.rows() == B.rows());
     assert(A.cols() == B.cols());
     Matrix C(A.rows(), A.cols());
-    std::transform(A.begin(), A.end(), B.begin(), C.begin(), std::minus<>());
+    std::transform(A.begin(), A.end(), B.begin(), C.begin(),
+                   std::minus<double>());
     return C;
 }
 inline Matrix &&operator-(Matrix &&A, const Matrix &B) {
@@ -555,7 +773,8 @@ inline Matrix &&operator-(Matrix &&A, const Matrix &B) {
     return std::move(A);
 }
 inline Matrix &&operator-(const Matrix &A, Matrix &&B) {
-    std::transform(A.begin(), A.end(), B.begin(), B.begin(), std::minus<>());
+    std::transform(A.begin(), A.end(), B.begin(), B.begin(),
+                   std::minus<double>());
     return std::move(B);
 }
 inline Matrix &&operator-(Matrix &&A, Matrix &&B) {
@@ -620,11 +839,11 @@ inline SquareMatrix operator-(const SquareMatrix &a, const SquareMatrix &b) {
 
 inline Matrix operator-(const Matrix &A) {
     Matrix result(A.rows(), A.cols());
-    std::transform(A.begin(), A.end(), result.begin(), std::negate<>());
+    std::transform(A.begin(), A.end(), result.begin(), std::negate<double>());
     return result;
 }
 inline Matrix &&operator-(Matrix &&A) {
-    std::transform(A.begin(), A.end(), A.begin(), std::negate<>());
+    std::transform(A.begin(), A.end(), A.begin(), std::negate<double>());
     return std::move(A);
 }
 inline Vector &&operator-(Vector &&a) {
@@ -743,15 +962,36 @@ inline SquareMatrix &&operator/(SquareMatrix &&a, double s) {
 // Transposition
 // -------------
 
-// TODO: rvalues
-
+namespace detail {
 /// Matrix transpose.
-inline Matrix transpose(const Matrix &in) {
+inline Matrix explicit_transpose(const Matrix &in) {
     Matrix out(in.cols(), in.rows());
     for (size_t n = 0; n < in.rows(); ++n)
         for (size_t m = 0; m < in.cols(); ++m)
             out(m, n) = in(n, m);
     return out;
+}
+} // namespace detail
+
+/// Matrix transpose.
+inline Matrix &&transpose(Matrix &&in) {
+    if (in.rows() == in.cols()) // Square matrices
+        SquareMatrix::transpose_inplace(in);
+    else if (in.rows() == 1 || in.cols() == 1) // Vectors
+        in.reshape(in.cols(), in.rows());
+    else // General rectangular matrices
+        in = detail::explicit_transpose(in);
+    return std::move(in);
+}
+/// Matrix transpose.
+inline Matrix transpose(const Matrix &in) {
+    if (in.rows() == 1 || in.cols() == 1) { // Vectors
+        Matrix out = in;
+        out.reshape(in.cols(), in.rows());
+        return out;
+    } else { // General matrices (square and rectangular)
+        return detail::explicit_transpose(in);
+    }
 }
 
 /// Square matrix transpose.
@@ -832,17 +1072,28 @@ inline bool Matrix::operator==(const Matrix &other) const {
     return res.first == end();
 }
 
-inline double Vector::dot(const Vector &a, const Vector &b) {
-    assert(a.size() == b.size());
+inline double Vector::dot_unchecked(const Matrix &a, const Matrix &b) {
+    assert(a.num_elems() == b.num_elems());
     return std::inner_product(a.begin(), a.end(), b.begin(), double(0));
 }
 
-inline void Vector::cross_inplace(Vector &a, const Vector &b) {
-    assert(a.size() == 3);
-    assert(b.size() == 3);
+inline void Vector::cross_inplace_unchecked(Matrix &a, const Matrix &b) {
+    assert(a.num_elems() == 3);
+    assert(b.num_elems() == 3);
     double a0 = a(1) * b(2) - a(2) * b(1);
     double a1 = a(2) * b(0) - a(0) * b(2);
     double a2 = a(0) * b(1) - a(1) * b(0);
+    a(0)      = a0;
+    a(1)      = a1;
+    a(2)      = a2;
+}
+
+inline void Vector::cross_inplace_unchecked_neg(Matrix &a, const Matrix &b) {
+    assert(a.num_elems() == 3);
+    assert(b.num_elems() == 3);
+    double a0 = a(2) * b(1) - a(1) * b(2);
+    double a1 = a(0) * b(2) - a(2) * b(0);
+    double a2 = a(1) * b(0) - a(0) * b(1);
     a(0)      = a0;
     a(1)      = a1;
     a(2)      = a2;

@@ -48,6 +48,11 @@ class HouseholderQR {
         apply_QT_inplace(result);
         return result;
     }
+    /// Compute the product QᵀB.
+    Matrix &&apply_QT(Matrix &&B) const {
+        apply_QT_inplace(B);
+        return std::move(B);
+    }
 
     /// Compute the product QB, overwriting B with the result.
     void apply_Q_inplace(Matrix &X) const;
@@ -56,6 +61,11 @@ class HouseholderQR {
         Matrix result = X;
         apply_Q_inplace(result);
         return result;
+    }
+    /// Compute the product QB.
+    Matrix &&apply_Q(Matrix &&B) const {
+        apply_Q_inplace(B);
+        return std::move(B);
     }
 
     /// Get the upper-triangular matrix R, reusing the internal storage.
@@ -75,7 +85,7 @@ class HouseholderQR {
     Matrix &&get_R() && { return steal_R(); }
 
     /// Compute the unitary matrix Q and copy it to the given matrix.
-    void get_Q_inplace(SquareMatrix &R) const;
+    void get_Q_inplace(SquareMatrix &Q) const;
     /// Compute the unitary matrix Q.
     SquareMatrix get_Q() const {
         SquareMatrix Q(RW.rows());
@@ -104,11 +114,11 @@ class HouseholderQR {
     /// Solve the system AX = B or QRX = B.
     Matrix solve(const Matrix &B) const;
     /// Solve the system AX = B or QRX = B.
-    Matrix solve(Matrix &&B) const;
+    Matrix &&solve(Matrix &&B) const;
     /// Solve the system Ax = b or QRx = b.
     Vector solve(const Vector &B) const;
     /// Solve the system Ax = b or QRx = b.
-    Vector solve(Vector &&B) const;
+    Vector &&solve(Vector &&B) const;
 };
 
 /// Print the Q and R matrices of a HouseholderQR object.
