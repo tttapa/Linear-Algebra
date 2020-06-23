@@ -274,10 +274,14 @@ class Matrix {
     /// Print a matrix.
     /// @param  os
     ///         The stream to print to.
-    /// @param  w
+    /// @param  precision
+    ///         The number of significant figures to print.
+    ///         (0 = auto)
+    /// @param  width
     ///         The width of each element (number of characters).
     ///         (0 = auto)
-    void print(std::ostream &os, int w = 0) const;
+    void print(std::ostream &os, uint8_t precision = 0,
+               uint8_t width = 0) const;
 
     /// @}
 

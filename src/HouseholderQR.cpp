@@ -342,13 +342,14 @@ std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr) {
         return os;
     }
 
-    int w = os.precision() + 9;
-
     Matrix Q = qr.get_Q();
     os << "Q = " << std::endl;
-    Q.print(os, w);
+    Q.print(os);
 
-    const auto &RW     = qr.get_RW();
+    // Output field width (characters)
+    int w = os.precision() + 9;
+
+    const auto &RW = qr.get_RW();
     const auto &R_diag = qr.get_R_diag();
     os << "R = " << std::endl;
     for (size_t r = 0; r < RW.cols(); ++r) {
