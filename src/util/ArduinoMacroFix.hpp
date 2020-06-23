@@ -4,6 +4,9 @@
 // compilation problems when including the C++ standard library headers that
 // define these names as functions (as they should be defined).
 
+#ifdef ARDUINO
+#include <Arduino.h>
+
 #ifdef abs
 #undef abs
 #endif
@@ -12,4 +15,6 @@
 #endif
 #ifdef max
 #undef max
+#endif
+
 #endif
