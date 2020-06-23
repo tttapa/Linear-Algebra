@@ -237,6 +237,17 @@ class Matrix {
     /// @}
 
   public:
+    /// @name   Matrix norms
+    /// @{
+
+    /// Compute the Frobenius norm of the matrix.
+    double normFro() const &;
+    /// Compute the Frobenius norm of the matrix.
+    double normFro() &&;
+
+    /// @}
+
+  public:
     /// @name   Iterators
     /// @{
 
@@ -1329,6 +1340,14 @@ inline bool Matrix::operator==(const Matrix &other) const {
     assert(this->cols() == other.cols());
     auto res = std::mismatch(begin(), end(), other.begin());
     return res.first == end();
+}
+
+inline double Matrix::normFro() const & {
+    return std::sqrt(Vector::dot_unchecked(*this, *this));
+}
+
+inline double Matrix::normFro() && {
+    return std::sqrt(Vector::dot_unchecked(std::move(*this), *this));
 }
 
 inline double Vector::dot_unchecked(const Matrix &a, const Matrix &b) {

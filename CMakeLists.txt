@@ -44,11 +44,7 @@ add_compile_definitions(MATRIX_COUNT_ALLOCATIONS)
 
 add_subdirectory(src)
 add_subdirectory(test)
-
-# ---- 
-
-add_executable(qr-perftest qr-perftest.cpp)
-target_link_libraries(qr-perftest PRIVATE matrix)
+add_subdirectory(examples)
 
 # ----
 

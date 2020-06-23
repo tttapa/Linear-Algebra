@@ -96,7 +96,7 @@ void HouseholderQR::compute_factorization() {
         // x will be overwritten by wₖ. The vector xₕ only has a single nonzero
         // component. It is saved in the R_diag vector.
 
-        if (std::abs(norm_x) > std::numeric_limits<double>::min() * 2) {
+        if (norm_x >= std::numeric_limits<double>::min() * 2) {
             double x_p = -std::copysign(norm_x, x_0); // -sign(x₀)·‖x‖
             double v_0 = x_0 - x_p;
             double norm_v_sq2 = std::sqrt(std::abs(x_0) * norm_x + sq_norm_x);

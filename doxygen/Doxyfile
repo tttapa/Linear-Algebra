@@ -814,6 +814,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = "../src/" \
+                         "../examples" \
                          "pages/Installation.md" \
                          "../README.md"
 
@@ -903,7 +904,7 @@ EXAMPLE_PATH           = "../examples"
 # *.h) to filter out the source-files in the directories. If left blank all
 # files are included.
 
-EXAMPLE_PATTERNS       = *.ino
+EXAMPLE_PATTERNS       = *.cpp
 
 # If the EXAMPLE_RECURSIVE tag is set to YES then subdirectories will be
 # searched for input files to be used with the \include or \dontinclude commands
