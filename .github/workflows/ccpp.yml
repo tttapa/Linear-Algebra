@@ -10,8 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: actions/cache@v2
-      path: "~/gtest"
-      key: ${{ runner.os }}
+      with:
+        path: "~/gtest"
+        key: ${{ runner.os }}
     - name: Install Google Test
       run: ./install-gtest-ci.sh
       working-directory: scripts
