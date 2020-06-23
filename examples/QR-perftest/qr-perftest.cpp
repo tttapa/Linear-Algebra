@@ -5,7 +5,7 @@
  * 
  * ---
  * 
- * The results on an i7-7700QH were:
+ * The results on an i7-7700HQ were:
  * @image   html qr-perf-test-linear.svg
  * @image   html qr-perf-test-loglog.svg
  * 
