@@ -1,3 +1,7 @@
+[![Build Status](https://github.com/tttapa/Linear-Algebra/workflows/CI%20Tests/badge.svg#)](https://github.com/tttapa/Linear-Algebra/actions)
+[![Test Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tttapa/Linear-Algebra/master/docs/Coverage/shield.io.coverage.json)](https://tttapa.github.io/Linear-Algebra/Coverage/index.html)
+
+
 # Linear Algebra
 
 This repo aims to implement some well-known linear algebra algorithms in a 
