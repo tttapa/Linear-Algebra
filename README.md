@@ -13,6 +13,9 @@ and precision, but the code is often hard to read.
 
 [**Documentation**](https://tttapa.github.io/Linear-Algebra/Doxygen/index.html)
 
+The [**modules**](https://tttapa.github.io/Linear-Algebra/Doxygen/modules.html)
+page is the best place to start.
+
 ## Disclaimer
 
 While the code is definitely useful as a linear algebra library, don't use it

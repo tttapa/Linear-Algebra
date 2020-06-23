@@ -1,0 +1,14 @@
+/**
+ * @defgroup    MatVec  Matrices and vectors
+ * @brief   Matrix and vector containers.
+ */
+/**
+ * @defgroup    MatVecOp   Matrix and vector operations
+ * @brief   Matrix and vector operations, such as addition, multiplication,
+ *          cross products, transposition ...
+ * @ingroup MatVec
+ */
+/**
+ * @defgroup    Factorizations  Matrix factorization algorithms
+ * @brief   Algorithms for matrix factorization and decomposition.
+ */

@@ -4,7 +4,20 @@
 #include <iomanip>
 #include <iostream>
 
-void HouseholderQR::compute_impl() {
+/**
+ * @pre     `RW` contains the matrix A to be factorized
+ * @pre     `RW.rows() >= RW.cols()`
+ * @pre     `R_diag.size() == RW.cols()`
+ * 
+ * @post    The strict upper-triangular part of `RW` contains the strict 
+ *          upper-triangular part of factor R. `R_diag` contains the diagonal
+ *          of R.
+ * @post    The lower-triangular part (including the diagonal) of `RW` contains
+ *          the Householder reflectors wₖ, with ‖wₖ‖ = √2.
+ * @post    `apply_Q(get_R()) == A == get_Q() * get_R()`
+ *          (up to rounding errors)
+ */
+void HouseholderQR::compute_factorization() {
     // For the intermediate calculations, we'll be working with RW.
     // It is initialized to the rectangular matrix to be factored.
     // At the end of this function, RW will contain the strict
@@ -35,8 +48,9 @@ void HouseholderQR::compute_impl() {
         //     ‖x‖² = x₀² + ‖xₛ‖²
         double &x_0 = RW(k, k);
 
-        // The goal of QR factorization is to transform the vector x, to a new
-        // vector that is all zero, except for the first component.
+        // The goal of QR factorization is to introduce zeros below the diagonal
+        // in the R factor by transforming the vector x to a new vector that is
+        // all zero, except for the first component.
         // Call this vector xₕ, the Householder reflection of x.
         // Since the transformation has to be unitary (Q is a unitary matrix),
         // this operation has to preserve the 2-norm. This means that the
@@ -160,6 +174,18 @@ void HouseholderQR::compute_impl() {
     state = Factored;
 }
 
+void HouseholderQR::compute(Matrix &&matrix) {
+    RW = std::move(matrix);
+    R_diag.resize(RW.cols());
+    compute_factorization();
+}
+
+void HouseholderQR::compute(const Matrix &matrix) {
+    RW = matrix;
+    R_diag.resize(RW.cols());
+    compute_factorization();
+}
+
 void HouseholderQR::apply_QT_inplace(Matrix &B) const {
     assert(is_factored());
     assert(RW.rows() == B.rows());
@@ -174,6 +200,17 @@ void HouseholderQR::apply_QT_inplace(Matrix &B) const {
     }
 }
 
+Matrix HouseholderQR::apply_QT(const Matrix &B) const {
+    Matrix result = B;
+    apply_QT_inplace(result);
+    return result;
+}
+
+Matrix &&HouseholderQR::apply_QT(Matrix &&B) const {
+    apply_QT_inplace(B);
+    return std::move(B);
+}
+
 void HouseholderQR::apply_Q_inplace(Matrix &X) const {
     assert(is_factored());
     assert(RW.rows() == X.rows());
@@ -186,6 +223,17 @@ void HouseholderQR::apply_Q_inplace(Matrix &X) const {
                 X(i, c) -= RW(i, r) * dot_product;
         }
     }
+}
+
+Matrix HouseholderQR::apply_Q(const Matrix &X) const {
+    Matrix result = X;
+    apply_Q_inplace(result);
+    return result;
+}
+
+Matrix &&HouseholderQR::apply_Q(Matrix &&B) const {
+    apply_Q_inplace(B);
+    return std::move(B);
 }
 
 void HouseholderQR::get_R_inplace(Matrix &R) const {
@@ -203,6 +251,12 @@ void HouseholderQR::get_R_inplace(Matrix &R) const {
         for (size_t c = 0; c < R.cols(); ++c)
             R(r, c) = 0;
     }
+}
+
+Matrix HouseholderQR::get_R() const & {
+    Matrix R(RW.rows(), RW.cols());
+    get_R_inplace(R);
+    return R;
 }
 
 Matrix &&HouseholderQR::steal_R() {
@@ -224,6 +278,12 @@ void HouseholderQR::get_Q_inplace(SquareMatrix &Q) const {
     assert(Q.cols() == RW.rows());
     Q.fill_identity();
     apply_Q_inplace(Q);
+}
+
+SquareMatrix HouseholderQR::get_Q() const {
+    SquareMatrix Q(RW.rows());
+    get_Q_inplace(Q);
+    return Q;
 }
 
 void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
