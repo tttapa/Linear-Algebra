@@ -55,8 +55,7 @@ target_link_libraries(qr-perftest PRIVATE matrix)
 # Add export documentation target
 add_custom_target(documentation 
     doxygen
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/doxygen
-    DEPENDS xbm)
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/doxygen)
 
 # Add coverage target
 if (CMAKE_BUILD_TYPE STREQUAL "Coverage")

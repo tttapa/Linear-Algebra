@@ -9,6 +9,10 @@ readable and easy to understand way.
 Established libraries such as BLAS, LAPACK, Eigen etc. offer great performance
 and precision, but the code is often hard to read.
 
+## Documentation
+
+[**Documentation**](https://tttapa.github.io/Linear-Algebra/Doxygen/index.html)
+
 ## Disclaimer
 
 While the code is definitely useful as a linear algebra library, don't use it
