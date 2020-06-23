@@ -1,0 +1,59 @@
+################################################################################
+#                         AUTOMATICALLY GENERATED FILE                         #
+#                                                                              #
+#    ! Don't edit this file directly, edit the keywords.yml files in the !     #
+#    ! appropriate subdirectories instead.                               !     #
+#                                                                              #
+################################################################################
+
+# src
+#####
+
+Linear_Algebra	KEYWORD1
+Matrix	KEYWORD1
+Vector	KEYWORD1
+RowVector	KEYWORD1
+SquareMatrix	KEYWORD1
+HouseholderQR	KEYWORD1
+
+rows	KEYWORD2
+cols	KEYWORD2
+num_elems	KEYWORD2
+reshape	KEYWORD2
+reshaped	KEYWORD2
+clear_and_deallocate	KEYWORD2
+fill	KEYWORD2
+fill_identity	KEYWORD2
+fill_random	KEYWORD2
+ones	KEYWORD2
+zeros	KEYWORD2
+constant	KEYWORD2
+identity	KEYWORD2
+random	KEYWORD2
+normFro	KEYWORD2
+begin	KEYWORD2
+cbegin	KEYWORD2
+end	KEYWORD2
+cend	KEYWORD2
+print	KEYWORD2
+resize	KEYWORD2
+size	KEYWORD2
+dot	KEYWORD2
+cross	KEYWORD2
+norm2	KEYWORD2
+transpose_inplace	KEYWORD2
+transpose	KEYWORD2
+compute	KEYWORD2
+apply_QT	KEYWORD2
+apply_Q	KEYWORD2
+get_Q_inplace	KEYWORD2
+get_Q	KEYWORD2
+steal_R	KEYWORD2
+get_R_inplace	KEYWORD2
+get_R	KEYWORD2
+solve_inplace	KEYWORD2
+solve	KEYWORD2
+is_factored	KEYWORD2
+get_RW	KEYWORD2
+get_R_diag	KEYWORD2
+

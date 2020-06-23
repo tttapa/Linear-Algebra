@@ -1,5 +1,7 @@
 #pragma once
 
+#include <util/ArduinoMacroFix.hpp>
+
 #include <algorithm>  // std::fill, std::transform
 #include <cassert>    // assert
 #include <functional> // std::plus, std::minus

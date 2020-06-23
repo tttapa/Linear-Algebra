@@ -22,3 +22,13 @@ page is the best place to start.
 While the code is definitely useful as a linear algebra library, don't use it
 in critical applications. Use Eigen instead, it'll be faster, numerically more
 accurate, and more reliable.
+
+## Arduino
+
+This library requires the C++ Standard Library to work correctly. It should work
+out of the box on more powerful boards (ARM and Espressif) that ship with the
+STL. On platforms that don't support the STL out of the box, like AVR, you can
+install the STL through a third-party library.
+
+The main platform used for testing is the ESP32 (currently version 1.0.4 of the
+Arduino ESP32 Core).

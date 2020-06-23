@@ -1,0 +1,58 @@
+keyword1:
+    - Linear_Algebra
+    - Matrix
+    - Vector
+    - RowVector
+    - SquareMatrix
+    - HouseholderQR
+
+keyword2:
+    # Matrix
+    - rows
+    - cols
+    - num_elems
+    - reshape
+    - reshaped
+    - clear_and_deallocate
+    - fill
+    - fill_identity
+    - fill_random
+    - ones
+    - zeros
+    - constant
+    - identity
+    - random 
+    - normFro
+    - begin
+    - cbegin
+    - end
+    - cend
+    - print
+
+    # Vector/RowVector
+    - resize
+    - size
+    - dot
+    - cross
+    - norm2
+    
+    # SquareMatrix
+    - transpose_inplace
+    
+    # Matrix and vector operations
+    - transpose
+
+    # HouseholderQR
+    - compute
+    - apply_QT
+    - apply_Q
+    - get_Q_inplace
+    - get_Q
+    - steal_R
+    - get_R_inplace
+    - get_R
+    - solve_inplace
+    - solve
+    - is_factored
+    - get_RW
+    - get_R_diag
