@@ -21,3 +21,7 @@ buildType:
         short: RelWithDebInfo 
         long: Release with Debug Information
         buildType: RelWithDebInfo
+      coverage:
+        short: Coverage 
+        long: Coverage
+        buildType: Coverage

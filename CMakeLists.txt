@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
 set(CMAKE_CXX_STANDARD 11)
 project(matrix)
@@ -30,7 +30,17 @@ set(CMAKE_CXX_FLAGS_TSAN "-g3 -O0 -D_GLIBCXX_DEBUG \
 set(CMAKE_C_FLAGS_TSAN   "-g3 -O0 -D_GLIBCXX_DEBUG \
     -fsanitize=thread,undefined")
 
+# Coverage
+set(CMAKE_C_FLAGS_COVERAGE "${CMAKE_C_FLAGS_ASAN} \
+    -fprofile-arcs -ftest-coverage")
+set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_ASAN} \
+      -fprofile-arcs -ftest-coverage")
+set(CMAKE_EXE_LINKER_FLAGS_COVERAGE "-fprofile-arcs -ftest-coverage")
+set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
+
 add_compile_definitions(MATRIX_COUNT_ALLOCATIONS)
+
+# ----
 
 add_subdirectory(src)
 add_subdirectory(test)
@@ -39,3 +49,18 @@ add_subdirectory(test)
 
 add_executable(qr-perftest qr-perftest.cpp)
 target_link_libraries(qr-perftest PRIVATE matrix)
+
+# ----
+
+# Add export documentation target
+add_custom_target(documentation 
+    doxygen
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/doxygen
+    DEPENDS xbm)
+
+# Add coverage target
+if (CMAKE_BUILD_TYPE STREQUAL "Coverage")
+    add_custom_target(coverage 
+        ${CMAKE_CURRENT_LIST_DIR}/scripts/coverage.sh ${CMAKE_CXX_COMPILER_ID}
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+endif()

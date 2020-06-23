@@ -161,6 +161,13 @@ class Matrix {
         return constant(rows, cols, 1);
     }
 
+    /// Create an identity matrix.
+    static Matrix identity(size_t rows) {
+        Matrix m(rows, rows);
+        m.fill_identity();
+        return m;
+    }
+
     /// Print a matrix.
     /// @param  os
     ///         The stream to print to.

@@ -161,7 +161,7 @@ void HouseholderQR::compute_impl() {
 }
 
 void HouseholderQR::apply_QT_inplace(Matrix &B) const {
-    assert(state == Factored);
+    assert(is_factored());
     assert(RW.rows() == B.rows());
     for (size_t c = 0; c < B.cols(); ++c) {
         for (size_t r = 0; r < RW.cols(); ++r) {
@@ -175,7 +175,7 @@ void HouseholderQR::apply_QT_inplace(Matrix &B) const {
 }
 
 void HouseholderQR::apply_Q_inplace(Matrix &X) const {
-    assert(state == Factored);
+    assert(is_factored());
     assert(RW.rows() == X.rows());
     for (size_t c = 0; c < X.cols(); ++c) {
         for (size_t r = RW.cols(); r-- > 0;) {
@@ -189,7 +189,7 @@ void HouseholderQR::apply_Q_inplace(Matrix &X) const {
 }
 
 void HouseholderQR::get_R_inplace(Matrix &R) const {
-    assert(state == Factored);
+    assert(is_factored());
     assert(R.rows() == RW.rows());
     assert(R.cols() == RW.cols());
     for (size_t r = 0; r < R.cols(); ++r) {
@@ -274,6 +274,8 @@ Vector &&HouseholderQR::solve(Vector &&b) const {
     return std::move(b);
 }
 
+// LCOV_EXCL_START
+
 std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr) {
     if (!qr.is_factored()) {
         os << "Not factored." << std::endl;
@@ -303,3 +305,5 @@ std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr) {
     }
     return os;
 }
+
+// LCOV_EXCL_STOP
