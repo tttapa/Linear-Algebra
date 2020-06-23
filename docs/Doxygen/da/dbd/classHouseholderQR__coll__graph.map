@@ -1,6 +1,6 @@
 <map id="HouseholderQR" name="HouseholderQR">
-<area shape="rect" id="node1" title=" " alt="" coords="22,1527,185,2015"/>
-<area shape="rect" id="node2" href="$d6/da1/classVector.html" title="A column vector (n×1 matrix)." alt="" coords="139,815,377,1464"/>
-<area shape="rect" id="node3" href="$d3/d3f/classMatrix.html" title="Basic matrix class." alt="" coords="5,160,191,765"/>
-<area shape="rect" id="node4" title=" " alt="" coords="68,5,128,83"/>
+<area shape="rect" id="node1" title="QR factorization using Householder reflectors." alt="" coords="8,1585,195,2073"/>
+<area shape="rect" id="node2" href="$d6/da1/classVector.html" title="A column vector (n×1 matrix)." alt="" coords="137,844,375,1523"/>
+<area shape="rect" id="node3" href="$d3/d3f/classMatrix.html" title="General matrix class." alt="" coords="5,160,187,795"/>
+<area shape="rect" id="node4" title=" " alt="" coords="66,5,126,83"/>
 </map>

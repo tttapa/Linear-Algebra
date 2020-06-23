@@ -72,16 +72,18 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#related">Related Functions</a> &#124;
 <a href="../../d5/d90/classHouseholderQR-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">HouseholderQR Class Reference</div>  </div>
+<div class="title">HouseholderQR Class Reference<div class="ingroups"><a class="el" href="../../d8/d11/group__Factorizations.html">Matrix factorization algorithms</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>QR factorization using Householder reflectors.  
+ <a href="../../d1/dac/classHouseholderQR.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -89,41 +91,95 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../da/dbd/classHouseholderQR__coll__graph.svg" width="383" height="2020"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../da/dbd/classHouseholderQR__coll__graph.svg" width="382" height="2079"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 </div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a5d74787dedbc4e11c1ab15bf487e61f8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a> { <a class="el" href="../../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8a1985c8fe7ac70dacf16433d7fff2e6b6">NotFactored</a> = 0, 
+<a class="el" href="../../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8a9b07360223fa1f78b5be6ff5fc9bc5ba">Factored</a> = 1
+ }</td></tr>
+<tr class="separator:a5d74787dedbc4e11c1ab15bf487e61f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a756ec297e96edf953ce640744892a0cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a756ec297e96edf953ce640744892a0cc">compute_factorization</a> ()</td></tr>
+<tr class="memdesc:a756ec297e96edf953ce640744892a0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual QR factorization algorithm.  <a href="../../d1/dac/classHouseholderQR.html#a756ec297e96edf953ce640744892a0cc">More...</a><br /></td></tr>
+<tr class="separator:a756ec297e96edf953ce640744892a0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62b1c0449f5943b444a4291296587e3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a62b1c0449f5943b444a4291296587e3a">back_subs</a> (const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;B, <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;X) const</td></tr>
+<tr class="memdesc:a62b1c0449f5943b444a4291296587e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Back substitution algorithm for solving upper-triangular systems RX = B.  <a href="../../d1/dac/classHouseholderQR.html#a62b1c0449f5943b444a4291296587e3a">More...</a><br /></td></tr>
+<tr class="separator:a62b1c0449f5943b444a4291296587e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a67995a258750772424b54f88705d4537"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a67995a258750772424b54f88705d4537">RW</a></td></tr>
+<tr class="memdesc:a67995a258750772424b54f88705d4537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result of a Householder QR factorization: stores the strict upper-triangular part of matrix R and the full matrix of scaled Householder reflection vectors W.  <a href="../../d1/dac/classHouseholderQR.html#a67995a258750772424b54f88705d4537">More...</a><br /></td></tr>
+<tr class="separator:a67995a258750772424b54f88705d4537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0394778e11e33b448f8f33cbccfb41dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da1/classVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a0394778e11e33b448f8f33cbccfb41dd">R_diag</a></td></tr>
+<tr class="memdesc:a0394778e11e33b448f8f33cbccfb41dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the diagonal elements of R.  <a href="../../d1/dac/classHouseholderQR.html#a0394778e11e33b448f8f33cbccfb41dd">More...</a><br /></td></tr>
+<tr class="separator:a0394778e11e33b448f8f33cbccfb41dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ffbf2e71230a700f37745ccbe0767aa"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="../../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8">HouseholderQR::State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a4ffbf2e71230a700f37745ccbe0767aa">state</a> = <a class="el" href="../../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8a1985c8fe7ac70dacf16433d7fff2e6b6">NotFactored</a></td></tr>
+<tr class="separator:a4ffbf2e71230a700f37745ccbe0767aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="related"></a>
+Related Functions</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>(Note that these are not member functions.) </p>
+</td></tr>
+<tr class="memitem:a1bb050bf3c0b7a409cd77f7a9d955598"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a1bb050bf3c0b7a409cd77f7a9d955598">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d1/dac/classHouseholderQR.html">HouseholderQR</a> &amp;qr)</td></tr>
+<tr class="memdesc:a1bb050bf3c0b7a409cd77f7a9d955598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the Q and R matrices of a <a class="el" href="../../d1/dac/classHouseholderQR.html" title="QR factorization using Householder reflectors.">HouseholderQR</a> object.  <a href="../../d1/dac/classHouseholderQR.html#a1bb050bf3c0b7a409cd77f7a9d955598">More...</a><br /></td></tr>
+<tr class="separator:a1bb050bf3c0b7a409cd77f7a9d955598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Constructors</h2></td></tr>
 <tr class="memitem:a1f62fc1cbfa62c23bafd73c4b6a6147c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a1f62fc1cbfa62c23bafd73c4b6a6147c">HouseholderQR</a> ()=default</td></tr>
+<tr class="memdesc:a1f62fc1cbfa62c23bafd73c4b6a6147c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="../../d1/dac/classHouseholderQR.html#a1f62fc1cbfa62c23bafd73c4b6a6147c">More...</a><br /></td></tr>
 <tr class="separator:a1f62fc1cbfa62c23bafd73c4b6a6147c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82ce63f20e3c49832fcd284a4a4e3b15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a82ce63f20e3c49832fcd284a4a4e3b15">HouseholderQR</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;matrix)</td></tr>
-<tr class="separator:a82ce63f20e3c49832fcd284a4a4e3b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf05adc8432f75c6d9472be45e4e7b6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#acf05adc8432f75c6d9472be45e4e7b6b">HouseholderQR</a> (const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;matrix)</td></tr>
+<tr class="memdesc:acf05adc8432f75c6d9472be45e4e7b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factorize the given matrix.  <a href="../../d1/dac/classHouseholderQR.html#acf05adc8432f75c6d9472be45e4e7b6b">More...</a><br /></td></tr>
 <tr class="separator:acf05adc8432f75c6d9472be45e4e7b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82ce63f20e3c49832fcd284a4a4e3b15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a82ce63f20e3c49832fcd284a4a4e3b15">HouseholderQR</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;matrix)</td></tr>
+<tr class="memdesc:a82ce63f20e3c49832fcd284a4a4e3b15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factorize the given matrix.  <a href="../../d1/dac/classHouseholderQR.html#a82ce63f20e3c49832fcd284a4a4e3b15">More...</a><br /></td></tr>
+<tr class="separator:a82ce63f20e3c49832fcd284a4a4e3b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Factorization</h2></td></tr>
 <tr class="memitem:ae11d3d978687342135b02738f125f00a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#ae11d3d978687342135b02738f125f00a">compute</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;matrix)</td></tr>
 <tr class="memdesc:ae11d3d978687342135b02738f125f00a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the QR factorization of the given matrix.  <a href="../../d1/dac/classHouseholderQR.html#ae11d3d978687342135b02738f125f00a">More...</a><br /></td></tr>
 <tr class="separator:ae11d3d978687342135b02738f125f00a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85265e6989a8cd2c4a10a6ed1d527f86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a85265e6989a8cd2c4a10a6ed1d527f86">compute</a> (const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;matrix)</td></tr>
 <tr class="memdesc:a85265e6989a8cd2c4a10a6ed1d527f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the QR factorization of the given matrix.  <a href="../../d1/dac/classHouseholderQR.html#a85265e6989a8cd2c4a10a6ed1d527f86">More...</a><br /></td></tr>
 <tr class="separator:a85265e6989a8cd2c4a10a6ed1d527f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Retrieving the Q factor</h2></td></tr>
 <tr class="memitem:a2c6c0dcf2234ac6eae1d0e4d0a29702c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a2c6c0dcf2234ac6eae1d0e4d0a29702c">apply_QT_inplace</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;B) const</td></tr>
 <tr class="memdesc:a2c6c0dcf2234ac6eae1d0e4d0a29702c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the product QᵀB, overwriting B with the result.  <a href="../../d1/dac/classHouseholderQR.html#a2c6c0dcf2234ac6eae1d0e4d0a29702c">More...</a><br /></td></tr>
 <tr class="separator:a2c6c0dcf2234ac6eae1d0e4d0a29702c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fd35267059f979300719d43d7e865ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a6fd35267059f979300719d43d7e865ff">apply_QT</a> (const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;B) const</td></tr>
 <tr class="memdesc:a6fd35267059f979300719d43d7e865ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the product QᵀB.  <a href="../../d1/dac/classHouseholderQR.html#a6fd35267059f979300719d43d7e865ff">More...</a><br /></td></tr>
 <tr class="separator:a6fd35267059f979300719d43d7e865ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace0b77ff48d4c8066722cf19d5e97d63"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#ace0b77ff48d4c8066722cf19d5e97d63">apply_QT</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;B) const</td></tr>
-<tr class="memdesc:ace0b77ff48d4c8066722cf19d5e97d63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the product QᵀB.  <a href="../../d1/dac/classHouseholderQR.html#ace0b77ff48d4c8066722cf19d5e97d63">More...</a><br /></td></tr>
-<tr class="separator:ace0b77ff48d4c8066722cf19d5e97d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70dc5e6bc878e5038b115431bb93ef43"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a70dc5e6bc878e5038b115431bb93ef43">apply_QT</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;B) const</td></tr>
+<tr class="memdesc:a70dc5e6bc878e5038b115431bb93ef43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the product QᵀB.  <a href="../../d1/dac/classHouseholderQR.html#a70dc5e6bc878e5038b115431bb93ef43">More...</a><br /></td></tr>
+<tr class="separator:a70dc5e6bc878e5038b115431bb93ef43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea109bd3c9368e0559ec6763d37ef21d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#aea109bd3c9368e0559ec6763d37ef21d">apply_Q_inplace</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;X) const</td></tr>
 <tr class="memdesc:aea109bd3c9368e0559ec6763d37ef21d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the product QB, overwriting B with the result.  <a href="../../d1/dac/classHouseholderQR.html#aea109bd3c9368e0559ec6763d37ef21d">More...</a><br /></td></tr>
 <tr class="separator:aea109bd3c9368e0559ec6763d37ef21d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a385196b8fb3ff13c8324db8620188cef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a385196b8fb3ff13c8324db8620188cef">apply_Q</a> (const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;X) const</td></tr>
 <tr class="memdesc:a385196b8fb3ff13c8324db8620188cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the product QB.  <a href="../../d1/dac/classHouseholderQR.html#a385196b8fb3ff13c8324db8620188cef">More...</a><br /></td></tr>
 <tr class="separator:a385196b8fb3ff13c8324db8620188cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8defd711fe26e114e959d024e17ed46d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a8defd711fe26e114e959d024e17ed46d">apply_Q</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;B) const</td></tr>
-<tr class="memdesc:a8defd711fe26e114e959d024e17ed46d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the product QB.  <a href="../../d1/dac/classHouseholderQR.html#a8defd711fe26e114e959d024e17ed46d">More...</a><br /></td></tr>
-<tr class="separator:a8defd711fe26e114e959d024e17ed46d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68776ace275823e13e4843ee6f1dbdf0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a68776ace275823e13e4843ee6f1dbdf0">apply_Q</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;B) const</td></tr>
+<tr class="memdesc:a68776ace275823e13e4843ee6f1dbdf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the product QB.  <a href="../../d1/dac/classHouseholderQR.html#a68776ace275823e13e4843ee6f1dbdf0">More...</a><br /></td></tr>
+<tr class="separator:a68776ace275823e13e4843ee6f1dbdf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31360c4a7b15e19367691f87635d5d13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a31360c4a7b15e19367691f87635d5d13">get_Q_inplace</a> (<a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> &amp;Q) const</td></tr>
+<tr class="memdesc:a31360c4a7b15e19367691f87635d5d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the unitary matrix Q and copy it to the given matrix.  <a href="../../d1/dac/classHouseholderQR.html#a31360c4a7b15e19367691f87635d5d13">More...</a><br /></td></tr>
+<tr class="separator:a31360c4a7b15e19367691f87635d5d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8017ad6ce2f42e69b44aeebe4fc0a1a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a8017ad6ce2f42e69b44aeebe4fc0a1a3">get_Q</a> () const</td></tr>
+<tr class="memdesc:a8017ad6ce2f42e69b44aeebe4fc0a1a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the unitary matrix Q.  <a href="../../d1/dac/classHouseholderQR.html#a8017ad6ce2f42e69b44aeebe4fc0a1a3">More...</a><br /></td></tr>
+<tr class="separator:a8017ad6ce2f42e69b44aeebe4fc0a1a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Retrieving the R factor</h2></td></tr>
 <tr class="memitem:a4c807498cf5a0a8befe2d63a9ba15dab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a4c807498cf5a0a8befe2d63a9ba15dab">steal_R</a> ()</td></tr>
 <tr class="memdesc:a4c807498cf5a0a8befe2d63a9ba15dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the upper-triangular matrix R, reusing the internal storage.  <a href="../../d1/dac/classHouseholderQR.html#a4c807498cf5a0a8befe2d63a9ba15dab">More...</a><br /></td></tr>
 <tr class="separator:a4c807498cf5a0a8befe2d63a9ba15dab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,27 +192,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa60d73cf673a148e345471fad4dc7120"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#aa60d73cf673a148e345471fad4dc7120">get_R</a> () &amp;&amp;</td></tr>
 <tr class="memdesc:aa60d73cf673a148e345471fad4dc7120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the upper-triangular matrix R.  <a href="../../d1/dac/classHouseholderQR.html#aa60d73cf673a148e345471fad4dc7120">More...</a><br /></td></tr>
 <tr class="separator:aa60d73cf673a148e345471fad4dc7120"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31360c4a7b15e19367691f87635d5d13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a31360c4a7b15e19367691f87635d5d13">get_Q_inplace</a> (<a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> &amp;Q) const</td></tr>
-<tr class="memdesc:a31360c4a7b15e19367691f87635d5d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the unitary matrix Q and copy it to the given matrix.  <a href="../../d1/dac/classHouseholderQR.html#a31360c4a7b15e19367691f87635d5d13">More...</a><br /></td></tr>
-<tr class="separator:a31360c4a7b15e19367691f87635d5d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8017ad6ce2f42e69b44aeebe4fc0a1a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a8017ad6ce2f42e69b44aeebe4fc0a1a3">get_Q</a> () const</td></tr>
-<tr class="memdesc:a8017ad6ce2f42e69b44aeebe4fc0a1a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the unitary matrix Q.  <a href="../../d1/dac/classHouseholderQR.html#a8017ad6ce2f42e69b44aeebe4fc0a1a3">More...</a><br /></td></tr>
-<tr class="separator:a8017ad6ce2f42e69b44aeebe4fc0a1a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72727c9a258b59544c087ce95148fe8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a72727c9a258b59544c087ce95148fe8d">is_factored</a> () const</td></tr>
-<tr class="memdesc:a72727c9a258b59544c087ce95148fe8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this object contains a valid factorization.  <a href="../../d1/dac/classHouseholderQR.html#a72727c9a258b59544c087ce95148fe8d">More...</a><br /></td></tr>
-<tr class="separator:a72727c9a258b59544c087ce95148fe8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9217f186c75804adb2aedecee6e18f3e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a9217f186c75804adb2aedecee6e18f3e">get_RW</a> () const &amp;</td></tr>
-<tr class="memdesc:a9217f186c75804adb2aedecee6e18f3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the strict upper-triangular part of R and the Householder reflector vectors W.  <a href="../../d1/dac/classHouseholderQR.html#a9217f186c75804adb2aedecee6e18f3e">More...</a><br /></td></tr>
-<tr class="separator:a9217f186c75804adb2aedecee6e18f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6e31aa33155ed37614ef030926f3643"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#ae6e31aa33155ed37614ef030926f3643">get_RW</a> () &amp;&amp;</td></tr>
-<tr class="memdesc:ae6e31aa33155ed37614ef030926f3643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the strict upper-triangular part of R and the Householder reflector vectors W.  <a href="../../d1/dac/classHouseholderQR.html#ae6e31aa33155ed37614ef030926f3643">More...</a><br /></td></tr>
-<tr class="separator:ae6e31aa33155ed37614ef030926f3643"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a453a76995ebd99f989fa8e6e705456c7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a453a76995ebd99f989fa8e6e705456c7">get_R_diag</a> () const &amp;</td></tr>
-<tr class="memdesc:a453a76995ebd99f989fa8e6e705456c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the diagonal elements of R.  <a href="../../d1/dac/classHouseholderQR.html#a453a76995ebd99f989fa8e6e705456c7">More...</a><br /></td></tr>
-<tr class="separator:a453a76995ebd99f989fa8e6e705456c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4998c9083193e1fc2c7aa9d9bf8c8cae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a4998c9083193e1fc2c7aa9d9bf8c8cae">get_R_diag</a> () &amp;&amp;</td></tr>
-<tr class="memdesc:a4998c9083193e1fc2c7aa9d9bf8c8cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the diagonal elements of R.  <a href="../../d1/dac/classHouseholderQR.html#a4998c9083193e1fc2c7aa9d9bf8c8cae">More...</a><br /></td></tr>
-<tr class="separator:a4998c9083193e1fc2c7aa9d9bf8c8cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Solving systems of equations and least-squares problems</h2></td></tr>
 <tr class="memitem:a70e9d6abb299ce3d5398be829eb18f96"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a70e9d6abb299ce3d5398be829eb18f96">solve_inplace</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;B) const</td></tr>
 <tr class="memdesc:a70e9d6abb299ce3d5398be829eb18f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve the system AX = B or QRX = B.  <a href="../../d1/dac/classHouseholderQR.html#a70e9d6abb299ce3d5398be829eb18f96">More...</a><br /></td></tr>
 <tr class="separator:a70e9d6abb299ce3d5398be829eb18f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,47 +211,34 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ace12f2a1dca20232d2d7c4e176eb9613"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve the system Ax = b or QRx = b.  <a href="../../d1/dac/classHouseholderQR.html#ace12f2a1dca20232d2d7c4e176eb9613">More...</a><br /></td></tr>
 <tr class="separator:ace12f2a1dca20232d2d7c4e176eb9613"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
-Private Types</h2></td></tr>
-<tr class="memitem:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="../../d1/dac/classHouseholderQR.html#a06fc87d81c62e9abb8790b6e5713c55ba1985c8fe7ac70dacf16433d7fff2e6b6">NotFactored</a> = 0, 
-<a class="el" href="../../d1/dac/classHouseholderQR.html#a06fc87d81c62e9abb8790b6e5713c55ba9b07360223fa1f78b5be6ff5fc9bc5ba">Factored</a> = 1
- }</td></tr>
-<tr class="separator:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ab058b466d988d6176d787580dbf859b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#ab058b466d988d6176d787580dbf859b1">compute_impl</a> ()</td></tr>
-<tr class="memdesc:ab058b466d988d6176d787580dbf859b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual QR factorization algorithm.  <a href="../../d1/dac/classHouseholderQR.html#ab058b466d988d6176d787580dbf859b1">More...</a><br /></td></tr>
-<tr class="separator:ab058b466d988d6176d787580dbf859b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62b1c0449f5943b444a4291296587e3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a62b1c0449f5943b444a4291296587e3a">back_subs</a> (const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;B, <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;X) const</td></tr>
-<tr class="memdesc:a62b1c0449f5943b444a4291296587e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Back substitution algorithm for solving upper-triangular systems RX = B.  <a href="../../d1/dac/classHouseholderQR.html#a62b1c0449f5943b444a4291296587e3a">More...</a><br /></td></tr>
-<tr class="separator:a62b1c0449f5943b444a4291296587e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a67995a258750772424b54f88705d4537"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a67995a258750772424b54f88705d4537">RW</a></td></tr>
-<tr class="memdesc:a67995a258750772424b54f88705d4537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result of a Householder QR factorization: stores the strict upper-triangular part of matrix R and the full matrix of scaled Householder reflection vectors W.  <a href="../../d1/dac/classHouseholderQR.html#a67995a258750772424b54f88705d4537">More...</a><br /></td></tr>
-<tr class="separator:a67995a258750772424b54f88705d4537"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0394778e11e33b448f8f33cbccfb41dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da1/classVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a0394778e11e33b448f8f33cbccfb41dd">R_diag</a></td></tr>
-<tr class="memdesc:a0394778e11e33b448f8f33cbccfb41dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the diagonal elements of R.  <a href="../../d1/dac/classHouseholderQR.html#a0394778e11e33b448f8f33cbccfb41dd">More...</a><br /></td></tr>
-<tr class="separator:a0394778e11e33b448f8f33cbccfb41dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b14d621699d68e30d01da3a4696870a"><td class="memItemLeft" align="right" valign="top">enum HouseholderQR:: { ... } &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a4b14d621699d68e30d01da3a4696870a">state</a> = <a class="el" href="../../d1/dac/classHouseholderQR.html#a06fc87d81c62e9abb8790b6e5713c55ba1985c8fe7ac70dacf16433d7fff2e6b6">NotFactored</a></td></tr>
-<tr class="separator:a4b14d621699d68e30d01da3a4696870a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="related"></a>
-Related Functions</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p>(Note that these are not member functions.) </p>
-</td></tr>
-<tr class="memitem:a1bb050bf3c0b7a409cd77f7a9d955598"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a1bb050bf3c0b7a409cd77f7a9d955598">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d1/dac/classHouseholderQR.html">HouseholderQR</a> &amp;qr)</td></tr>
-<tr class="memdesc:a1bb050bf3c0b7a409cd77f7a9d955598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the Q and R matrices of a <a class="el" href="../../d1/dac/classHouseholderQR.html">HouseholderQR</a> object.  <a href="../../d1/dac/classHouseholderQR.html#a1bb050bf3c0b7a409cd77f7a9d955598">More...</a><br /></td></tr>
-<tr class="separator:a1bb050bf3c0b7a409cd77f7a9d955598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Access to internal representation</h2></td></tr>
+<tr class="memitem:a72727c9a258b59544c087ce95148fe8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a72727c9a258b59544c087ce95148fe8d">is_factored</a> () const</td></tr>
+<tr class="memdesc:a72727c9a258b59544c087ce95148fe8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this object contains a valid factorization.  <a href="../../d1/dac/classHouseholderQR.html#a72727c9a258b59544c087ce95148fe8d">More...</a><br /></td></tr>
+<tr class="separator:a72727c9a258b59544c087ce95148fe8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9217f186c75804adb2aedecee6e18f3e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a9217f186c75804adb2aedecee6e18f3e">get_RW</a> () const &amp;</td></tr>
+<tr class="memdesc:a9217f186c75804adb2aedecee6e18f3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the strict upper-triangular part of R and the Householder reflector vectors W.  <a href="../../d1/dac/classHouseholderQR.html#a9217f186c75804adb2aedecee6e18f3e">More...</a><br /></td></tr>
+<tr class="separator:a9217f186c75804adb2aedecee6e18f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6e31aa33155ed37614ef030926f3643"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#ae6e31aa33155ed37614ef030926f3643">get_RW</a> () &amp;&amp;</td></tr>
+<tr class="memdesc:ae6e31aa33155ed37614ef030926f3643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the strict upper-triangular part of R and the Householder reflector vectors W.  <a href="../../d1/dac/classHouseholderQR.html#ae6e31aa33155ed37614ef030926f3643">More...</a><br /></td></tr>
+<tr class="separator:ae6e31aa33155ed37614ef030926f3643"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a453a76995ebd99f989fa8e6e705456c7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a453a76995ebd99f989fa8e6e705456c7">get_R_diag</a> () const &amp;</td></tr>
+<tr class="memdesc:a453a76995ebd99f989fa8e6e705456c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the diagonal elements of R.  <a href="../../d1/dac/classHouseholderQR.html#a453a76995ebd99f989fa8e6e705456c7">More...</a><br /></td></tr>
+<tr class="separator:a453a76995ebd99f989fa8e6e705456c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4998c9083193e1fc2c7aa9d9bf8c8cae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dac/classHouseholderQR.html#a4998c9083193e1fc2c7aa9d9bf8c8cae">get_R_diag</a> () &amp;&amp;</td></tr>
+<tr class="memdesc:a4998c9083193e1fc2c7aa9d9bf8c8cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the diagonal elements of R.  <a href="../../d1/dac/classHouseholderQR.html#a4998c9083193e1fc2c7aa9d9bf8c8cae">More...</a><br /></td></tr>
+<tr class="separator:a4998c9083193e1fc2c7aa9d9bf8c8cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00003">3</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+<div class="textblock"><p>QR factorization using Householder reflectors. </p>
+<p>Factorizes an m×n matrix with m &gt;= n into an m×m unitary factor Q and an m×n upper triangular factor R.</p>
+<p>It can be used for solving square systems of equations or for finding a least squares solution to an overdetermined system of equations.</p>
+<p>This version does not use column pivoting, and is not rank-revealing. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a06fc87d81c62e9abb8790b6e5713c55b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06fc87d81c62e9abb8790b6e5713c55b">&#9670;&nbsp;</a></span>anonymous enum</h2>
+<a id="a5d74787dedbc4e11c1ab15bf487e61f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d74787dedbc4e11c1ab15bf487e61f8">&#9670;&nbsp;</a></span>State</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +247,7 @@ Related Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">anonymous enum</td>
+          <td class="memname">enum <a class="el" href="../../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a></td>
         </tr>
       </table>
   </td>
@@ -232,11 +257,11 @@ Related Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a06fc87d81c62e9abb8790b6e5713c55ba1985c8fe7ac70dacf16433d7fff2e6b6"></a>NotFactored&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a06fc87d81c62e9abb8790b6e5713c55ba9b07360223fa1f78b5be6ff5fc9bc5ba"></a>Factored&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a1985c8fe7ac70dacf16433d7fff2e6b6"></a>NotFactored&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a9b07360223fa1f78b5be6ff5fc9bc5ba"></a>Factored&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00137">137</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
 
 </div>
 </div>
@@ -264,38 +289,12 @@ Related Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a82ce63f20e3c49832fcd284a4a4e3b15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82ce63f20e3c49832fcd284a4a4e3b15">&#9670;&nbsp;</a></span>HouseholderQR() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d1/dac/classHouseholderQR.html">HouseholderQR</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>matrix</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00006">6</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+<p>Default constructor. </p>
 
 </div>
 </div>
 <a id="acf05adc8432f75c6d9472be45e4e7b6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf05adc8432f75c6d9472be45e4e7b6b">&#9670;&nbsp;</a></span>HouseholderQR() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acf05adc8432f75c6d9472be45e4e7b6b">&#9670;&nbsp;</a></span>HouseholderQR() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,13 +317,14 @@ Related Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00007">7</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+<p>Factorize the given matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab058b466d988d6176d787580dbf859b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab058b466d988d6176d787580dbf859b1">&#9670;&nbsp;</a></span>compute_impl()</h2>
+<a id="a82ce63f20e3c49832fcd284a4a4e3b15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82ce63f20e3c49832fcd284a4a4e3b15">&#9670;&nbsp;</a></span>HouseholderQR() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,7 +333,607 @@ Related Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void compute_impl </td>
+          <td class="memname"><a class="el" href="../../d1/dac/classHouseholderQR.html">HouseholderQR</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>matrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Factorize the given matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae11d3d978687342135b02738f125f00a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae11d3d978687342135b02738f125f00a">&#9670;&nbsp;</a></span>compute() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void compute </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>matrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Perform the QR factorization of the given matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00177">177</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a85265e6989a8cd2c4a10a6ed1d527f86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85265e6989a8cd2c4a10a6ed1d527f86">&#9670;&nbsp;</a></span>compute() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void compute </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Perform the QR factorization of the given matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00183">183</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2c6c0dcf2234ac6eae1d0e4d0a29702c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c6c0dcf2234ac6eae1d0e4d0a29702c">&#9670;&nbsp;</a></span>apply_QT_inplace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void apply_QT_inplace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the product QᵀB, overwriting B with the result. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00189">189</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6fd35267059f979300719d43d7e865ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fd35267059f979300719d43d7e865ff">&#9670;&nbsp;</a></span>apply_QT() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> apply_QT </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the product QᵀB. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00203">203</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a70dc5e6bc878e5038b115431bb93ef43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70dc5e6bc878e5038b115431bb93ef43">&#9670;&nbsp;</a></span>apply_QT() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp; apply_QT </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the product QᵀB. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00209">209</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aea109bd3c9368e0559ec6763d37ef21d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea109bd3c9368e0559ec6763d37ef21d">&#9670;&nbsp;</a></span>apply_Q_inplace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void apply_Q_inplace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>X</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the product QB, overwriting B with the result. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00214">214</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a385196b8fb3ff13c8324db8620188cef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a385196b8fb3ff13c8324db8620188cef">&#9670;&nbsp;</a></span>apply_Q() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> apply_Q </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>X</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the product QB. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00228">228</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a68776ace275823e13e4843ee6f1dbdf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68776ace275823e13e4843ee6f1dbdf0">&#9670;&nbsp;</a></span>apply_Q() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp; apply_Q </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the product QB. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00234">234</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a31360c4a7b15e19367691f87635d5d13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31360c4a7b15e19367691f87635d5d13">&#9670;&nbsp;</a></span>get_Q_inplace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_Q_inplace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>Q</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the unitary matrix Q and copy it to the given matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00276">276</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8017ad6ce2f42e69b44aeebe4fc0a1a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8017ad6ce2f42e69b44aeebe4fc0a1a3">&#9670;&nbsp;</a></span>get_Q()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> get_Q </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the unitary matrix Q. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00283">283</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4c807498cf5a0a8befe2d63a9ba15dab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c807498cf5a0a8befe2d63a9ba15dab">&#9670;&nbsp;</a></span>steal_R()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp; steal_R </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the upper-triangular matrix R, reusing the internal storage. </p>
+<dl class="section warning"><dt>Warning</dt><dd>After calling this function, the <a class="el" href="../../d1/dac/classHouseholderQR.html" title="QR factorization using Householder reflectors.">HouseholderQR</a> object is no longer valid, because this function steals its storage. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00262">262</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae62a00d991d14d04ba4f26ae4f8d6c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae62a00d991d14d04ba4f26ae4f8d6c73">&#9670;&nbsp;</a></span>get_R_inplace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_R_inplace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>R</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy the upper-triangular matrix R to the given matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00239">239</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3b4f55ac4e0ec6edcff4c2f097a1284e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b4f55ac4e0ec6edcff4c2f097a1284e">&#9670;&nbsp;</a></span>get_R() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> get_R </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a copy of the upper-triangular matrix R. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00256">256</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa60d73cf673a148e345471fad4dc7120"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa60d73cf673a148e345471fad4dc7120">&#9670;&nbsp;</a></span>get_R() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&amp;&amp; get_R </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> &amp;&amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the upper-triangular matrix R. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00080">80</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a70e9d6abb299ce3d5398be829eb18f96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70e9d6abb299ce3d5398be829eb18f96">&#9670;&nbsp;</a></span>solve_inplace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void solve_inplace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solve the system AX = B or QRX = B. </p>
+<p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> B is overwritten with the result X. If the matrix A is square, no new allocations occur, and the storage of B is reused for X. If A is not square, new storage will be allocated for X. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00301">301</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a369d34e4a9ba9e0ee623419920a08c9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a369d34e4a9ba9e0ee623419920a08c9d">&#9670;&nbsp;</a></span>solve() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> solve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solve the system AX = B or QRX = B. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00316">316</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a50a48d11bc89c713eb09a92c64e1b8b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50a48d11bc89c713eb09a92c64e1b8b6">&#9670;&nbsp;</a></span>solve() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp; solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solve the system AX = B or QRX = B. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00323">323</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaaec84f1d1dc175632e78568dc6efcea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaec84f1d1dc175632e78568dc6efcea">&#9670;&nbsp;</a></span>solve() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/da1/classVector.html">Vector</a> solve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solve the system Ax = b or QRx = b. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00328">328</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ace12f2a1dca20232d2d7c4e176eb9613"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace12f2a1dca20232d2d7c4e176eb9613">&#9670;&nbsp;</a></span>solve() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&amp; solve </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>B</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solve the system Ax = b or QRx = b. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00332">332</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a72727c9a258b59544c087ce95148fe8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72727c9a258b59544c087ce95148fe8d">&#9670;&nbsp;</a></span>is_factored()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_factored </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if this object contains a valid factorization. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00109">109</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9217f186c75804adb2aedecee6e18f3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9217f186c75804adb2aedecee6e18f3e">&#9670;&nbsp;</a></span>get_RW() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&amp; get_RW </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the internal storage of the strict upper-triangular part of R and the Householder reflector vectors W. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00113">113</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae6e31aa33155ed37614ef030926f3643"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6e31aa33155ed37614ef030926f3643">&#9670;&nbsp;</a></span>get_RW() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&amp;&amp; get_RW </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> &amp;&amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the internal storage of the strict upper-triangular part of R and the Householder reflector vectors W. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00115">115</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a453a76995ebd99f989fa8e6e705456c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a453a76995ebd99f989fa8e6e705456c7">&#9670;&nbsp;</a></span>get_R_diag() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../d6/da1/classVector.html">Vector</a>&amp; get_R_diag </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const &amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the internal storage of the diagonal elements of R. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00117">117</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4998c9083193e1fc2c7aa9d9bf8c8cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4998c9083193e1fc2c7aa9d9bf8c8cae">&#9670;&nbsp;</a></span>get_R_diag() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/da1/classVector.html">Vector</a>&amp;&amp; get_R_diag </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> &amp;&amp;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the internal storage of the diagonal elements of R. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00119">119</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a756ec297e96edf953ce640744892a0cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a756ec297e96edf953ce640744892a0cc">&#9670;&nbsp;</a></span>compute_factorization()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void compute_factorization </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -347,8 +947,18 @@ Related Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The actual QR factorization algorithm. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>RW</code> contains the matrix A to be factorized </dd>
+<dd>
+<code>RW.rows() &gt;= RW.cols()</code> </dd>
+<dd>
+<code>R_diag.size() == RW.cols()</code></dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The strict upper-triangular part of <code>RW</code> contains the strict upper-triangular part of factor R. <code>R_diag</code> contains the diagonal of R. </dd>
+<dd>
+The lower-triangular part (including the diagonal) of <code>RW</code> contains the Householder reflectors wₖ, with ‖wₖ‖ = √2. </dd>
+<dd>
+<code>apply_Q(get_R()) == A == <a class="el" href="../../d1/dac/classHouseholderQR.html#a8017ad6ce2f42e69b44aeebe4fc0a1a3" title="Compute the unitary matrix Q.">get_Q()</a> * <a class="el" href="../../d1/dac/classHouseholderQR.html#a3b4f55ac4e0ec6edcff4c2f097a1284e" title="Get a copy of the upper-triangular matrix R.">get_R()</a></code> (up to rounding errors) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00007">7</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00020">20</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
 
 </div>
 </div>
@@ -388,640 +998,7 @@ Related Functions</h2></td></tr>
 
 <p>Back substitution algorithm for solving upper-triangular systems RX = B. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00229">229</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae11d3d978687342135b02738f125f00a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae11d3d978687342135b02738f125f00a">&#9670;&nbsp;</a></span>compute() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void compute </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>matrix</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Perform the QR factorization of the given matrix. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a85265e6989a8cd2c4a10a6ed1d527f86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85265e6989a8cd2c4a10a6ed1d527f86">&#9670;&nbsp;</a></span>compute() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void compute </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>matrix</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Perform the QR factorization of the given matrix. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2c6c0dcf2234ac6eae1d0e4d0a29702c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c6c0dcf2234ac6eae1d0e4d0a29702c">&#9670;&nbsp;</a></span>apply_QT_inplace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void apply_QT_inplace </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compute the product QᵀB, overwriting B with the result. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00163">163</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6fd35267059f979300719d43d7e865ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fd35267059f979300719d43d7e865ff">&#9670;&nbsp;</a></span>apply_QT() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> apply_QT </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compute the product QᵀB. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ace0b77ff48d4c8066722cf19d5e97d63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace0b77ff48d4c8066722cf19d5e97d63">&#9670;&nbsp;</a></span>apply_QT() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&amp;&amp; apply_QT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compute the product QᵀB. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aea109bd3c9368e0559ec6763d37ef21d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea109bd3c9368e0559ec6763d37ef21d">&#9670;&nbsp;</a></span>apply_Q_inplace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void apply_Q_inplace </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>X</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compute the product QB, overwriting B with the result. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00177">177</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a385196b8fb3ff13c8324db8620188cef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a385196b8fb3ff13c8324db8620188cef">&#9670;&nbsp;</a></span>apply_Q() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> apply_Q </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>X</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compute the product QB. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8defd711fe26e114e959d024e17ed46d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8defd711fe26e114e959d024e17ed46d">&#9670;&nbsp;</a></span>apply_Q() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&amp;&amp; apply_Q </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compute the product QB. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00066">66</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4c807498cf5a0a8befe2d63a9ba15dab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c807498cf5a0a8befe2d63a9ba15dab">&#9670;&nbsp;</a></span>steal_R()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp; steal_R </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the upper-triangular matrix R, reusing the internal storage. </p>
-<dl class="section warning"><dt>Warning</dt><dd>After calling this function, the <a class="el" href="../../d1/dac/classHouseholderQR.html">HouseholderQR</a> object is no longer valid, because this function steals its storage. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00208">208</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae62a00d991d14d04ba4f26ae4f8d6c73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae62a00d991d14d04ba4f26ae4f8d6c73">&#9670;&nbsp;</a></span>get_R_inplace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void get_R_inplace </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>R</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copy the upper-triangular matrix R to the given matrix. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00191">191</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3b4f55ac4e0ec6edcff4c2f097a1284e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b4f55ac4e0ec6edcff4c2f097a1284e">&#9670;&nbsp;</a></span>get_R() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> get_R </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const &amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get a copy of the upper-triangular matrix R. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00079">79</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa60d73cf673a148e345471fad4dc7120"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa60d73cf673a148e345471fad4dc7120">&#9670;&nbsp;</a></span>get_R() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&amp;&amp; get_R </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> &amp;&amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the upper-triangular matrix R. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00085">85</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a31360c4a7b15e19367691f87635d5d13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31360c4a7b15e19367691f87635d5d13">&#9670;&nbsp;</a></span>get_Q_inplace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void get_Q_inplace </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>Q</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compute the unitary matrix Q and copy it to the given matrix. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00222">222</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8017ad6ce2f42e69b44aeebe4fc0a1a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8017ad6ce2f42e69b44aeebe4fc0a1a3">&#9670;&nbsp;</a></span>get_Q()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> get_Q </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compute the unitary matrix Q. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00090">90</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a72727c9a258b59544c087ce95148fe8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72727c9a258b59544c087ce95148fe8d">&#9670;&nbsp;</a></span>is_factored()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool is_factored </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Check if this object contains a valid factorization. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00097">97</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9217f186c75804adb2aedecee6e18f3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9217f186c75804adb2aedecee6e18f3e">&#9670;&nbsp;</a></span>get_RW() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&amp; get_RW </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const &amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the internal storage of the strict upper-triangular part of R and the Householder reflector vectors W. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00101">101</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae6e31aa33155ed37614ef030926f3643"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6e31aa33155ed37614ef030926f3643">&#9670;&nbsp;</a></span>get_RW() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&amp;&amp; get_RW </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> &amp;&amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the internal storage of the strict upper-triangular part of R and the Householder reflector vectors W. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00103">103</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a453a76995ebd99f989fa8e6e705456c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a453a76995ebd99f989fa8e6e705456c7">&#9670;&nbsp;</a></span>get_R_diag() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="../../d6/da1/classVector.html">Vector</a>&amp; get_R_diag </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const &amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the internal storage of the diagonal elements of R. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00105">105</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4998c9083193e1fc2c7aa9d9bf8c8cae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4998c9083193e1fc2c7aa9d9bf8c8cae">&#9670;&nbsp;</a></span>get_R_diag() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/da1/classVector.html">Vector</a>&amp;&amp; get_R_diag </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> &amp;&amp;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the internal storage of the diagonal elements of R. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00107">107</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a70e9d6abb299ce3d5398be829eb18f96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70e9d6abb299ce3d5398be829eb18f96">&#9670;&nbsp;</a></span>solve_inplace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void solve_inplace </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Solve the system AX = B or QRX = B. </p>
-<p><a class="el" href="../../d3/d3f/classMatrix.html" title="Basic matrix class.">Matrix</a> B is overwritten with the result X. If the matrix A is square, no new allocations occur, and the storage of B is reused for X. If A is not square, new storage will be allocated for X. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00241">241</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a369d34e4a9ba9e0ee623419920a08c9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a369d34e4a9ba9e0ee623419920a08c9d">&#9670;&nbsp;</a></span>solve() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> solve </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Solve the system AX = B or QRX = B. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00256">256</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a50a48d11bc89c713eb09a92c64e1b8b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50a48d11bc89c713eb09a92c64e1b8b6">&#9670;&nbsp;</a></span>solve() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp; solve </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Solve the system AX = B or QRX = B. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00263">263</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aaaec84f1d1dc175632e78568dc6efcea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaec84f1d1dc175632e78568dc6efcea">&#9670;&nbsp;</a></span>solve() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/da1/classVector.html">Vector</a> solve </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Solve the system Ax = b or QRx = b. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00268">268</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ace12f2a1dca20232d2d7c4e176eb9613"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace12f2a1dca20232d2d7c4e176eb9613">&#9670;&nbsp;</a></span>solve() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&amp; solve </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/da1/classVector.html">Vector</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>B</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Solve the system Ax = b or QRx = b. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00272">272</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00289">289</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
 
 </div>
 </div>
@@ -1060,9 +1037,9 @@ Related Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Print the Q and R matrices of a <a class="el" href="../../d1/dac/classHouseholderQR.html">HouseholderQR</a> object. </p>
+<p>Print the Q and R matrices of a <a class="el" href="../../d1/dac/classHouseholderQR.html" title="QR factorization using Householder reflectors.">HouseholderQR</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00279">279</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html#l00339">339</a> of file <a class="el" href="../../df/d5c/HouseholderQR_8cpp_source.html">HouseholderQR.cpp</a>.</p>
 
 </div>
 </div>
@@ -1090,7 +1067,7 @@ Related Functions</h2></td></tr>
 <p>Result of a Householder QR factorization: stores the strict upper-triangular part of matrix R and the full matrix of scaled Householder reflection vectors W. </p>
 <p>The reflection vectors have norm √2. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00133">133</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
 
 </div>
 </div>
@@ -1116,20 +1093,28 @@ Related Functions</h2></td></tr>
 
 <p>Contains the diagonal elements of R. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html#l00135">135</a> of file <a class="el" href="../../d9/d52/HouseholderQR_8hpp_source.html">HouseholderQR.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4b14d621699d68e30d01da3a4696870a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b14d621699d68e30d01da3a4696870a">&#9670;&nbsp;</a></span>state</h2>
+<a id="a4ffbf2e71230a700f37745ccbe0767aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ffbf2e71230a700f37745ccbe0767aa">&#9670;&nbsp;</a></span>state</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum { ... }  state</td>
+          <td class="memname">enum <a class="el" href="../../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8">HouseholderQR::State</a> state = <a class="el" href="../../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8a1985c8fe7ac70dacf16433d7fff2e6b6">NotFactored</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

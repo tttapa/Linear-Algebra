@@ -1,4 +1,4 @@
 <map id="Vector" name="Vector">
-<area shape="rect" id="node1" title="A column vector (n×1 matrix)." alt="" coords="5,688,244,1337"/>
-<area shape="rect" id="node2" href="$d3/d3f/classMatrix.html" title="Basic matrix class." alt="" coords="32,5,217,640"/>
+<area shape="rect" id="node1" title="A column vector (n×1 matrix)." alt="" coords="5,717,244,1396"/>
+<area shape="rect" id="node2" href="$d3/d3f/classMatrix.html" title="General matrix class." alt="" coords="34,5,215,669"/>
 </map>
