@@ -136,7 +136,7 @@ class HouseholderQR {
 
     enum State {
         NotFactored = 0,
-        Factored    = 1,
+        Factored = 1,
     } state = NotFactored;
 };
 

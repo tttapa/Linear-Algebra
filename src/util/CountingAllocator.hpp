@@ -2,6 +2,8 @@
 
 #include <memory>
 
+/// Custom allocator that counts the number of allocations for sanity checks in
+/// the unit tests.
 template <class T>
 class CountingAllocator {
   public:

@@ -1,5 +1,7 @@
 #include "Matrix.hpp"
 
+#ifndef NO_IOSTREAM_SUPPORT
+
 #include <iomanip>
 #include <iostream>
 
@@ -21,3 +23,5 @@ std::ostream &operator<<(std::ostream &os, const Matrix &M) {
     M.print(os);
     return os;
 }
+
+#endif

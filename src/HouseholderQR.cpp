@@ -1,8 +1,6 @@
 #include "HouseholderQR.hpp"
 
 #include <cassert>
-#include <iomanip>
-#include <iostream>
 
 /**
  * @pre     `RW` contains the matrix A to be factorized
@@ -336,6 +334,11 @@ Vector &&HouseholderQR::solve(Vector &&b) const {
 
 // LCOV_EXCL_START
 
+#ifndef NO_IOSTREAM_SUPPORT
+
+#include <iomanip>
+#include <iostream>
+
 std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr) {
     if (!qr.is_factored()) {
         os << "Not factored." << std::endl;
@@ -366,5 +369,7 @@ std::ostream &operator<<(std::ostream &os, const HouseholderQR &qr) {
     }
     return os;
 }
+
+#endif
 
 // LCOV_EXCL_STOP

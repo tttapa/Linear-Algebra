@@ -1,15 +1,18 @@
 #pragma once
 
-#include <util/ArduinoMacroFix.hpp>
+#include <Arduino/ArduinoConfig.hpp>
 
 #include <algorithm>  // std::fill, std::transform
 #include <cassert>    // assert
 #include <functional> // std::plus, std::minus
-#include <iosfwd>     // std::ostream
 #include <numeric>    // std::inner_product
 #include <random>     // std::uniform_real_distribution
 #include <utility>    // std::swap
 #include <vector>     // std::vector
+
+#ifndef NO_IOSTREAM_SUPPORT
+#include <iosfwd> // std::ostream
+#endif
 
 using std::size_t;
 
@@ -273,6 +276,7 @@ class Matrix {
     /// @name   Printing
     /// @{
 
+#ifndef NO_IOSTREAM_SUPPORT
     /// Print a matrix.
     /// @param  os
     ///         The stream to print to.
@@ -284,6 +288,20 @@ class Matrix {
     ///         (0 = auto)
     void print(std::ostream &os, uint8_t precision = 0,
                uint8_t width = 0) const;
+#endif
+
+#ifndef NO_ARDUINO_PRINT_SUPPORT
+    /// Print a matrix
+    /// @param  print
+    ///         The printer to print to.
+    /// @param  precision
+    ///         The number of significant figures to print.
+    ///         (0 = auto)
+    /// @param  width
+    ///         The width of each element (number of characters).
+    ///         (0 = auto)
+    void print(Print &print, uint8_t precision = 0, uint8_t width = 0) const;
+#endif
 
     /// @}
 
@@ -1287,9 +1305,17 @@ inline Vector transpose(RowVector &&in) { return Vector(std::move(in)); }
 
 /// @}
 
+#ifndef NO_IOSTREAM_SUPPORT
 /// Print a matrix.
 /// @related    Matrix
 std::ostream &operator<<(std::ostream &os, const Matrix &M);
+#endif
+
+#ifndef NO_ARDUINO_PRINT_SUPPORT
+/// Print a matrix.
+/// @related    Matrix
+Print &operator<<(Print &p, const Matrix &M);
+#endif
 
 //                              Implementations                               //
 // -------------------------------------------------------------------------- //
@@ -1300,8 +1326,8 @@ inline Matrix &Matrix::operator=(Matrix &&other) {
     // By explicitly defining move assignment, we can be sure that the object
     // that's being moved from has a consistent state.
     this->storage = std::move(other.storage);
-    this->rows_   = other.rows_;
-    this->cols_   = other.cols_;
+    this->rows_ = other.rows_;
+    this->cols_ = other.cols_;
     other.clear_and_deallocate();
     return *this;
 }
@@ -1367,9 +1393,9 @@ inline void Vector::cross_inplace_unchecked(Matrix &a, const Matrix &b) {
     double a0 = a(1) * b(2) - a(2) * b(1);
     double a1 = a(2) * b(0) - a(0) * b(2);
     double a2 = a(0) * b(1) - a(1) * b(0);
-    a(0)      = a0;
-    a(1)      = a1;
-    a(2)      = a2;
+    a(0) = a0;
+    a(1) = a1;
+    a(2) = a2;
 }
 
 inline void Vector::cross_inplace_unchecked_neg(Matrix &a, const Matrix &b) {
@@ -1378,7 +1404,7 @@ inline void Vector::cross_inplace_unchecked_neg(Matrix &a, const Matrix &b) {
     double a0 = a(2) * b(1) - a(1) * b(2);
     double a1 = a(0) * b(2) - a(2) * b(0);
     double a2 = a(1) * b(0) - a(0) * b(1);
-    a(0)      = a0;
-    a(1)      = a1;
-    a(2)      = a2;
+    a(0) = a0;
+    a(1) = a1;
+    a(2) = a2;
 }
