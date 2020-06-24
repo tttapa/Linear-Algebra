@@ -13,6 +13,9 @@
 #ifdef AVR
 
 #define NO_IOSTREAM_SUPPORT
+#define NO_RANDOM_SUPPORT
+
+#error "AVR has no STL support. Include your third-party STL library here."
 
 #elif defined(TEENSYDUINO)
 
