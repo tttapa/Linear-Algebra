@@ -10,6 +10,8 @@ void __throw_bad_alloc() {
 void __throw_length_error(char const *c) {
     Serial.println("length_error");
     Serial.println(c);
+    while (true) {
+    }
 }
 } // namespace std
 #endif
