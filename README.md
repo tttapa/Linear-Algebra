@@ -17,6 +17,11 @@ and precision, but the code is often hard to read.
 The [**modules**](https://tttapa.github.io/Linear-Algebra/Doxygen/modules.html)
 page is the best place to start.
 
+## Arduino
+
+This library has an Arduino version as well. It's available on the 
+[`arduino`](https://github.com/tttapa/Linear-Algebra/tree/arduino) branch.
+
 ## Disclaimer
 
 While the code is definitely useful as a linear algebra library, don't use it
