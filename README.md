@@ -15,13 +15,10 @@ and precision, but the code is often hard to read.
 [**Documentation**](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/index.html)
 
 The [**modules**](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/modules.html)
-page is the best place to start.
+page is the best place to start browsing the documentation.
 
-## Disclaimer
-
-While the code is definitely useful as a linear algebra library, don't use it
-in critical applications. Use Eigen instead, it'll be faster, numerically more
-accurate, and more reliable.
+Also see the [**installation instructions**](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/d8/da8/md_pages_Installation.html)
+and the [**examples**](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/examples.html).
 
 ## Arduino
 
@@ -51,3 +48,9 @@ to let me know if it works or not!
 For the STL to work correctly on Teensy 4.x, you need a Teensyduino version that
 includes [this patch](https://github.com/PaulStoffregen/cores/commit/2f8568659cb7553ca12e5ca2d0358df9d30427a6) 
 to the linker scripts.
+
+## Disclaimer
+
+While the code is definitely useful as a linear algebra library, don't use it
+in critical applications. If you can, use Eigen instead, it'll be faster, 
+numerically more accurate, and more reliable.
