@@ -49,6 +49,11 @@ For the STL to work correctly on Teensy 4.x, you need a Teensyduino version that
 includes [this patch](https://github.com/PaulStoffregen/cores/commit/2f8568659cb7553ca12e5ca2d0358df9d30427a6) 
 to the linker scripts.
 
+## Arduino
+
+This library has an Arduino version as well. It's available on the 
+[`arduino`](https://github.com/tttapa/Linear-Algebra/tree/arduino) branch.
+
 ## Disclaimer
 
 While the code is definitely useful as a linear algebra library, don't use it

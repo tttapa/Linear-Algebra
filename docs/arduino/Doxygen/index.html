@@ -75,22 +75,45 @@ $(function() {
 <div class="title">Linear Algebra Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__home_pieter_GitHub_Linear-Algebra_README"></a><a href="https://github.com/tttapa/Linear-Algebra/actions"><img src="https://github.com/tttapa/Linear-Algebra/workflows/CI%20Tests/badge.svg" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://tttapa.github.io/Linear-Algebra/Coverage/index.html"><img src="https://img.shields.io/endpoint?url=https://tttapa.github.io/Linear-Algebra/Coverage/shield.io.coverage.json" alt="Test Coverage" class="inline"/></a> <a href="https://github.com/tttapa/Linear-Algebra"><img src="https://img.shields.io/github/stars/tttapa/Linear-Algebra?label=GitHub&amp;logo=github" alt="GitHub" class="inline"/></a></p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<div class="textblock"><p><a class="anchor" id="md__home_pieter_GitHub_Linear-Algebra_README"></a><a href="https://github.com/tttapa/Linear-Algebra/actions"><img src="https://github.com/tttapa/Linear-Algebra/workflows/CI%20Tests/badge.svg" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://tttapa.github.io/Linear-Algebra/Coverage/index.html"><img src="https://img.shields.io/endpoint?url=https://tttapa.github.io/Linear-Algebra/Coverage/shield.io.coverage.json" alt="Test Coverage" class="inline"/></a> <a href="https://github.com/tttapa/Linear-Algebra/tree/arduino"><img src="https://img.shields.io/github/stars/tttapa/Linear-Algebra?label=GitHub&amp;logo=github" alt="GitHub" class="inline"/></a></p>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Linear Algebra</h1>
 <p>This repo aims to implement some well-known linear algebra algorithms in a readable and easy to understand way. <br  />
  Established libraries such as BLAS, LAPACK, Eigen etc. offer great performance and precision, but the code is often hard to read.</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md9"></a>
 Documentation</h2>
-<p><a href="https://tttapa.github.io/Linear-Algebra/Doxygen/index.html"><b>Documentation</b></a></p>
-<p>The <a href="https://tttapa.github.io/Linear-Algebra/Doxygen/modules.html"><b>modules</b></a> page is the best place to start.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
-Disclaimer</h2>
-<p>While the code is definitely useful as a linear algebra library, don't use it in critical applications. Use Eigen instead, it'll be faster, numerically more accurate, and more reliable.</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<p><a href="https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/index.html"><b>Documentation</b></a></p>
+<p>The <a href="https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/modules.html"><b>modules</b></a> page is the best place to start browsing the documentation.</p>
+<p>Also see the <a href="https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/d8/da8/md_pages_Installation.html"><b>installation instructions</b></a> and the <a href="https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/examples.html"><b>examples</b></a>.</p>
+<h2><a class="anchor" id="autotoc_md10"></a>
 Arduino</h2>
-<p>This library requires the C++ Standard Library to work correctly. It should work out of the box on more powerful boards (ARM and Espressif) that ship with the STL. On platforms that don't support the STL out of the box, like AVR, you can install the STL through a third-party library.</p>
-<p>The main platform used for testing is the ESP32 (currently version 1.0.4 of the Arduino ESP32 Core). </p>
+<p>This library requires the C++ Standard Library to work correctly. It should work out of the box on more powerful boards (ARM and Espressif) that ship with the STL. On platforms that don't support the STL out of the box, like AVR, you might be able to install the STL through a third-party library, but I haven't tried this.</p>
+<p>The main platforms used for testing are ESP32 (currently version 1.0.4 of the Arduino ESP32 Core) and Teensy 4.0.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">Board </th><th class="markdownTableHeadCenter">Supported </th><th class="markdownTableHeadLeft">Comments  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">ESP32 </td><td class="markdownTableBodyCenter">✔ </td><td class="markdownTableBodyLeft">Full support.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">ESP8266 </td><td class="markdownTableBodyCenter">✔&#160; </td><td class="markdownTableBodyLeft">Full support.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">Teensy 3.x </td><td class="markdownTableBodyCenter">✔ </td><td class="markdownTableBodyLeft">No <code>std::iostream</code> support  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">Teensy 4.x </td><td class="markdownTableBodyCenter">✔ </td><td class="markdownTableBodyLeft">No <code>std::cout</code> support, use <code>arduino::cout</code> instead.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">Arduino Zero </td><td class="markdownTableBodyCenter">✔* </td><td class="markdownTableBodyLeft"><code>std::cout</code> support unknown.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">Arduino Nano 33 BLE </td><td class="markdownTableBodyCenter">✔* </td><td class="markdownTableBodyLeft"><code>std::cout</code> support unknown.  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">AVR (Uno, Mega ...) </td><td class="markdownTableBodyCenter">❌ </td><td class="markdownTableBodyLeft">No STL support.  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">Arduino Due </td><td class="markdownTableBodyCenter">❌ </td><td class="markdownTableBodyLeft">Toolchain's STL is configured incorrectly.  </td></tr>
+</table>
+<p>(*) Compiled but untested. If you own such a board, feel free to open an issue to let me know if it works or not!</p>
+<p>For the STL to work correctly on Teensy 4.x, you need a Teensyduino version that includes <a href="https://github.com/PaulStoffregen/cores/commit/2f8568659cb7553ca12e5ca2d0358df9d30427a6">this patch</a> to the linker scripts.</p>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Disclaimer</h2>
+<p>While the code is definitely useful as a linear algebra library, don't use it in critical applications. If you can, use Eigen instead, it'll be faster, numerically more accurate, and more reliable. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
