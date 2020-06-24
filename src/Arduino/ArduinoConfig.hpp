@@ -16,12 +16,15 @@
 
 #elif defined(TEENSYDUINO)
 
-#if defined(ARDUINO_TEENSY31) || defined(ARDUINO_TEENSY32) ||                  \
+#if defined(ARDUINO_TEENSY30) || defined(ARDUINO_TEENSY32) ||                  \
     defined(ARDUINO_TEENSY35) || defined(ARDUINO_TEENSY36)
 // Teensy 3.x doesn't support iostream
 #define NO_IOSTREAM_SUPPORT
 // The STL is partly broken because of the -fsingle-precision-constant flag
 #define NO_RANDOM_SUPPORT
+// The STL is also broken because of the undefnied __throw_xxx() functions
+// in the funcexcept header
+#define NO_FUNEXCEPT_DEFINITIONS
 #else
 // Teensy 4.x supports iostream and random
 #endif
