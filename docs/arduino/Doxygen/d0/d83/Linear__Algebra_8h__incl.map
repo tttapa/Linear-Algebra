@@ -1,15 +1,16 @@
 <map id="Linear_Algebra.h" name="Linear_Algebra.h">
-<area shape="rect" id="node1" title=" " alt="" coords="520,5,651,32"/>
-<area shape="rect" id="node2" href="$d9/d1c/Matrix_8hpp.html" title=" " alt="" coords="539,80,631,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="553,5,684,32"/>
+<area shape="rect" id="node2" href="$d9/d1c/Matrix_8hpp.html" title=" " alt="" coords="573,80,665,107"/>
 <area shape="rect" id="node3" href="$d9/dd5/ArduinoConfig_8hpp.html" title="Preprocessor logic for configuring the library to make it compatible with the Arduino environment." alt="" coords="15,155,209,181"/>
 <area shape="rect" id="node6" title=" " alt="" coords="233,155,319,181"/>
 <area shape="rect" id="node7" title=" " alt="" coords="343,155,412,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="437,155,523,181"/>
-<area shape="rect" id="node9" title=" " alt="" coords="548,155,623,181"/>
-<area shape="rect" id="node10" title=" " alt="" coords="647,155,719,181"/>
-<area shape="rect" id="node11" title=" " alt="" coords="743,155,803,181"/>
-<area shape="rect" id="node12" title=" " alt="" coords="827,155,890,181"/>
-<area shape="rect" id="node13" title=" " alt="" coords="915,155,979,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="437,155,499,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="523,155,610,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="635,155,709,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="734,155,794,181"/>
+<area shape="rect" id="node12" title=" " alt="" coords="818,155,881,181"/>
+<area shape="rect" id="node13" title=" " alt="" coords="905,155,969,181"/>
+<area shape="rect" id="node14" title=" " alt="" coords="993,155,1065,181"/>
 <area shape="rect" id="node4" href="$df/d96/ArduinoMacroFix_8hpp.html" title="Fixes for problematic macros defined by the Arduino Core." alt="" coords="5,229,219,256"/>
 <area shape="rect" id="node5" title=" " alt="" coords="70,304,154,331"/>
 </map>
