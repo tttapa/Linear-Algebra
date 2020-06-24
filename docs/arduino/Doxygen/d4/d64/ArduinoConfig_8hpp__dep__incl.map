@@ -1,0 +1,12 @@
+<map id="ArduinoConfig.hpp" name="ArduinoConfig.hpp">
+<area shape="rect" id="node1" title="Preprocessor logic for configuring the library to make it compatible with the Arduino environment." alt="" coords="116,5,257,32"/>
+<area shape="rect" id="node2" href="$da/d4b/ArduinoCout_8hpp.html" title="Arduino std::ostream Serial wrapper." alt="" coords="5,80,136,107"/>
+<area shape="rect" id="node4" href="$d3/da8/ArduinoMatrixPrinter_8cpp.html" title="Fallback functions for printing matrices without relying on std::ostream or printf." alt="" coords="95,155,278,181"/>
+<area shape="rect" id="node5" href="$d9/d1c/Matrix_8hpp.html" title=" " alt="" coords="321,80,413,107"/>
+<area shape="rect" id="node3" href="$dd/d4f/Basic-matrix-operations_8ino.html" title=" " alt="" coords="248,229,451,256"/>
+<area shape="rect" id="node6" href="$d9/d52/HouseholderQR_8hpp.html" title=" " alt="" coords="509,155,659,181"/>
+<area shape="rect" id="node9" href="$d9/d1c/Linear__Algebra_8h.html" title=" " alt="" coords="353,155,484,181"/>
+<area shape="rect" id="node10" href="$dd/d52/Matrix_8cpp.html" title=" " alt="" coords="684,155,775,181"/>
+<area shape="rect" id="node7" href="$df/d5c/HouseholderQR_8cpp.html" title=" " alt="" coords="491,229,642,256"/>
+<area shape="rect" id="node8" href="$de/d90/qr-perftest_8cpp.html" title=" " alt="" coords="667,229,784,256"/>
+</map>

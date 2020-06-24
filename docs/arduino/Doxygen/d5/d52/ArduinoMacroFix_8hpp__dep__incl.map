@@ -1,0 +1,13 @@
+<map id="ArduinoMacroFix.hpp" name="ArduinoMacroFix.hpp">
+<area shape="rect" id="node1" title="Fixes for problematic macros defined by the Arduino Core." alt="" coords="107,5,266,32"/>
+<area shape="rect" id="node2" href="$d9/dd5/ArduinoConfig_8hpp.html" title="Preprocessor logic for configuring the library to make it compatible with the Arduino environment." alt="" coords="116,80,257,107"/>
+<area shape="rect" id="node3" href="$da/d4b/ArduinoCout_8hpp.html" title="Arduino std::ostream Serial wrapper." alt="" coords="5,155,136,181"/>
+<area shape="rect" id="node5" href="$d3/da8/ArduinoMatrixPrinter_8cpp.html" title="Fallback functions for printing matrices without relying on std::ostream or printf." alt="" coords="95,229,278,256"/>
+<area shape="rect" id="node6" href="$d9/d1c/Matrix_8hpp.html" title=" " alt="" coords="321,155,413,181"/>
+<area shape="rect" id="node4" href="$dd/d4f/Basic-matrix-operations_8ino.html" title=" " alt="" coords="248,304,451,331"/>
+<area shape="rect" id="node7" href="$d9/d52/HouseholderQR_8hpp.html" title=" " alt="" coords="509,229,659,256"/>
+<area shape="rect" id="node10" href="$d9/d1c/Linear__Algebra_8h.html" title=" " alt="" coords="353,229,484,256"/>
+<area shape="rect" id="node11" href="$dd/d52/Matrix_8cpp.html" title=" " alt="" coords="684,229,775,256"/>
+<area shape="rect" id="node8" href="$df/d5c/HouseholderQR_8cpp.html" title=" " alt="" coords="491,304,642,331"/>
+<area shape="rect" id="node9" href="$de/d90/qr-perftest_8cpp.html" title=" " alt="" coords="667,304,784,331"/>
+</map>
