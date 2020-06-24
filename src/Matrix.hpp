@@ -4,6 +4,7 @@
 
 #include <algorithm>  // std::fill, std::transform
 #include <cassert>    // assert
+#include <cmath>      // std::sqrt
 #include <functional> // std::plus, std::minus
 #include <numeric>    // std::inner_product
 #include <utility>    // std::swap
