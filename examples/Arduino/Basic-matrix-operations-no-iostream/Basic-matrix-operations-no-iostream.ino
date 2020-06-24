@@ -1,71 +1,68 @@
 /**
- * @example Basic-matrix-operations.ino
+ * @example Basic-matrix-operations-no-iostream.ino
  * @brief   Arduino sketch that demonstrates some of the basic features.
  * 
  * ---
  * 
- * Aimed at Arduino boards without STL ostream support. Tested on Teensy 3.2.
+ * Aimed at Arduino boards without STL ostream support. Tested on Teensy 3.2,
+ * compiles for Teensy 3.0, 3.5, 3.6 as well.
  * 
  * Expected output
  * ---------------
  * 
  * ~~~
- * Solve system Ax = v 
- * ------------------- 
+ * Solve system Ax = v
+ * -------------------
  * 
  * A = 
- *               1              6              2
- *               3              2              1
- *               5              1              3
+ *    1.000000e+00   6.000000e+00   2.000000e+00
+ *    3.000000e+00   2.000000e+00   1.000000e+00
+ *    5.000000e+00   1.000000e+00   3.000000e+00
  * 
- * v = 
- *               9
- *               6
- *               9
+ * v =
+ *    9.000000e+00
+ *    6.000000e+00
+ *    9.000000e+00
  * 
- * QR factorization of A: 
- * Q = 
- *       -0.169031       0.963676      -0.206779
- *       -0.507093      0.0948696       0.856654
- *       -0.845154      -0.249657      -0.472637
- * R = 
- *        -5.91608       -2.87352       -3.38062
- *               0        5.72214        1.27325
- *               0              0      -0.974814
+ * QR factorization of A:
+ * Q =
+ *   -1.690309e-01   9.636759e-01  -2.067787e-01
+ *   -5.070926e-01   9.486964e-02   8.566545e-01
+ *   -8.451543e-01  -2.496570e-01  -4.726370e-01
+ * R =
+ *   -5.916080e+00  -2.873524e+00  -3.380617e+00
+ *    0.000000e+00   5.722137e+00   1.273250e+00
+ *    0.000000e+00   0.000000e+00  -9.748137e-01
  * 
- * solution x = 
- *               1
- *               1
- *               1
+ * solution x =
+ *    1.000000e+00
+ *    1.000000e+00
+ *    1.000000e+00
  * 
- * Basic matrix operations 
- * ----------------------- 
+ * Basic matrix operations
+ * -----------------------
  * 
- *  C×B + D = 
- *              32             39
- *              61             77
+ * C×B + D =
+ *    3.200000e+01   3.900000e+01
+ *    6.100000e+01   7.700000e+01
  * 
- * Basic vector operations 
- * ----------------------- 
+ * Basic vector operations
+ * -----------------------
  * 
- * a   =                    1              2              3
+ * a   =         1.000000e+00   2.000000e+00   3.000000e+00
+ * b   =         4.000000e+00   6.000000e+00   5.000000e+00
+ * a×b =        -8.000000e+00   7.000000e+00  -2.000000e+00
+ * a·b =      31.00
  * 
- * b   =                    4              6              5
+ * Element access
+ * --------------
  * 
- * a×b =                   -8              7             -2
- * 
- * a·b =      31
- * 
- * 
- * Element access 
- * -------------- 
- * 
- * A[2,0] = 5
+ * A[2,0] = 5.00
  * A[2,0] ← 100
- * A = 
- *               1              6              2
- *               3              2              1
- *             100              1              3
+ *    1.000000e+00   6.000000e+00   2.000000e+00
+ *    3.000000e+00   2.000000e+00   1.000000e+00
+ *    1.000000e+02   1.000000e+00   3.000000e+00
+ * 
  * ~~~
  */
 
@@ -123,6 +120,7 @@ void setup() {
   Matrix E = C * B + D;
   Serial.println("C×B + D =");
   E.print(Serial);
+  Serial.println();
 
   Serial.println("Basic vector operations");
   Serial.println("-----------------------\n");
