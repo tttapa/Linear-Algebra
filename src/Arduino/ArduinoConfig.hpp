@@ -37,7 +37,7 @@
 // keep in mind that std::cout doesn't work on most boards.
 #endif
 
-#ifdef ESP32
+#if defined(ESP32) || defined(ESP8266)
 #define ARDUINO_HAS_WORKING_COUT
 #else
 // std::cout doesn't work (Teensy 4.x, for example)
