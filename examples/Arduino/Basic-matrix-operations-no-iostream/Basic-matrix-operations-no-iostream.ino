@@ -90,17 +90,16 @@ void setup() {
   Vector x_solution = qr.solve(v);
 
   Serial.println("A = ");
-  A.print(Serial);
-  Serial.println("\nv =");
-  v.print(Serial);
-  Serial.println("\nQR factorization of A:");
+  Serial.println(A);
+  Serial.println("v =");
+  Serial.println(v);
+  Serial.println("QR factorization of A:");
   Serial.println("Q =");
-  qr.get_Q().print(Serial);
+  Serial.println(qr.get_Q());
   Serial.println("R =");
-  qr.get_R().print(Serial);
-  Serial.println("\nsolution x =");
-  x_solution.print(Serial);
-  Serial.println();
+  Serial.println(qr.get_R());
+  Serial.println("solution x =");
+  Serial.println(x_solution);
 
   Serial.println("Basic matrix operations");
   Serial.println("-----------------------\n");
@@ -119,8 +118,7 @@ void setup() {
   };
   Matrix E = C * B + D;
   Serial.println("C×B + D =");
-  E.print(Serial);
-  Serial.println();
+  Serial.println(E);
 
   Serial.println("Basic vector operations");
   Serial.println("-----------------------\n");
@@ -129,11 +127,11 @@ void setup() {
   RowVector c = a.cross(b);
   double d = a.dot(b);
   Serial.print("a   =      ");
-  a.print(Serial);
+  Serial.print(a);
   Serial.print("b   =      ");
-  b.print(Serial);
+  Serial.print(b);
   Serial.print("a×b =      ");
-  c.print(Serial);
+  Serial.print(c);
   Serial.print("a·b =      ");
   Serial.println(d);
   Serial.println();
@@ -146,7 +144,8 @@ void setup() {
   //               └──── row
   Serial.println("A[2,0] ← 100");
   A(2, 0) = 100; // assign a new value to the element
-  A.print(Serial);
+  Serial.println("A =");
+  Serial.println(A);
 }
 
 void loop() {}

@@ -31,8 +31,12 @@ using std::size_t;
 /// @addtogroup MatVec
 /// @{
 
+#ifndef NO_ARDUINO_PRINT_SUPPORT
 /// General matrix class.
+class Matrix : public Printable {
+#else
 class Matrix {
+#endif
 
 #ifdef MATRIX_COUNT_ALLOCATIONS
     using storage_t = std::vector<double, CountingAllocator<double>>;
@@ -309,6 +313,12 @@ class Matrix {
     ///         The width of each element (number of characters).
     ///         (0 = auto)
     void print(Print &print, uint8_t precision = 0, uint8_t width = 0) const;
+
+    /// Implements the Arduino Printable interface.
+    size_t printTo(Print &print) const override {
+        this->print(print);
+        return 0;
+    }
 #endif
 
     /// @}
