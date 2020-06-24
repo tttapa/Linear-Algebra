@@ -6,12 +6,15 @@
 #include <cassert>    // assert
 #include <functional> // std::plus, std::minus
 #include <numeric>    // std::inner_product
-#include <random>     // std::uniform_real_distribution
 #include <utility>    // std::swap
 #include <vector>     // std::vector
 
 #ifndef NO_IOSTREAM_SUPPORT
 #include <iosfwd> // std::ostream
+#endif
+
+#ifndef NO_RANDOM_SUPPORT
+#include <random> // std::uniform_real_distribution
 #endif
 
 using std::size_t;
@@ -173,6 +176,7 @@ class Matrix {
             (*this)(i, i) = 1;
     }
 
+#ifndef NO_RANDOM_SUPPORT
     /// Fill the matrix with uniformly distributed random values.
     void fill_random(double min = 0, double max = 1,
                      std::default_random_engine::result_type seed =
@@ -182,6 +186,7 @@ class Matrix {
         std::generate(storage.begin(), storage.end(),
                       [&] { return dist(gen); });
     }
+#endif
 
     /// @}
 
@@ -214,6 +219,7 @@ class Matrix {
         return m;
     }
 
+#ifndef NO_RANDOM_SUPPORT
     /// Create a matrix with uniformly distributed random values.
     static Matrix random(size_t rows, size_t cols, double min = 0,
                          double max = 1,
@@ -223,6 +229,7 @@ class Matrix {
         m.fill_random(min, max, seed);
         return m;
     }
+#endif
 
     /// @}
 
@@ -371,12 +378,15 @@ class Vector : public Matrix {
     static Vector constant(size_t size, double value) {
         return Vector(Matrix::constant(size, 1, value));
     }
+
+#ifndef NO_RANDOM_SUPPORT
     /// Create a vector with uniformly distributed random values.
     static Vector random(size_t size, double min = 0, double max = 1,
                          std::default_random_engine::result_type seed =
                              std::default_random_engine::default_seed) {
         return Vector(Matrix::random(size, 1, min, max, seed));
     }
+#endif
 
     /// @}
 
@@ -580,12 +590,15 @@ class RowVector : public Matrix {
     static RowVector constant(size_t size, double value) {
         return RowVector(Matrix::constant(1, size, value));
     }
+
+#ifndef NO_RANDOM_SUPPORT
     /// Create a row vector with uniformly distributed random values.
     static RowVector random(size_t size, double min = 0, double max = 1,
                             std::default_random_engine::result_type seed =
                                 std::default_random_engine::default_seed) {
         return RowVector(Matrix::random(1, size, min, max, seed));
     }
+#endif
 
     /// @}
 
@@ -786,12 +799,14 @@ class SquareMatrix : public Matrix {
         return m;
     }
 
+#ifndef NO_RANDOM_SUPPORT
     /// Create a matrix with uniformly distributed random values.
     static SquareMatrix random(size_t rows, double min = 0, double max = 1,
                                std::default_random_engine::result_type seed =
                                    std::default_random_engine::default_seed) {
         return SquareMatrix(Matrix::random(rows, rows, min, max, seed));
     }
+#endif
 
     /// @}
 };
