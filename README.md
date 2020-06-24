@@ -36,12 +36,12 @@ Arduino ESP32 Core) and Teensy 4.0.
 
 |    Board            | Supported | Comments                                             |
 |:--------------------|:---------:|:-----------------------------------------------------|
-| ESP32               |    ✅     | Full support.                                        |
-| ESP8266             |    ✅     | Full support.                                        |
-| Teensy 3.x          |    ✅     | No `std::iostream` support                           |
-| Teensy 4.x          |    ✅     | No `std::cout` support, use `arduino::cout` instead. |
-| Arduino Zero        |    ✅*    | `std::cout` support unknown.                         |
-| Arduino Nano 33 BLE |    ✅*    | `std::cout` support unknown.                         |
+| ESP32               |     ✔     | Full support.                                        |
+| ESP8266             |     ✔     | Full support.                                        |
+| Teensy 3.x          |     ✔     | No `std::iostream` support                           |
+| Teensy 4.x          |     ✔     | No `std::cout` support, use `arduino::cout` instead. |
+| Arduino Zero        |     ✔*    | `std::cout` support unknown.                         |
+| Arduino Nano 33 BLE |     ✔*    | `std::cout` support unknown.                         |
 | AVR (Uno, Mega ...) |    ❌     | No STL support.                                      |
 | Arduino Due         |    ❌     | Toolchain's STL is configured incorrectly.           |
 
