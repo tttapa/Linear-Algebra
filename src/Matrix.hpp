@@ -2,6 +2,7 @@
 
 #include <algorithm>  // std::fill, std::transform
 #include <cassert>    // assert
+#include <cmath>      // std::sqrt
 #include <functional> // std::plus, std::minus
 #include <iosfwd>     // std::ostream
 #include <numeric>    // std::inner_product
@@ -1298,8 +1299,8 @@ inline Matrix &Matrix::operator=(Matrix &&other) {
     // By explicitly defining move assignment, we can be sure that the object
     // that's being moved from has a consistent state.
     this->storage = std::move(other.storage);
-    this->rows_   = other.rows_;
-    this->cols_   = other.cols_;
+    this->rows_ = other.rows_;
+    this->cols_ = other.cols_;
     other.clear_and_deallocate();
     return *this;
 }
@@ -1365,9 +1366,9 @@ inline void Vector::cross_inplace_unchecked(Matrix &a, const Matrix &b) {
     double a0 = a(1) * b(2) - a(2) * b(1);
     double a1 = a(2) * b(0) - a(0) * b(2);
     double a2 = a(0) * b(1) - a(1) * b(0);
-    a(0)      = a0;
-    a(1)      = a1;
-    a(2)      = a2;
+    a(0) = a0;
+    a(1) = a1;
+    a(2) = a2;
 }
 
 inline void Vector::cross_inplace_unchecked_neg(Matrix &a, const Matrix &b) {
@@ -1376,7 +1377,7 @@ inline void Vector::cross_inplace_unchecked_neg(Matrix &a, const Matrix &b) {
     double a0 = a(2) * b(1) - a(1) * b(2);
     double a1 = a(0) * b(2) - a(2) * b(0);
     double a2 = a(1) * b(0) - a(0) * b(1);
-    a(0)      = a0;
-    a(1)      = a1;
-    a(2)      = a2;
+    a(0) = a0;
+    a(1) = a1;
+    a(2) = a2;
 }
