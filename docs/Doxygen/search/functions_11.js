@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zeros_182',['zeros',['../d3/d3f/classMatrix.html#aa81cb58f0e7b0353aaf518cc323e9e96',1,'Matrix::zeros()'],['../d6/da1/classVector.html#ae4ce58044b6fdb6362f9098949b0663f',1,'Vector::zeros()'],['../d2/d78/classRowVector.html#a700b47cc6b8fa5608a280024346aa4b0',1,'RowVector::zeros()'],['../d3/d61/classSquareMatrix.html#a02026cad759c11b0a231b9813f137497',1,'SquareMatrix::zeros()']]]
+  ['vector_205',['Vector',['../d6/da1/classVector.html#aba83f7828d95b601500471996fc8c3c0',1,'Vector::Vector()=default'],['../d6/da1/classVector.html#a575412d73d65d4fd3efc6b94e212417e',1,'Vector::Vector(size_t size)'],['../d6/da1/classVector.html#afa02e30a51e62bde9e97ed5a4a003a73',1,'Vector::Vector(std::initializer_list&lt; double &gt; init)'],['../d6/da1/classVector.html#a10ae08e930d21a7419c693c40e5666b6',1,'Vector::Vector(const Matrix &amp;matrix)'],['../d6/da1/classVector.html#ac3904d5712a1b609e60a1725b2d3193d',1,'Vector::Vector(Matrix &amp;&amp;matrix)']]]
 ];

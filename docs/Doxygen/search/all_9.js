@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['matrix_20factorization_20algorithms_45',['Matrix factorization algorithms',['../d8/d11/group__Factorizations.html',1,'']]],
-  ['main_46',['main',['../de/d90/qr-perftest_8cpp.html#ac0f2228420376f4db7e1274f2b41667c',1,'qr-perftest.cpp']]],
-  ['matrix_20multiplication_47',['Matrix multiplication',['../df/d18/group__MatMul.html',1,'']]],
-  ['matrix_48',['Matrix',['../d3/d3f/classMatrix.html',1,'Matrix'],['../d3/d3f/classMatrix.html#a0771e2842aeea27ace1286dd9a2d70d3',1,'Matrix::Matrix(storage_t &amp;&amp;storage, bool column=true)'],['../d3/d3f/classMatrix.html#a72f2c4a0c953edc2acfb738f225ae653',1,'Matrix::Matrix(const storage_t &amp;storage, bool column=true)'],['../d3/d3f/classMatrix.html#a36dda8dcd30780f175d63046175ae483',1,'Matrix::Matrix(storage_t &amp;&amp;storage, size_t rows, size_t cols)'],['../d3/d3f/classMatrix.html#a8447872dcfa9da3688cb14ff4bfc3cda',1,'Matrix::Matrix(const storage_t &amp;storage, size_t rows, size_t cols)'],['../d3/d3f/classMatrix.html#a9a022fb22fe3aad154e6db6009c611ee',1,'Matrix::Matrix()=default'],['../d3/d3f/classMatrix.html#af819460e6e05b607d61af47cbc7f8d27',1,'Matrix::Matrix(size_t rows, size_t cols)'],['../d3/d3f/classMatrix.html#a78544ffe0bff5f88f7a11fbdd78a7b7e',1,'Matrix::Matrix(std::initializer_list&lt; std::initializer_list&lt; double &gt;&gt; init)'],['../d3/d3f/classMatrix.html#ac80c83116a692aa60bed52b2f6f66aad',1,'Matrix::Matrix(const Matrix &amp;)=default'],['../d3/d3f/classMatrix.html#a67dcbcea8d3a1db8846e1868441a7a19',1,'Matrix::Matrix(Matrix &amp;&amp;)']]],
-  ['matrix_2ecpp_49',['Matrix.cpp',['../dd/d52/Matrix_8cpp.html',1,'']]],
-  ['matrix_2ehpp_50',['Matrix.hpp',['../d9/d1c/Matrix_8hpp.html',1,'']]],
-  ['matrices_20and_20vectors_51',['Matrices and vectors',['../db/d95/group__MatVec.html',1,'']]],
-  ['matrix_20and_20vector_20operations_52',['Matrix and vector operations',['../da/dbb/group__MatVecOp.html',1,'']]]
+  ['lu_51',['LU',['../d5/d2b/classLU.html',1,'LU'],['../d5/d2b/classLU.html#ad4e3dfff8eaf968a2f397c581470b584',1,'LU::LU()=default'],['../d5/d2b/classLU.html#a9a00121b196cf7b7219640a96135df42',1,'LU::LU(const SquareMatrix &amp;matrix)'],['../d5/d2b/classLU.html#adb9660e4196ce0c1f0d7d33eaad2db4b',1,'LU::LU(SquareMatrix &amp;&amp;matrix)']]],
+  ['lu_2ecpp_52',['LU.cpp',['../d6/d57/LU_8cpp.html',1,'']]],
+  ['lu_2ehpp_53',['LU.hpp',['../d6/dcf/LU_8hpp.html',1,'']]],
+  ['lu_5f_54',['LU_',['../d5/d2b/classLU.html#adb6c7aa6baa17506c9b089f4e7b096f3',1,'LU']]]
 ];
