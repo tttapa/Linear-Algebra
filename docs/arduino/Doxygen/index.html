@@ -93,21 +93,21 @@ Arduino</h2>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadLeft">Board </th><th class="markdownTableHeadCenter">Supported </th><th class="markdownTableHeadLeft">Comments  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">ESP32 </td><td class="markdownTableBodyCenter">✔ </td><td class="markdownTableBodyLeft">Full support.  </td></tr>
+<td class="markdownTableBodyLeft">ESP32 </td><td class="markdownTableBodyCenter">✔&#160; </td><td class="markdownTableBodyLeft">Full support.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">ESP8266 </td><td class="markdownTableBodyCenter">✔&#160; </td><td class="markdownTableBodyLeft">Full support.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">Teensy 3.x </td><td class="markdownTableBodyCenter">✔ </td><td class="markdownTableBodyLeft">No <code>std::iostream</code> support  </td></tr>
+<td class="markdownTableBodyLeft">Teensy 3.x </td><td class="markdownTableBodyCenter">✔&#160; </td><td class="markdownTableBodyLeft">No <code>std::iostream</code> support  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">Teensy 4.x </td><td class="markdownTableBodyCenter">✔ </td><td class="markdownTableBodyLeft">No <code>std::cout</code> support, use <code>arduino::cout</code> instead.  </td></tr>
+<td class="markdownTableBodyLeft">Teensy 4.x </td><td class="markdownTableBodyCenter">✔&#160; </td><td class="markdownTableBodyLeft">No <code>std::cout</code> support, use <code>arduino::cout</code> instead.  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyLeft">Arduino Zero </td><td class="markdownTableBodyCenter">✔* </td><td class="markdownTableBodyLeft"><code>std::cout</code> support unknown.  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft">Arduino Nano 33 BLE </td><td class="markdownTableBodyCenter">✔* </td><td class="markdownTableBodyLeft"><code>std::cout</code> support unknown.  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">AVR (Uno, Mega ...) </td><td class="markdownTableBodyCenter">❌ </td><td class="markdownTableBodyLeft">No STL support.  </td></tr>
+<td class="markdownTableBodyLeft">AVR (Uno, Mega ...) </td><td class="markdownTableBodyCenter">❌&#160; </td><td class="markdownTableBodyLeft">No STL support.  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">Arduino Due </td><td class="markdownTableBodyCenter">❌ </td><td class="markdownTableBodyLeft">Toolchain's STL is configured incorrectly.  </td></tr>
+<td class="markdownTableBodyLeft">Arduino Due </td><td class="markdownTableBodyCenter">❌&#160; </td><td class="markdownTableBodyLeft">Toolchain's STL is configured incorrectly.  </td></tr>
 </table>
 <p>(*) Compiled but untested. If you own such a board, feel free to open an issue to let me know if it works or not!</p>
 <p>For the STL to work correctly on Teensy 4.x, you need a Teensyduino version that includes <a href="https://github.com/PaulStoffregen/cores/commit/2f8568659cb7553ca12e5ca2d0358df9d30427a6">this patch</a> to the linker scripts.</p>

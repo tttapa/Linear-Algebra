@@ -155,21 +155,20 @@ Expected output</h2>
 <div class="line">  <a class="code" href="../../d6/da1/classVector.html">Vector</a> x_solution = qr.<a name="a5"></a><a class="code" href="../../d1/dac/classHouseholderQR.html#a369d34e4a9ba9e0ee623419920a08c9d">solve</a>(v);</div>
 <div class="line"> </div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;A = &quot;</span>);</div>
-<div class="line">  A.<a name="a6"></a><a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
-<div class="line">  Serial.println(<span class="stringliteral">&quot;\nv =&quot;</span>);</div>
-<div class="line">  v.<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
-<div class="line">  Serial.println(<span class="stringliteral">&quot;\nQR factorization of A:&quot;</span>);</div>
+<div class="line">  Serial.println(A);</div>
+<div class="line">  Serial.println(<span class="stringliteral">&quot;v =&quot;</span>);</div>
+<div class="line">  Serial.println(v);</div>
+<div class="line">  Serial.println(<span class="stringliteral">&quot;QR factorization of A:&quot;</span>);</div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;Q =&quot;</span>);</div>
-<div class="line">  qr.<a name="a7"></a><a class="code" href="../../d1/dac/classHouseholderQR.html#a8017ad6ce2f42e69b44aeebe4fc0a1a3">get_Q</a>().<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
+<div class="line">  Serial.println(qr.<a name="a6"></a><a class="code" href="../../d1/dac/classHouseholderQR.html#a8017ad6ce2f42e69b44aeebe4fc0a1a3">get_Q</a>());</div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;R =&quot;</span>);</div>
-<div class="line">  qr.<a name="a8"></a><a class="code" href="../../d1/dac/classHouseholderQR.html#a3b4f55ac4e0ec6edcff4c2f097a1284e">get_R</a>().<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
-<div class="line">  Serial.println(<span class="stringliteral">&quot;\nsolution x =&quot;</span>);</div>
-<div class="line">  x_solution.<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
-<div class="line">  Serial.println();</div>
+<div class="line">  Serial.println(qr.<a name="a7"></a><a class="code" href="../../d1/dac/classHouseholderQR.html#a3b4f55ac4e0ec6edcff4c2f097a1284e">get_R</a>());</div>
+<div class="line">  Serial.println(<span class="stringliteral">&quot;solution x =&quot;</span>);</div>
+<div class="line">  Serial.println(x_solution);</div>
 <div class="line"> </div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;Basic matrix operations&quot;</span>);</div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;-----------------------\n&quot;</span>);</div>
-<div class="line">  <a name="_a9"></a><a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> B = {</div>
+<div class="line">  <a name="_a8"></a><a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> B = {</div>
 <div class="line">    {1, 2},</div>
 <div class="line">    {3, 4},</div>
 <div class="line">    {5, 6},</div>
@@ -184,21 +183,20 @@ Expected output</h2>
 <div class="line">  };</div>
 <div class="line">  <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> E = C * B + D;</div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;C×B + D =&quot;</span>);</div>
-<div class="line">  E.<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
-<div class="line">  Serial.println();</div>
+<div class="line">  Serial.println(E);</div>
 <div class="line"> </div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;Basic vector operations&quot;</span>);</div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;-----------------------\n&quot;</span>);</div>
-<div class="line">  <a name="_a10"></a><a class="code" href="../../d2/d78/classRowVector.html">RowVector</a> a = {1, 2, 3};</div>
+<div class="line">  <a name="_a9"></a><a class="code" href="../../d2/d78/classRowVector.html">RowVector</a> a = {1, 2, 3};</div>
 <div class="line">  <a class="code" href="../../d2/d78/classRowVector.html">RowVector</a> b = {4, 6, 5};</div>
-<div class="line">  <a class="code" href="../../d2/d78/classRowVector.html">RowVector</a> c = a.<a name="a11"></a><a class="code" href="../../d2/d78/classRowVector.html#a288c8f7de2e027c2b001b6d485482abe">cross</a>(b);</div>
-<div class="line">  <span class="keywordtype">double</span> d = a.<a name="a12"></a><a class="code" href="../../d2/d78/classRowVector.html#a98f76093f56fed52574551ed9c78f933">dot</a>(b);</div>
+<div class="line">  <a class="code" href="../../d2/d78/classRowVector.html">RowVector</a> c = a.<a name="a10"></a><a class="code" href="../../d2/d78/classRowVector.html#a288c8f7de2e027c2b001b6d485482abe">cross</a>(b);</div>
+<div class="line">  <span class="keywordtype">double</span> d = a.<a name="a11"></a><a class="code" href="../../d2/d78/classRowVector.html#a98f76093f56fed52574551ed9c78f933">dot</a>(b);</div>
 <div class="line">  Serial.print(<span class="stringliteral">&quot;a   =      &quot;</span>);</div>
-<div class="line">  a.<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
+<div class="line">  Serial.print(a);</div>
 <div class="line">  Serial.print(<span class="stringliteral">&quot;b   =      &quot;</span>);</div>
-<div class="line">  b.<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
+<div class="line">  Serial.print(b);</div>
 <div class="line">  Serial.print(<span class="stringliteral">&quot;a×b =      &quot;</span>);</div>
-<div class="line">  c.<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
+<div class="line">  Serial.print(c);</div>
 <div class="line">  Serial.print(<span class="stringliteral">&quot;a·b =      &quot;</span>);</div>
 <div class="line">  Serial.println(d);</div>
 <div class="line">  Serial.println();</div>
@@ -211,28 +209,28 @@ Expected output</h2>
 <div class="line">  <span class="comment">//               └──── row</span></div>
 <div class="line">  Serial.println(<span class="stringliteral">&quot;A[2,0] ← 100&quot;</span>);</div>
 <div class="line">  A(2, 0) = 100; <span class="comment">// assign a new value to the element</span></div>
-<div class="line">  A.<a class="code" href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">print</a>(Serial);</div>
+<div class="line">  Serial.println(<span class="stringliteral">&quot;A =&quot;</span>);</div>
+<div class="line">  Serial.println(A);</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> <a name="a13"></a><a class="code" href="../../de/dd7/Basic-matrix-operations-no-iostream_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a>() {}</div>
+<div class="line"><span class="keywordtype">void</span> <a name="a12"></a><a class="code" href="../../de/dd7/Basic-matrix-operations-no-iostream_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a>() {}</div>
 </div><!-- fragment --> </div><!-- contents -->
-<div class="ttc" id="aclassMatrix_html"><div class="ttname"><a href="../../d3/d3f/classMatrix.html">Matrix</a></div><div class="ttdoc">General matrix class.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00035">Matrix.hpp:35</a></div></div>
-<div class="ttc" id="aclassRowVector_html"><div class="ttname"><a href="../../d2/d78/classRowVector.html">RowVector</a></div><div class="ttdoc">A row vector (1×n matrix).</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00533">Matrix.hpp:533</a></div></div>
+<div class="ttc" id="aclassMatrix_html"><div class="ttname"><a href="../../d3/d3f/classMatrix.html">Matrix</a></div><div class="ttdoc">General matrix class.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00036">Matrix.hpp:36</a></div></div>
+<div class="ttc" id="aclassRowVector_html"><div class="ttname"><a href="../../d2/d78/classRowVector.html">RowVector</a></div><div class="ttdoc">A row vector (1×n matrix).</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00543">Matrix.hpp:543</a></div></div>
 <div class="ttc" id="aclassHouseholderQR_html_a369d34e4a9ba9e0ee623419920a08c9d"><div class="ttname"><a href="../../d1/dac/classHouseholderQR.html#a369d34e4a9ba9e0ee623419920a08c9d">HouseholderQR::solve</a></div><div class="ttdeci">Matrix solve(const Matrix &amp;B) const</div><div class="ttdoc">Solve the system AX = B or QRX = B.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d5c/HouseholderQR_8cpp_source.html#l00314">HouseholderQR.cpp:314</a></div></div>
-<div class="ttc" id="aclassSquareMatrix_html"><div class="ttname"><a href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a></div><div class="ttdoc">Square matrix class.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00717">Matrix.hpp:717</a></div></div>
+<div class="ttc" id="aclassSquareMatrix_html"><div class="ttname"><a href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a></div><div class="ttdoc">Square matrix class.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00727">Matrix.hpp:727</a></div></div>
 <div class="ttc" id="aLinear__Algebra_8h_html"><div class="ttname"><a href="../../d9/d1c/Linear__Algebra_8h.html">Linear_Algebra.h</a></div></div>
 <div class="ttc" id="aBasic-matrix-operations-no-iostream_8ino_html_a4fc01d736fe50cf5b977f755b675f11d"><div class="ttname"><a href="../../de/dd7/Basic-matrix-operations-no-iostream_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a></div><div class="ttdeci">void setup()</div><div class="ttdef"><b>Definition:</b> <a href="../../de/dd7/Basic-matrix-operations-no-iostream_8ino_source.html#l00074">Basic-matrix-operations-no-iostream.ino:74</a></div></div>
-<div class="ttc" id="aclassMatrix_html_afd557ecd2b92874358328ece22e408a4"><div class="ttname"><a href="../../d3/d3f/classMatrix.html#afd557ecd2b92874358328ece22e408a4">Matrix::print</a></div><div class="ttdeci">void print(std::ostream &amp;os, uint8_t precision=0, uint8_t width=0) const</div><div class="ttdoc">Print a matrix.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d52/Matrix_8cpp_source.html#l00008">Matrix.cpp:8</a></div></div>
-<div class="ttc" id="aclassRowVector_html_a98f76093f56fed52574551ed9c78f933"><div class="ttname"><a href="../../d2/d78/classRowVector.html#a98f76093f56fed52574551ed9c78f933">RowVector::dot</a></div><div class="ttdeci">static double dot(const RowVector &amp;a, const RowVector &amp;b)</div><div class="ttdoc">Compute the dot product of two vectors.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00611">Matrix.hpp:611</a></div></div>
+<div class="ttc" id="aclassRowVector_html_a98f76093f56fed52574551ed9c78f933"><div class="ttname"><a href="../../d2/d78/classRowVector.html#a98f76093f56fed52574551ed9c78f933">RowVector::dot</a></div><div class="ttdeci">static double dot(const RowVector &amp;a, const RowVector &amp;b)</div><div class="ttdoc">Compute the dot product of two vectors.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00621">Matrix.hpp:621</a></div></div>
 <div class="ttc" id="aclassHouseholderQR_html_a8017ad6ce2f42e69b44aeebe4fc0a1a3"><div class="ttname"><a href="../../d1/dac/classHouseholderQR.html#a8017ad6ce2f42e69b44aeebe4fc0a1a3">HouseholderQR::get_Q</a></div><div class="ttdeci">SquareMatrix get_Q() const</div><div class="ttdoc">Compute the unitary matrix Q.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d5c/HouseholderQR_8cpp_source.html#l00281">HouseholderQR.cpp:281</a></div></div>
-<div class="ttc" id="aclassVector_html_aa2cb4f071272d5ac445b519bfebfcb08"><div class="ttname"><a href="../../d6/da1/classVector.html#aa2cb4f071272d5ac445b519bfebfcb08">Vector::ones</a></div><div class="ttdeci">static Vector ones(size_t size)</div><div class="ttdoc">Create a vector filled with ones.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00375">Matrix.hpp:375</a></div></div>
+<div class="ttc" id="aclassVector_html_aa2cb4f071272d5ac445b519bfebfcb08"><div class="ttname"><a href="../../d6/da1/classVector.html#aa2cb4f071272d5ac445b519bfebfcb08">Vector::ones</a></div><div class="ttdeci">static Vector ones(size_t size)</div><div class="ttdoc">Create a vector filled with ones.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00385">Matrix.hpp:385</a></div></div>
 <div class="ttc" id="aclassHouseholderQR_html_a3b4f55ac4e0ec6edcff4c2f097a1284e"><div class="ttname"><a href="../../d1/dac/classHouseholderQR.html#a3b4f55ac4e0ec6edcff4c2f097a1284e">HouseholderQR::get_R</a></div><div class="ttdeci">Matrix get_R() const &amp;</div><div class="ttdoc">Get a copy of the upper-triangular matrix R.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d5c/HouseholderQR_8cpp_source.html#l00254">HouseholderQR.cpp:254</a></div></div>
 <div class="ttc" id="aMatrix_8hpp_html"><div class="ttname"><a href="../../d9/d1c/Matrix_8hpp.html">Matrix.hpp</a></div></div>
 <div class="ttc" id="aHouseholderQR_8hpp_html"><div class="ttname"><a href="../../d9/d52/HouseholderQR_8hpp.html">HouseholderQR.hpp</a></div></div>
-<div class="ttc" id="aBasic-matrix-operations-no-iostream_8ino_html_afe461d27b9c48d5921c00d521181f12f"><div class="ttname"><a href="../../de/dd7/Basic-matrix-operations-no-iostream_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a></div><div class="ttdeci">void loop()</div><div class="ttdef"><b>Definition:</b> <a href="../../de/dd7/Basic-matrix-operations-no-iostream_8ino_source.html#l00152">Basic-matrix-operations-no-iostream.ino:152</a></div></div>
+<div class="ttc" id="aBasic-matrix-operations-no-iostream_8ino_html_afe461d27b9c48d5921c00d521181f12f"><div class="ttname"><a href="../../de/dd7/Basic-matrix-operations-no-iostream_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a></div><div class="ttdeci">void loop()</div><div class="ttdef"><b>Definition:</b> <a href="../../de/dd7/Basic-matrix-operations-no-iostream_8ino_source.html#l00151">Basic-matrix-operations-no-iostream.ino:151</a></div></div>
 <div class="ttc" id="aclassHouseholderQR_html"><div class="ttname"><a href="../../d1/dac/classHouseholderQR.html">HouseholderQR</a></div><div class="ttdoc">QR factorization using Householder reflectors.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d52/HouseholderQR_8hpp_source.html#l00016">HouseholderQR.hpp:16</a></div></div>
-<div class="ttc" id="aclassVector_html"><div class="ttname"><a href="../../d6/da1/classVector.html">Vector</a></div><div class="ttdoc">A column vector (n×1 matrix).</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00325">Matrix.hpp:325</a></div></div>
-<div class="ttc" id="aclassRowVector_html_a288c8f7de2e027c2b001b6d485482abe"><div class="ttname"><a href="../../d2/d78/classRowVector.html#a288c8f7de2e027c2b001b6d485482abe">RowVector::cross</a></div><div class="ttdeci">static RowVector cross(const RowVector &amp;a, const RowVector &amp;b)</div><div class="ttdoc">Compute the cross product of two 3-vectors.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00666">Matrix.hpp:666</a></div></div>
+<div class="ttc" id="aclassVector_html"><div class="ttname"><a href="../../d6/da1/classVector.html">Vector</a></div><div class="ttdoc">A column vector (n×1 matrix).</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00335">Matrix.hpp:335</a></div></div>
+<div class="ttc" id="aclassRowVector_html_a288c8f7de2e027c2b001b6d485482abe"><div class="ttname"><a href="../../d2/d78/classRowVector.html#a288c8f7de2e027c2b001b6d485482abe">RowVector::cross</a></div><div class="ttdeci">static RowVector cross(const RowVector &amp;a, const RowVector &amp;b)</div><div class="ttdoc">Compute the cross product of two 3-vectors.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00676">Matrix.hpp:676</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

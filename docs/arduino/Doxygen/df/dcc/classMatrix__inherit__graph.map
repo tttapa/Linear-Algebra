@@ -1,6 +1,7 @@
 <map id="Matrix" name="Matrix">
-<area shape="rect" id="node1" title="General matrix class." alt="" coords="183,5,364,713"/>
-<area shape="rect" id="node2" href="$d2/d78/classRowVector.html" title="A row vector (1×n matrix)." alt="" coords="5,805,168,1396"/>
-<area shape="rect" id="node3" href="$d3/d61/classSquareMatrix.html" title="Square matrix class." alt="" coords="193,959,354,1242"/>
-<area shape="rect" id="node4" href="$d6/da1/classVector.html" title="A column vector (n×1 matrix)." alt="" coords="378,761,617,1440"/>
+<area shape="rect" id="node1" title="General matrix class." alt="" coords="183,131,364,853"/>
+<area shape="rect" id="node3" href="$d2/d78/classRowVector.html" title="A row vector (1×n matrix)." alt="" coords="5,945,168,1536"/>
+<area shape="rect" id="node4" href="$d3/d61/classSquareMatrix.html" title="Square matrix class." alt="" coords="193,1099,354,1382"/>
+<area shape="rect" id="node5" href="$d6/da1/classVector.html" title="A column vector (n×1 matrix)." alt="" coords="378,901,617,1580"/>
+<area shape="rect" id="node2" title=" " alt="" coords="233,5,313,83"/>
 </map>

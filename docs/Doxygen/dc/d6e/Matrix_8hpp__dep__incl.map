@@ -1,7 +1,9 @@
 <map id="Matrix.hpp" name="Matrix.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="185,5,277,32"/>
-<area shape="rect" id="node2" href="$d9/d52/HouseholderQR_8hpp.html" title=" " alt="" coords="84,80,235,107"/>
-<area shape="rect" id="node5" href="$dd/d52/Matrix_8cpp.html" title=" " alt="" coords="259,80,350,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="317,5,409,32"/>
+<area shape="rect" id="node2" href="$d9/d52/HouseholderQR_8hpp.html" title=" " alt="" coords="155,80,305,107"/>
+<area shape="rect" id="node5" href="$d6/dcf/LU_8hpp.html" title=" " alt="" coords="330,80,397,107"/>
+<area shape="rect" id="node7" href="$dd/d52/Matrix_8cpp.html" title=" " alt="" coords="421,80,511,107"/>
 <area shape="rect" id="node3" href="$df/d5c/HouseholderQR_8cpp.html" title=" " alt="" coords="5,155,156,181"/>
 <area shape="rect" id="node4" href="$de/d90/qr-perftest_8cpp.html" title=" " alt="" coords="181,155,298,181"/>
+<area shape="rect" id="node6" href="$d6/d57/LU_8cpp.html" title=" " alt="" coords="330,155,397,181"/>
 </map>

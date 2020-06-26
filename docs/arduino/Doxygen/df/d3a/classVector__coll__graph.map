@@ -1,5 +1,6 @@
 <map id="Vector" name="Vector">
-<area shape="rect" id="node1" title="A column vector (n×1 matrix)." alt="" coords="5,888,244,1567"/>
-<area shape="rect" id="node2" href="$d3/d3f/classMatrix.html" title="General matrix class." alt="" coords="34,160,215,839"/>
-<area shape="rect" id="node3" title=" " alt="" coords="95,5,155,83"/>
+<area shape="rect" id="node1" title="A column vector (n×1 matrix)." alt="" coords="5,903,244,1581"/>
+<area shape="rect" id="node2" href="$d3/d3f/classMatrix.html" title="General matrix class." alt="" coords="34,160,215,853"/>
+<area shape="rect" id="node3" title=" " alt="" coords="38,5,118,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="143,5,203,83"/>
 </map>
