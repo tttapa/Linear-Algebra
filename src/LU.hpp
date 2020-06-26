@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Matrix.hpp"
 
 /** 
@@ -6,7 +8,7 @@
  * Factorizes a square matrix into a lower triangular and an upper-triangular
  * factor.
  * 
- * This version does not use column pivoting, and is not rank-revealing.
+ * This version does not use row pivoting, and is not rank-revealing.
  * 
  * @warning **Never** use this factorization, it is not numerically stable and
  *          will fail completely if a zero pivot is encountered. This algorithm
