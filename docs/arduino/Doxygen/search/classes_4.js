@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['vector_122',['Vector',['../d6/da1/classVector.html',1,'']]]
+  ['serialbuf_133',['SerialBuf',['../d0/dd0/structarduino_1_1SerialBuf.html',1,'arduino']]],
+  ['squarematrix_134',['SquareMatrix',['../d3/d61/classSquareMatrix.html',1,'']]]
 ];
