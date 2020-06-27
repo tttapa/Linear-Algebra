@@ -1,4 +1,4 @@
-#include "LU.hpp"
+#include "RowPivotLU.hpp"
 
 #include <cassert>
 #include <iomanip>
@@ -6,30 +6,35 @@
 
 /**
  * @pre     `LU_` contains the matrix A to be factorized
+ * @pre     `P` contains the identity matrix (no permutations)
  * @pre     `LU_.rows() == LU_.cols()`
+ * @pre     `P.size() == LU_.rows()`
  * 
  * @post    The complete upper-triangular part of `LU_` contains the full 
  *          upper-triangular matrix U and the strict lower-triangular part of 
  *          matrix L. The diagonal elements of L are implicitly 1.
- * @post    `get_L() * get_U() == A`
+ * @post    `get_L() * get_U() == get_P() * A`
  *          (up to rounding errors)
  */
-void LU::compute_factorization() {
+void RowPivotLU::compute_factorization() {
     // For the intermediate calculations, we'll be working with LU_.
     // It is initialized to the square n×n matrix to be factored.
 
     assert(LU_.rows() == LU_.cols());
+    assert(P.size() == LU_.rows());
 
     // The goal of the LU factorization algorithm is to repeatedly apply
     // transformations Lₖ to the matrix A to eventually end up with an upper-
-    // triangular matrix U:
+    // triangular matrix U. When row pivoting is used, the rows of A are
+    // permuted using a permutation matrix P:
     //
-    //     Lₙ⋯L₂L₁A = U
+    //     Lₙ⋯L₂L₁PA = U
     //
-    // The first transformation L₁ will introduce zeros below the diagonal in
-    // the first column of A, L₂ will introduce zeros below the diagonal in the
-    // second column of L₁A (while preserving the zeros introduced by L₁), and
-    // so on, until all elements below the diagonal are zero.
+    // The main steps of the algorithm are exactly the same as the original
+    // LU algorithm explained in LU.cpp, and will not be repeated here.
+    // The only difference is that instead of using the diagonal element as the
+    // pivot, rows are swapped so that the element with the largest magnitude
+    // ends up on the diagonal and can be used as the pivot.
 
     // Loop over all columns of A:
     for (size_t k = 0; k < LU_.cols(); ++k) {
@@ -37,106 +42,40 @@ void LU::compute_factorization() {
         // and it follows the usual mathematical convention.
         // In the code, however, array indices start at zero, so k = [0, n-1].
 
-        // In order to introduce a zero in the i-th row and the k-th column of
-        // the matrix, subtract a multiple of the k-th row from the i-th row,
-        // using a scaling factor lᵢₖ such that
-        //
-        //     A(i,k) - lᵢₖ·A(k,k) = 0
-        //     lᵢₖ = A(i,k) / A(k,k)
-        //
-        // This is the typical Gaussian elimination algorithm.
-        // The element A(k,k) is often called the pivot.
+        // On each iteration, the largest element on or below the diagonal in
+        // the current (k-th) column will be used as the pivot.
+        // To this end, the k-th row and the row that contains the largest
+        // element are swapped, and the swapping is stored in the permutation
+        // matrix, so that it can later be undone, when solving systems of
+        // equations for example.
 
-        // The first update step (k=1) subtracts multiples of the first row from
-        // the rows below it.
-        // It can be represented as a lower-triangular matrix L₁:
-        //     ┌                ┐
-        //     │  1             │
-        //     │ -l₁₁ 1         │
-        //     │ -l₂₁ 0   1     │
-        //     │ -l₃₁ 0   0   1 │
-        //     └                ┘
-        // Compute the product L₁A to verify this!
-        // You can see that the diagonal just preserves all rows, and the
-        // factors in the first columns of L₁ subtract a multiple of the first
-        // row from the other rows.
-        //
-        // The next step (k=2) follows exactly the same principle, but now
-        // subtracts multiples of the second row, resulting in a matrix L₂:
-        //     ┌               ┐
-        //     │ 1             │
-        //     │ 0   1         │
-        //     │ 0  -l₁₂ 1     │
-        //     │ 0  -l₂₂ 0   1 │
-        //     └               ┘
-        // This can be continued for all n columns of A.
-        //
-        // After applying matrices L₁ through Lₙ to A, it has been transformed
-        // into an upper-triangular matrix U:
-        //
-        //     Lₙ⋯L₂L₁A = U
-        //     A = L₁⁻¹L₂⁻¹⋯Lₙ⁻¹U
-        //     A = LU
-        //
-        // Where
-        //     L = L₁⁻¹L₂⁻¹⋯Lₙ⁻¹
-        //
-        // Luckily, inverting the matrices Lₖ is trivial, since they are sparse
-        // lower-triangular matrices with a determinant of 1, so their inverses
-        // will be equal to their adjugates.
-        // As an example, and without loss of generality, computing the adjugate
-        // of L₂ results in:
-        //     ┌               ┐
-        //     │ 1             │
-        //     │ 0   1         │
-        //     │ 0   l₁₂ 1     │
-        //     │ 0   l₂₂ 0   1 │
-        //     └               ┘
-        // This result is not immediately obvious, you have to write out some
-        // 3×3 determinants, but it's clear that many of them will be 0 or 1.
-        // Recall that the adjugate of a matrix is the transpose of the cofactor
-        // matrix.
-        //
-        // Finally, computing the product of all Lₖ⁻¹ factors is trivial as
-        // well, because of the structure of the factors. For example,
-        //     L₁⁻¹L₂⁻¹ =
-        //     ┌               ┐
-        //     │ 1             │
-        //     │ l₁₁ 1         │
-        //     │ l₂₁ l₁₂ 1     │
-        //     │ l₃₁ l₂₂ 0   1 │
-        //     └               ┘
-        // In conclusion, we can just combine all factors lᵢₖ into the matrix L,
-        // without explicitly having to invert or multiply any matrices. Even
-        // the minus signs cancel out!
+        // Find the largest element (in absolute value)
+        double max_elem = std::abs(LU_(k, k));
+        size_t max_index = k;
+        for (size_t i = k + 1; i < LU_.rows(); ++i) {
+            double abs_elem = std::abs(LU_(i, k));
+            if (abs_elem > max_elem) {
+                max_elem = abs_elem;
+                max_index = i;
+            }
+        }
 
-        // Note that by applying this transformation Lₖ to A, you'll always end
-        // up with zeros below the diagonal in the current column k, so there's
-        // no point in saving these zeros explicitly. Instead, this space is
-        // used to store the scaling factors lᵢₖ, i.e. the strict lower-
-        // triangular elements of L. The diagonal elements of L don't have to be
-        // stored either, because they're always 1.
+        // Select the index of the element that is largest in absolute value as
+        // the new pivot index.
+        // If this index is not the diagonal element, rows have to be swapped:
+        if (max_index != k) {
+            P(k) = max_index;            // save the permutation
+            LU_.swap_rows(k, max_index); // actually perfrom the permutation
+        }
 
-        // Use the diagonal element as the pivot:
+        // The rest of the algorithm is identical to the one explained in
+        // LU.cpp.
+
         double pivot = LU_(k, k);
 
         // Compute the k-th column of L, the coefficients lᵢₖ:
         for (size_t i = k + 1; i < LU_.rows(); ++i)
             LU_(i, k) /= pivot;
-
-        // Now update the rest of the matrix, we already (implicitly) introduced
-        // zeros below the diagonal in the k-th column, and we also stored the
-        // scaling factors for each row that determine Lₖ, but we haven't
-        // actually subtracted the multiples of the pivot row from the rest of
-        // the matrix yet, or in other words, we haven't multiplied the bottom
-        // right block of the matrix by Lₖ yet.
-        //
-        // Again, Lₖ has already been implicitly applied to the k-th column by
-        // setting all values below the diagonal to zero. Also the k-th row is
-        // unaffected by Lₖ because the k-th row of Lₖ is always equal to
-        // ̅eₖ = (0 ... 0 1 0 ... 0).
-        // This means only the rows and columns k+1 through n have to be
-        // updated.
 
         // Update the trailing submatrix A'(k+1:n,k+1:n) = LₖA(k+1:n,k+1:n):
         for (size_t c = k + 1; c < LU_.cols(); ++c)
@@ -145,22 +84,17 @@ void LU::compute_factorization() {
                 // A'(i,c) = 1·A(i,c) - lᵢₖ·A(k,c)
                 LU_(i, c) -= LU_(i, k) * LU_(k, c);
 
-        // We won't handle this here explicitly, but notice how the algorithm
-        // fails when the value of the pivot is zero (or very small), as this
-        // will cause a division by zero. When using IEEE 754 floating point
-        // numbers, this means that the factors lᵢₖ will overflow to ±∞,
-        // and during later calculations, infinities might be subtracted from
-        // eachother, resulting in many elements becoming NaN (Not a Number).
-        //
-        // Even ignoring the numerical issues with LU factorization, this is a
-        // huge dealbreaker: if a zero pivot is encountered anywhere during the
-        // factorization, it fails.
-        // Zero pivots occur even when the matrix is non-singular.
+        // Because of the row pivoting, zero pivots are no longer an issue,
+        // since the pivot is always chosen to be the largest possible element.
+        // When the matrix is singular, the algorithm will still fail, of
+        // course.
     }
     state = Factored;
+    has_LU_ = true;
+    has_P_ = true;
 }
 
-void LU::back_subs(const Matrix &B, Matrix &X) const {
+void RowPivotLU::back_subs(const Matrix &B, Matrix &X) const {
     // Solve upper triangular system UX = B by solving each column of B as a
     // vector system Uxᵢ = bᵢ
     //
@@ -186,7 +120,7 @@ void LU::back_subs(const Matrix &B, Matrix &X) const {
     }
 }
 
-void LU::forward_subs(const Matrix &B, Matrix &X) const {
+void RowPivotLU::forward_subs(const Matrix &B, Matrix &X) const {
     // Solve lower triangular system LX = B by solving each column of B as a
     // vector system Lxᵢ = bᵢ.
     // The diagonal is always 1, due to the construction of the L matrix in the
@@ -213,15 +147,16 @@ void LU::forward_subs(const Matrix &B, Matrix &X) const {
     }
 }
 
-void LU::solve_inplace(Matrix &B) const {
-    // Solve the system AX = B, or LUX = B.
+void RowPivotLU::solve_inplace(Matrix &B) const {
+    // Solve the system AX = B, PAX = PB or LUX = PB.
     //
-    // Let UX = Z, and first solve LZ = B, which is a simple lower-triangular
+    // Let UX = Z, and first solve LZ = PB, which is a simple lower-triangular
     // system of equations.
     // Now that Z is known, solve UX = Z, which is a simple upper-triangular
     // system of equations.
     assert(is_factored());
 
+    P.permute_rows(B);
     forward_subs(B, B); // overwrite B with Z
     back_subs(B, B);    // overwrite B (Z) with X
 }
@@ -230,19 +165,24 @@ void LU::solve_inplace(Matrix &B) const {
 // :::::::::::::::::::::::: Mostly boilerplate below :::::::::::::::::::::::: //
 //                                                                            //
 
-void LU::compute(SquareMatrix &&matrix) {
+void RowPivotLU::compute(SquareMatrix &&matrix) {
     LU_ = std::move(matrix);
+    P.resize(LU_.rows());
+    P.fill_identity();
     compute_factorization();
 }
 
-void LU::compute(const SquareMatrix &matrix) {
+void RowPivotLU::compute(const SquareMatrix &matrix) {
     LU_ = matrix;
+    P.resize(LU_.rows());
+    P.fill_identity();
     compute_factorization();
 }
 
-SquareMatrix &&LU::steal_L() {
+SquareMatrix &&RowPivotLU::steal_L() {
     assert(has_LU());
     state = NotFactored;
+    has_LU_ = false;
     for (size_t c = 0; c < LU_.cols(); ++c) {
         // Elements above the diagonal are zero
         for (size_t r = 0; r < c; ++r)
@@ -254,7 +194,7 @@ SquareMatrix &&LU::steal_L() {
     return std::move(LU_);
 }
 
-void LU::get_L_inplace(Matrix &L) const {
+void RowPivotLU::get_L_inplace(Matrix &L) const {
     assert(has_LU());
     assert(L.rows() == LU_.rows());
     assert(L.cols() == LU_.cols());
@@ -270,15 +210,16 @@ void LU::get_L_inplace(Matrix &L) const {
     }
 }
 
-SquareMatrix LU::get_L() const & {
+SquareMatrix RowPivotLU::get_L() const & {
     SquareMatrix L(LU_.rows());
     get_L_inplace(L);
     return L;
 }
 
-SquareMatrix &&LU::steal_U() {
+SquareMatrix &&RowPivotLU::steal_U() {
     assert(has_LU());
     state = NotFactored;
+    has_LU_ = false;
     for (size_t c = 0; c < LU_.cols(); ++c) {
         // Elements above and on the diagonal are stored in LU_ already
         // Elements below the diagonal are zero
@@ -288,7 +229,7 @@ SquareMatrix &&LU::steal_U() {
     return std::move(LU_);
 }
 
-void LU::get_U_inplace(Matrix &U) const {
+void RowPivotLU::get_U_inplace(Matrix &U) const {
     assert(has_LU());
     assert(U.rows() == LU_.rows());
     assert(U.cols() == LU_.cols());
@@ -302,40 +243,47 @@ void LU::get_U_inplace(Matrix &U) const {
     }
 }
 
-SquareMatrix LU::get_U() const & {
+SquareMatrix RowPivotLU::get_U() const & {
     SquareMatrix U(LU_.rows());
     get_U_inplace(U);
     return U;
 }
 
-SquareMatrix &&LU::steal_LU() {
+PermutationMatrix &&RowPivotLU::steal_P() {
     state = NotFactored;
+    has_P_ = false;
+    return std::move(P);
+}
+
+SquareMatrix &&RowPivotLU::steal_LU() {
+    state = NotFactored;
+    has_LU_ = false;
     return std::move(LU_);
 }
 
-Matrix LU::solve(const Matrix &B) const {
+Matrix RowPivotLU::solve(const Matrix &B) const {
     Matrix B_cpy = B;
     solve_inplace(B_cpy);
     return B_cpy;
 }
 
-Matrix &&LU::solve(Matrix &&B) const {
+Matrix &&RowPivotLU::solve(Matrix &&B) const {
     solve_inplace(B);
     return std::move(B);
 }
 
-Vector LU::solve(const Vector &b) const {
+Vector RowPivotLU::solve(const Vector &b) const {
     return Vector(solve(static_cast<const Matrix &>(b)));
 }
 
-Vector &&LU::solve(Vector &&b) const {
+Vector &&RowPivotLU::solve(Vector &&b) const {
     solve_inplace(b);
     return std::move(b);
 }
 
 // LCOV_EXCL_START
 
-std::ostream &operator<<(std::ostream &os, const LU &lu) {
+std::ostream &operator<<(std::ostream &os, const RowPivotLU &lu) {
     if (!lu.is_factored()) {
         os << "Not factored." << std::endl;
         return os;

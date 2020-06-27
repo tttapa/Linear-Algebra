@@ -174,18 +174,6 @@ void HouseholderQR::compute_factorization() {
     state = Factored;
 }
 
-void HouseholderQR::compute(Matrix &&matrix) {
-    RW = std::move(matrix);
-    R_diag.resize(RW.cols());
-    compute_factorization();
-}
-
-void HouseholderQR::compute(const Matrix &matrix) {
-    RW = matrix;
-    R_diag.resize(RW.cols());
-    compute_factorization();
-}
-
 void HouseholderQR::apply_QT_inplace(Matrix &B) const {
     assert(is_factored());
     assert(RW.rows() == B.rows());
@@ -200,17 +188,6 @@ void HouseholderQR::apply_QT_inplace(Matrix &B) const {
     }
 }
 
-Matrix HouseholderQR::apply_QT(const Matrix &B) const {
-    Matrix result = B;
-    apply_QT_inplace(result);
-    return result;
-}
-
-Matrix &&HouseholderQR::apply_QT(Matrix &&B) const {
-    apply_QT_inplace(B);
-    return std::move(B);
-}
-
 void HouseholderQR::apply_Q_inplace(Matrix &X) const {
     assert(is_factored());
     assert(RW.rows() == X.rows());
@@ -223,6 +200,75 @@ void HouseholderQR::apply_Q_inplace(Matrix &X) const {
                 X(i, c) -= RW(i, r) * dot_product;
         }
     }
+}
+
+void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
+    // Solve upper triangular system RX = B by solving each column of B as a
+    // vector system Rxᵢ = bᵢ
+    //
+    //     ┌                 ┐┌     ┐   ┌     ┐
+    //     │ r₁₁ r₁₂ r₁₃ r₁₄ ││ x₁ᵢ │   │ b₁ᵢ │
+    //     │     r₂₂ r₂₃ r₂₄ ││ x₂ᵢ │ = │ b₂ᵢ │
+    //     │         r₃₃ r₃₄ ││ x₃ᵢ │   │ b₃ᵢ │
+    //     │             r₄₄ ││ x₄ᵢ │   │ b₄ᵢ │
+    //     └                 ┘└     ┘   └     ┘
+    //
+    // b₄ᵢ = r₄₄·x₄ᵢ                     ⟺ x₄ᵢ = b₄ᵢ/r₄₄
+    // b₃ᵢ = r₃₃·x₃ᵢ + r₃₄·x₄ᵢ           ⟺ x₃ᵢ = (b₃ᵢ - r₃₄·x₄ᵢ)/r₃₃
+    // b₂ᵢ = r₂₂·x₂ᵢ + r₂₃·x₃ᵢ + r₂₄·x₄ᵢ ⟺ x₂ᵢ = (b₂ᵢ - r₂₃·x₃ᵢ + r₂₄·x₄ᵢ)/r₂₂
+    // ...
+    
+    for (size_t i = 0; i < B.cols(); ++i) {
+        for (size_t k = RW.cols(); k-- > 0;) {
+            X(k, i) = B(k, i);
+            for (size_t j = k + 1; j < RW.cols(); ++j) {
+                X(k, i) -= RW(k, j) * X(j, i);
+            }
+            X(k, i) /= R_diag(k);
+        }
+    }
+}
+
+void HouseholderQR::solve_inplace(Matrix &B) const {
+    apply_QT_inplace(B);
+
+    // If the matrix is square, operate on B directly
+    if (RW.cols() == RW.rows()) {
+        back_subs(B, B);
+    }
+    // If the matrix is rectangular, use a separate result variable
+    else {
+        Matrix X(RW.cols(), B.cols());
+        back_subs(B, X);
+        B = std::move(X);
+    }
+}
+
+//                                                                            //
+// :::::::::::::::::::::::: Mostly boilerplate below :::::::::::::::::::::::: //
+//                                                                            //
+
+void HouseholderQR::compute(Matrix &&matrix) {
+    RW = std::move(matrix);
+    R_diag.resize(RW.cols());
+    compute_factorization();
+}
+
+void HouseholderQR::compute(const Matrix &matrix) {
+    RW = matrix;
+    R_diag.resize(RW.cols());
+    compute_factorization();
+}
+
+Matrix HouseholderQR::apply_QT(const Matrix &B) const {
+    Matrix result = B;
+    apply_QT_inplace(result);
+    return result;
+}
+
+Matrix &&HouseholderQR::apply_QT(Matrix &&B) const {
+    apply_QT_inplace(B);
+    return std::move(B);
 }
 
 Matrix HouseholderQR::apply_Q(const Matrix &X) const {
@@ -284,33 +330,6 @@ SquareMatrix HouseholderQR::get_Q() const {
     SquareMatrix Q(RW.rows());
     get_Q_inplace(Q);
     return Q;
-}
-
-void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
-    for (size_t i = 0; i < B.cols(); ++i) {
-        for (size_t k = RW.cols(); k-- > 0;) {
-            X(k, i) = B(k, i);
-            for (size_t j = k + 1; j < RW.cols(); ++j) {
-                X(k, i) -= RW(k, j) * X(j, i);
-            }
-            X(k, i) /= R_diag(k);
-        }
-    }
-}
-
-void HouseholderQR::solve_inplace(Matrix &B) const {
-    apply_QT_inplace(B);
-
-    // If the matrix is square, operate on B directly
-    if (RW.cols() == RW.rows()) {
-        back_subs(B, B);
-    }
-    // If the matrix is rectangular, use a separate result variable
-    else {
-        Matrix X(RW.cols(), B.cols());
-        back_subs(B, X);
-        B = std::move(X);
-    }
 }
 
 Matrix HouseholderQR::solve(const Matrix &B) const {

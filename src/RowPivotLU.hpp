@@ -1,33 +1,29 @@
 #pragma once
 
 #include "Matrix.hpp"
+#include "PermutationMatrix.hpp"
 
 /** 
- * @brief   LU factorization without pivoting.
+ * @brief   LU factorization with row pivoting.
  * 
  * Factorizes a square matrix into a lower triangular and an upper-triangular
  * factor.
  * 
- * This version does not use row pivoting, and is not rank-revealing.
- * 
- * @warning **Never** use this factorization, it is not numerically stable and
- *          will fail completely if a zero pivot is encountered. This algorithm
- *          is included for educational purposes only. Use a pivoted LU 
- *          factorization or a QR factorization instead.
+ * This version uses row pivoting, but it is not rank-revealing.
  * 
  * @ingroup Factorizations
  */
-class LU {
+class RowPivotLU {
   public:
     /// @name Constructors
     /// @{
 
     /// Default constructor.
-    LU() = default;
+    RowPivotLU() = default;
     /// Factorize the given matrix.
-    LU(const SquareMatrix &matrix) { compute(matrix); }
+    RowPivotLU(const SquareMatrix &matrix) { compute(matrix); }
     /// Factorize the given matrix.
-    LU(SquareMatrix &&matrix) { compute(std::move(matrix)); }
+    RowPivotLU(SquareMatrix &&matrix) { compute(std::move(matrix)); }
 
     /// @}
 
@@ -49,6 +45,8 @@ class LU {
     /// Get the lower-triangular matrix L, reusing the internal storage.
     /// @warning    After calling this function, the LU object is no
     ///             longer valid, because this function steals its storage.
+    ///             Stealing both L and P is allowed (if you do not steal U,
+    ///             because it shares storage with L).
     SquareMatrix &&steal_L();
 
     /// Copy the lower-triangular matrix L to the given matrix.
@@ -67,6 +65,8 @@ class LU {
     /// Get the upper-triangular matrix U, reusing the internal storage.
     /// @warning    After calling this function, the LU object is no
     ///             longer valid, because this function steals its storage.
+    ///             Stealing both U and P is allowed (if you do not steal L,
+    ///             because it shares storage with U).
     SquareMatrix &&steal_U();
 
     /// Copy the upper-triangular matrix U to the given matrix.
@@ -75,6 +75,23 @@ class LU {
     SquareMatrix get_U() const &;
     /// Get the upper-triangular matrix U.
     SquareMatrix &&get_U() && { return steal_U(); }
+
+    /// @}
+
+  public:
+    /// @name   Retrieving the P factor
+    /// @{
+
+    /// Get the permutation matrix P, reusing the internal storage.
+    /// @warning    After calling this function, the LU object is no
+    ///             longer valid, because this function steals its storage.
+    ///             Stealing P and either L or U (not both) is allowed.
+    PermutationMatrix &&steal_P();
+
+    /// Get a copy of the permutation matrix P.
+    PermutationMatrix get_P() const & { return P; }
+    /// Get the permutation matrix P.
+    PermutationMatrix &&get_P() && { return steal_P(); }
 
     /// @}
 
@@ -104,12 +121,17 @@ class LU {
     bool is_factored() const { return state == Factored; }
 
     /// Check if this object contains valid L and U factors.
-    bool has_LU() const { return is_factored(); }
+    bool has_LU() const { return has_LU_; }
+
+    /// Check if this object contains a valid permutation matrix P.
+    bool has_P() const { return has_P_; }
 
     /// Get the internal storage of the upper-triangular matrix U and the strict
     /// lower-triangular part of matrix L.
     /// @warning    After calling this function, the LU object is no longer
     ///             valid, because this function steals its storage.
+    ///             Stealing both LU and P is allowed (but not L or U
+    ///             individually).
     SquareMatrix &&steal_LU();
 
     /// Get a copy of the internal storage of the upper-triangular matrix U and
@@ -135,13 +157,18 @@ class LU {
     /// matrix U and the strict lower-triangular part of matrix L. The diagonal
     /// elements of L are implicitly 1.
     SquareMatrix LU_;
+    /// The permutation of A that maximizes pivot size.
+    PermutationMatrix P = PermutationMatrix::RowPermutation;
 
     enum State {
         NotFactored = 0,
         Factored = 1,
     } state = NotFactored;
+
+    bool has_LU_ = false;
+    bool has_P_ = false;
 };
 
 /// Print the L and U matrices of an LU object.
 /// @related    LU
-std::ostream &operator<<(std::ostream &os, const LU &qr);
+std::ostream &operator<<(std::ostream &os, const RowPivotLU &qr);
