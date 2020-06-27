@@ -64,7 +64,6 @@ class Matrix {
 
     /// Create a matrix with the given values.
     Matrix(std::initializer_list<std::initializer_list<double>> init);
-
     /// Assign the given values to the matrix.
     Matrix &
     operator=(std::initializer_list<std::initializer_list<double>> init);
@@ -133,7 +132,7 @@ class Matrix {
 
     /// Get the element at the given position in the linearized matrix.
     double &operator()(size_t index) { return storage[index]; }
-    /// Get the element at the given position in the linearlized matrix.
+    /// Get the element at the given position in the linearized matrix.
     const double &operator()(size_t index) const { return storage[index]; }
 
     /// @}
@@ -219,6 +218,17 @@ class Matrix {
         m.fill_random(min, max, seed);
         return m;
     }
+
+    /// @}
+
+  public:
+    /// @name   Swapping rows and columns
+    /// @{
+
+    /// Swap two rows of the matrix.
+    void swap_rows(size_t a, size_t b);
+    /// Swap two columns of the matrix.
+    void swap_columns(size_t a, size_t b);
 
     /// @}
 
@@ -779,6 +789,10 @@ class SquareMatrix : public Matrix {
 
 /// @}
 
+/// Print a matrix.
+/// @related    Matrix
+std::ostream &operator<<(std::ostream &os, const Matrix &M);
+
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 
 /// @addtogroup MatVecOp
@@ -1286,10 +1300,6 @@ inline Vector transpose(RowVector &&in) { return Vector(std::move(in)); }
 
 /// @}
 
-/// Print a matrix.
-/// @related    Matrix
-std::ostream &operator<<(std::ostream &os, const Matrix &M);
-
 //                              Implementations                               //
 // -------------------------------------------------------------------------- //
 
@@ -1338,6 +1348,16 @@ Matrix::operator=(std::initializer_list<std::initializer_list<double>> init) {
     }
 
     return *this;
+}
+
+inline void Matrix::swap_columns(size_t a, size_t b) {
+    for (size_t r = 0; r < rows(); ++r)
+        std::swap((*this)(r, a), (*this)(r, b));
+}
+
+inline void Matrix::swap_rows(size_t a, size_t b) {
+    for (size_t c = 0; c < cols(); ++c)
+        std::swap((*this)(a, c), (*this)(b, c));
 }
 
 inline bool Matrix::operator==(const Matrix &other) const {

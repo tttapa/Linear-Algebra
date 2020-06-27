@@ -6,7 +6,7 @@
 
 /**
  * @pre     `LU_` contains the matrix A to be factorized
- * @pre     `RW.rows() == RW.cols()`
+ * @pre     `LU_.rows() == LU_.cols()`
  * 
  * @post    The complete upper-triangular part of `LU_` contains the full 
  *          upper-triangular matrix U and the strict lower-triangular part of 
