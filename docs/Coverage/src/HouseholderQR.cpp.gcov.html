@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - ee3a7abd60b4bc511baaf5221f39cdbc5fe29c28 - src/HouseholderQR.cpp</title>
+  <title>LCOV - 46b54db183909bda1f8e14e383bfa09dada50655 - src/HouseholderQR.cpp</title>
   <link rel="stylesheet" type="text/css" href="../gcov.css">
 </head>
 
@@ -28,7 +28,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">ee3a7abd60b4bc511baaf5221f39cdbc5fe29c28</td>
+            <td class="headerValue">46b54db183909bda1f8e14e383bfa09dada50655</td>
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">141</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-06-26 18:42:52</td>
+            <td class="headerValue">2020-06-27 16:17:54</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">21</td>
@@ -244,200 +244,219 @@
 <a name="174"><span class="lineNum">     174 </span><span class="lineCov">         12 :     state = Factored;</span></a>
 <a name="175"><span class="lineNum">     175 </span><span class="lineCov">         12 : }</span></a>
 <a name="176"><span class="lineNum">     176 </span>            : </a>
-<a name="177"><span class="lineNum">     177 </span><span class="lineCov">          1 : void HouseholderQR::compute(Matrix &amp;&amp;matrix) {</span></a>
-<a name="178"><span class="lineNum">     178 </span><span class="lineCov">          1 :     RW = std::move(matrix);</span></a>
-<a name="179"><span class="lineNum">     179 </span><span class="lineCov">          1 :     R_diag.resize(RW.cols());</span></a>
-<a name="180"><span class="lineNum">     180 </span><span class="lineCov">          1 :     compute_factorization();</span></a>
-<a name="181"><span class="lineNum">     181 </span><span class="lineCov">          1 : }</span></a>
-<a name="182"><span class="lineNum">     182 </span>            : </a>
-<a name="183"><span class="lineNum">     183 </span><span class="lineCov">         11 : void HouseholderQR::compute(const Matrix &amp;matrix) {</span></a>
-<a name="184"><span class="lineNum">     184 </span><span class="lineCov">         11 :     RW = matrix;</span></a>
-<a name="185"><span class="lineNum">     185 </span><span class="lineCov">         11 :     R_diag.resize(RW.cols());</span></a>
-<a name="186"><span class="lineNum">     186 </span><span class="lineCov">         11 :     compute_factorization();</span></a>
-<a name="187"><span class="lineNum">     187 </span><span class="lineCov">         11 : }</span></a>
-<a name="188"><span class="lineNum">     188 </span>            : </a>
-<a name="189"><span class="lineNum">     189 </span><span class="lineCov">          8 : void HouseholderQR::apply_QT_inplace(Matrix &amp;B) const {</span></a>
-<a name="190"><span class="lineNum">     190 </span><span class="lineCov">          8 :     assert(is_factored());</span></a>
-<a name="191"><span class="lineNum">     191 </span><span class="lineCov">          8 :     assert(RW.rows() == B.rows());</span></a>
-<a name="192"><span class="lineNum">     192 </span><span class="lineCov">         20 :     for (size_t c = 0; c &lt; B.cols(); ++c) {</span></a>
-<a name="193"><span class="lineNum">     193 </span><span class="lineCov">         48 :         for (size_t r = 0; r &lt; RW.cols(); ++r) {</span></a>
-<a name="194"><span class="lineNum">     194 </span><span class="lineCov">         36 :             double dot_product = 0;</span></a>
-<a name="195"><span class="lineNum">     195 </span><span class="lineCov">        126 :             for (size_t i = r; i &lt; RW.rows(); ++i)</span></a>
-<a name="196"><span class="lineNum">     196 </span><span class="lineCov">         90 :                 dot_product += RW(i, r) * B(i, c);</span></a>
-<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        126 :             for (size_t i = r; i &lt; RW.rows(); ++i)</span></a>
-<a name="198"><span class="lineNum">     198 </span><span class="lineCov">         90 :                 B(i, c) -= RW(i, r) * dot_product;</span></a>
-<a name="199"><span class="lineNum">     199 </span>            :         }</a>
-<a name="200"><span class="lineNum">     200 </span>            :     }</a>
-<a name="201"><span class="lineNum">     201 </span><span class="lineCov">          8 : }</span></a>
-<a name="202"><span class="lineNum">     202 </span>            : </a>
-<a name="203"><span class="lineNum">     203 </span><span class="lineCov">          3 : Matrix HouseholderQR::apply_QT(const Matrix &amp;B) const {</span></a>
-<a name="204"><span class="lineNum">     204 </span><span class="lineCov">          3 :     Matrix result = B;</span></a>
-<a name="205"><span class="lineNum">     205 </span><span class="lineCov">          3 :     apply_QT_inplace(result);</span></a>
-<a name="206"><span class="lineNum">     206 </span><span class="lineCov">          3 :     return result;</span></a>
-<a name="207"><span class="lineNum">     207 </span>            : }</a>
-<a name="208"><span class="lineNum">     208 </span>            : </a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineCov">          1 : Matrix &amp;&amp;HouseholderQR::apply_QT(Matrix &amp;&amp;B) const {</span></a>
-<a name="210"><span class="lineNum">     210 </span><span class="lineCov">          1 :     apply_QT_inplace(B);</span></a>
-<a name="211"><span class="lineNum">     211 </span><span class="lineCov">          1 :     return std::move(B);</span></a>
-<a name="212"><span class="lineNum">     212 </span>            : }</a>
-<a name="213"><span class="lineNum">     213 </span>            : </a>
-<a name="214"><span class="lineNum">     214 </span><span class="lineCov">          6 : void HouseholderQR::apply_Q_inplace(Matrix &amp;X) const {</span></a>
-<a name="215"><span class="lineNum">     215 </span><span class="lineCov">          6 :     assert(is_factored());</span></a>
-<a name="216"><span class="lineNum">     216 </span><span class="lineCov">          6 :     assert(RW.rows() == X.rows());</span></a>
-<a name="217"><span class="lineNum">     217 </span><span class="lineCov">         27 :     for (size_t c = 0; c &lt; X.cols(); ++c) {</span></a>
-<a name="218"><span class="lineNum">     218 </span><span class="lineCov">         92 :         for (size_t r = RW.cols(); r-- &gt; 0;) {</span></a>
-<a name="219"><span class="lineNum">     219 </span><span class="lineCov">         71 :             double dot_product = 0;</span></a>
-<a name="220"><span class="lineNum">     220 </span><span class="lineCov">        268 :             for (size_t i = r; i &lt; RW.rows(); ++i)</span></a>
-<a name="221"><span class="lineNum">     221 </span><span class="lineCov">        197 :                 dot_product += RW(i, r) * X(i, c);</span></a>
-<a name="222"><span class="lineNum">     222 </span><span class="lineCov">        268 :             for (size_t i = r; i &lt; RW.rows(); ++i)</span></a>
-<a name="223"><span class="lineNum">     223 </span><span class="lineCov">        197 :                 X(i, c) -= RW(i, r) * dot_product;</span></a>
-<a name="224"><span class="lineNum">     224 </span>            :         }</a>
-<a name="225"><span class="lineNum">     225 </span>            :     }</a>
-<a name="226"><span class="lineNum">     226 </span><span class="lineCov">          6 : }</span></a>
-<a name="227"><span class="lineNum">     227 </span>            : </a>
-<a name="228"><span class="lineNum">     228 </span><span class="lineCov">          1 : Matrix HouseholderQR::apply_Q(const Matrix &amp;X) const {</span></a>
-<a name="229"><span class="lineNum">     229 </span><span class="lineCov">          1 :     Matrix result = X;</span></a>
-<a name="230"><span class="lineNum">     230 </span><span class="lineCov">          1 :     apply_Q_inplace(result);</span></a>
-<a name="231"><span class="lineNum">     231 </span><span class="lineCov">          1 :     return result;</span></a>
-<a name="232"><span class="lineNum">     232 </span>            : }</a>
-<a name="233"><span class="lineNum">     233 </span>            : </a>
-<a name="234"><span class="lineNum">     234 </span><span class="lineCov">          1 : Matrix &amp;&amp;HouseholderQR::apply_Q(Matrix &amp;&amp;B) const {</span></a>
-<a name="235"><span class="lineNum">     235 </span><span class="lineCov">          1 :     apply_Q_inplace(B);</span></a>
-<a name="236"><span class="lineNum">     236 </span><span class="lineCov">          1 :     return std::move(B);</span></a>
-<a name="237"><span class="lineNum">     237 </span>            : }</a>
-<a name="238"><span class="lineNum">     238 </span>            : </a>
-<a name="239"><span class="lineNum">     239 </span><span class="lineCov">          4 : void HouseholderQR::get_R_inplace(Matrix &amp;R) const {</span></a>
-<a name="240"><span class="lineNum">     240 </span><span class="lineCov">          4 :     assert(is_factored());</span></a>
-<a name="241"><span class="lineNum">     241 </span><span class="lineCov">          4 :     assert(R.rows() == RW.rows());</span></a>
-<a name="242"><span class="lineNum">     242 </span><span class="lineCov">          4 :     assert(R.cols() == RW.cols());</span></a>
-<a name="243"><span class="lineNum">     243 </span><span class="lineCov">         17 :     for (size_t r = 0; r &lt; R.cols(); ++r) {</span></a>
-<a name="244"><span class="lineNum">     244 </span><span class="lineCov">         28 :         for (size_t c = 0; c &lt; r; ++c)</span></a>
-<a name="245"><span class="lineNum">     245 </span><span class="lineCov">         15 :             R(r, c) = 0;</span></a>
-<a name="246"><span class="lineNum">     246 </span><span class="lineCov">         13 :         R(r, r) = R_diag(r);</span></a>
-<a name="247"><span class="lineNum">     247 </span><span class="lineCov">         28 :         for (size_t c = r + 1; c &lt; R.cols(); ++c)</span></a>
-<a name="248"><span class="lineNum">     248 </span><span class="lineCov">         15 :             R(r, c) = RW(r, c);</span></a>
-<a name="249"><span class="lineNum">     249 </span>            :     }</a>
-<a name="250"><span class="lineNum">     250 </span><span class="lineCov">          7 :     for (size_t r = R.cols(); r &lt; R.rows(); ++r) {</span></a>
-<a name="251"><span class="lineNum">     251 </span><span class="lineCov">         12 :         for (size_t c = 0; c &lt; R.cols(); ++c)</span></a>
-<a name="252"><span class="lineNum">     252 </span><span class="lineCov">          9 :             R(r, c) = 0;</span></a>
-<a name="253"><span class="lineNum">     253 </span>            :     }</a>
-<a name="254"><span class="lineNum">     254 </span><span class="lineCov">          4 : }</span></a>
-<a name="255"><span class="lineNum">     255 </span>            : </a>
-<a name="256"><span class="lineNum">     256 </span><span class="lineCov">          4 : Matrix HouseholderQR::get_R() const &amp; {</span></a>
-<a name="257"><span class="lineNum">     257 </span><span class="lineCov">          4 :     Matrix R(RW.rows(), RW.cols());</span></a>
-<a name="258"><span class="lineNum">     258 </span><span class="lineCov">          4 :     get_R_inplace(R);</span></a>
-<a name="259"><span class="lineNum">     259 </span><span class="lineCov">          4 :     return R;</span></a>
-<a name="260"><span class="lineNum">     260 </span>            : }</a>
-<a name="261"><span class="lineNum">     261 </span>            : </a>
-<a name="262"><span class="lineNum">     262 </span><span class="lineCov">          1 : Matrix &amp;&amp;HouseholderQR::steal_R() {</span></a>
-<a name="263"><span class="lineNum">     263 </span><span class="lineCov">          1 :     state = NotFactored;</span></a>
-<a name="264"><span class="lineNum">     264 </span><span class="lineCov">          4 :     for (size_t r = 0; r &lt; RW.cols(); ++r) {</span></a>
-<a name="265"><span class="lineNum">     265 </span><span class="lineCov">          6 :         for (size_t c = 0; c &lt; r; ++c)</span></a>
-<a name="266"><span class="lineNum">     266 </span><span class="lineCov">          3 :             RW(r, c) = 0;</span></a>
-<a name="267"><span class="lineNum">     267 </span><span class="lineCov">          3 :         RW(r, r) = R_diag(r);</span></a>
-<a name="268"><span class="lineNum">     268 </span>            :     }</a>
-<a name="269"><span class="lineNum">     269 </span><span class="lineCov">          2 :     for (size_t r = RW.cols(); r &lt; RW.rows(); ++r) {</span></a>
-<a name="270"><span class="lineNum">     270 </span><span class="lineCov">          4 :         for (size_t c = 0; c &lt; RW.cols(); ++c)</span></a>
-<a name="271"><span class="lineNum">     271 </span><span class="lineCov">          3 :             RW(r, c) = 0;</span></a>
-<a name="272"><span class="lineNum">     272 </span>            :     }</a>
-<a name="273"><span class="lineNum">     273 </span><span class="lineCov">          1 :     return std::move(RW);</span></a>
-<a name="274"><span class="lineNum">     274 </span>            : }</a>
-<a name="275"><span class="lineNum">     275 </span>            : </a>
-<a name="276"><span class="lineNum">     276 </span><span class="lineCov">          2 : void HouseholderQR::get_Q_inplace(SquareMatrix &amp;Q) const {</span></a>
-<a name="277"><span class="lineNum">     277 </span><span class="lineCov">          2 :     assert(Q.rows() == RW.rows());</span></a>
-<a name="278"><span class="lineNum">     278 </span><span class="lineCov">          2 :     assert(Q.cols() == RW.rows());</span></a>
-<a name="279"><span class="lineNum">     279 </span><span class="lineCov">          2 :     Q.fill_identity();</span></a>
-<a name="280"><span class="lineNum">     280 </span><span class="lineCov">          2 :     apply_Q_inplace(Q);</span></a>
-<a name="281"><span class="lineNum">     281 </span><span class="lineCov">          2 : }</span></a>
-<a name="282"><span class="lineNum">     282 </span>            : </a>
-<a name="283"><span class="lineNum">     283 </span><span class="lineCov">          2 : SquareMatrix HouseholderQR::get_Q() const {</span></a>
-<a name="284"><span class="lineNum">     284 </span><span class="lineCov">          2 :     SquareMatrix Q(RW.rows());</span></a>
-<a name="285"><span class="lineNum">     285 </span><span class="lineCov">          2 :     get_Q_inplace(Q);</span></a>
-<a name="286"><span class="lineNum">     286 </span><span class="lineCov">          2 :     return Q;</span></a>
-<a name="287"><span class="lineNum">     287 </span>            : }</a>
-<a name="288"><span class="lineNum">     288 </span>            : </a>
-<a name="289"><span class="lineNum">     289 </span><span class="lineCov">          7 : void HouseholderQR::back_subs(const Matrix &amp;B, Matrix &amp;X) const {</span></a>
-<a name="290"><span class="lineNum">     290 </span><span class="lineCov">         16 :     for (size_t i = 0; i &lt; B.cols(); ++i) {</span></a>
-<a name="291"><span class="lineNum">     291 </span><span class="lineCov">         36 :         for (size_t k = RW.cols(); k-- &gt; 0;) {</span></a>
-<a name="292"><span class="lineNum">     292 </span><span class="lineCov">         27 :             X(k, i) = B(k, i);</span></a>
-<a name="293"><span class="lineNum">     293 </span><span class="lineCov">         54 :             for (size_t j = k + 1; j &lt; RW.cols(); ++j) {</span></a>
-<a name="294"><span class="lineNum">     294 </span><span class="lineCov">         27 :                 X(k, i) -= RW(k, j) * X(j, i);</span></a>
-<a name="295"><span class="lineNum">     295 </span>            :             }</a>
-<a name="296"><span class="lineNum">     296 </span><span class="lineCov">         27 :             X(k, i) /= R_diag(k);</span></a>
-<a name="297"><span class="lineNum">     297 </span>            :         }</a>
-<a name="298"><span class="lineNum">     298 </span>            :     }</a>
-<a name="299"><span class="lineNum">     299 </span><span class="lineCov">          7 : }</span></a>
-<a name="300"><span class="lineNum">     300 </span>            : </a>
-<a name="301"><span class="lineNum">     301 </span><span class="lineCov">          4 : void HouseholderQR::solve_inplace(Matrix &amp;B) const {</span></a>
-<a name="302"><span class="lineNum">     302 </span><span class="lineCov">          4 :     apply_QT_inplace(B);</span></a>
-<a name="303"><span class="lineNum">     303 </span>            : </a>
-<a name="304"><span class="lineNum">     304 </span>            :     // If the matrix is square, operate on B directly</a>
-<a name="305"><span class="lineNum">     305 </span><span class="lineCov">          4 :     if (RW.cols() == RW.rows()) {</span></a>
-<a name="306"><span class="lineNum">     306 </span><span class="lineCov">          3 :         back_subs(B, B);</span></a>
-<a name="307"><span class="lineNum">     307 </span>            :     }</a>
-<a name="308"><span class="lineNum">     308 </span>            :     // If the matrix is rectangular, use a separate result variable</a>
-<a name="309"><span class="lineNum">     309 </span>            :     else {</a>
-<a name="310"><span class="lineNum">     310 </span><span class="lineCov">          2 :         Matrix X(RW.cols(), B.cols());</span></a>
-<a name="311"><span class="lineNum">     311 </span><span class="lineCov">          1 :         back_subs(B, X);</span></a>
-<a name="312"><span class="lineNum">     312 </span><span class="lineCov">          1 :         B = std::move(X);</span></a>
-<a name="313"><span class="lineNum">     313 </span>            :     }</a>
-<a name="314"><span class="lineNum">     314 </span><span class="lineCov">          4 : }</span></a>
-<a name="315"><span class="lineNum">     315 </span>            : </a>
-<a name="316"><span class="lineNum">     316 </span><span class="lineCov">          3 : Matrix HouseholderQR::solve(const Matrix &amp;B) const {</span></a>
-<a name="317"><span class="lineNum">     317 </span><span class="lineCov">          6 :     Matrix B_cpy = apply_QT(B);</span></a>
-<a name="318"><span class="lineNum">     318 </span><span class="lineCov">          3 :     Matrix X(RW.cols(), B.cols());</span></a>
-<a name="319"><span class="lineNum">     319 </span><span class="lineCov">          3 :     back_subs(B_cpy, X);</span></a>
-<a name="320"><span class="lineNum">     320 </span><span class="lineCov">          6 :     return X;</span></a>
-<a name="321"><span class="lineNum">     321 </span>            : }</a>
-<a name="322"><span class="lineNum">     322 </span>            : </a>
-<a name="323"><span class="lineNum">     323 </span><span class="lineCov">          1 : Matrix &amp;&amp;HouseholderQR::solve(Matrix &amp;&amp;B) const {</span></a>
-<a name="324"><span class="lineNum">     324 </span><span class="lineCov">          1 :     solve_inplace(B);</span></a>
-<a name="325"><span class="lineNum">     325 </span><span class="lineCov">          1 :     return std::move(B);</span></a>
-<a name="326"><span class="lineNum">     326 </span>            : }</a>
-<a name="327"><span class="lineNum">     327 </span>            : </a>
-<a name="328"><span class="lineNum">     328 </span><span class="lineCov">          3 : Vector HouseholderQR::solve(const Vector &amp;b) const {</span></a>
-<a name="329"><span class="lineNum">     329 </span><span class="lineCov">          3 :     return Vector(solve(static_cast&lt;const Matrix &amp;&gt;(b)));</span></a>
-<a name="330"><span class="lineNum">     330 </span>            : }</a>
-<a name="331"><span class="lineNum">     331 </span>            : </a>
-<a name="332"><span class="lineNum">     332 </span><span class="lineCov">          1 : Vector &amp;&amp;HouseholderQR::solve(Vector &amp;&amp;b) const {</span></a>
-<a name="333"><span class="lineNum">     333 </span><span class="lineCov">          1 :     solve_inplace(b);</span></a>
-<a name="334"><span class="lineNum">     334 </span><span class="lineCov">          1 :     return std::move(b);</span></a>
-<a name="335"><span class="lineNum">     335 </span>            : }</a>
-<a name="336"><span class="lineNum">     336 </span>            : </a>
-<a name="337"><span class="lineNum">     337 </span>            : // LCOV_EXCL_START</a>
-<a name="338"><span class="lineNum">     338 </span>            : </a>
-<a name="339"><span class="lineNum">     339 </span>            : std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const HouseholderQR &amp;qr) {</a>
-<a name="340"><span class="lineNum">     340 </span>            :     if (!qr.is_factored()) {</a>
-<a name="341"><span class="lineNum">     341 </span>            :         os &lt;&lt; &quot;Not factored.&quot; &lt;&lt; std::endl;</a>
-<a name="342"><span class="lineNum">     342 </span>            :         return os;</a>
-<a name="343"><span class="lineNum">     343 </span>            :     }</a>
-<a name="344"><span class="lineNum">     344 </span>            : </a>
-<a name="345"><span class="lineNum">     345 </span>            :     Matrix Q = qr.get_Q();</a>
-<a name="346"><span class="lineNum">     346 </span>            :     os &lt;&lt; &quot;Q = &quot; &lt;&lt; std::endl;</a>
-<a name="347"><span class="lineNum">     347 </span>            :     Q.print(os);</a>
-<a name="348"><span class="lineNum">     348 </span>            : </a>
-<a name="349"><span class="lineNum">     349 </span>            :     // Output field width (characters)</a>
-<a name="350"><span class="lineNum">     350 </span>            :     int w = os.precision() + 9;</a>
-<a name="351"><span class="lineNum">     351 </span>            : </a>
-<a name="352"><span class="lineNum">     352 </span>            :     const auto &amp;RW = qr.get_RW();</a>
-<a name="353"><span class="lineNum">     353 </span>            :     const auto &amp;R_diag = qr.get_R_diag();</a>
-<a name="354"><span class="lineNum">     354 </span>            :     os &lt;&lt; &quot;R = &quot; &lt;&lt; std::endl;</a>
-<a name="355"><span class="lineNum">     355 </span>            :     for (size_t r = 0; r &lt; RW.cols(); ++r) {</a>
-<a name="356"><span class="lineNum">     356 </span>            :         for (size_t c = 0; c &lt; r; ++c)</a>
-<a name="357"><span class="lineNum">     357 </span>            :             os &lt;&lt; std::setw(w) &lt;&lt; 0;</a>
-<a name="358"><span class="lineNum">     358 </span>            :         os &lt;&lt; std::setw(w) &lt;&lt; R_diag(r);</a>
-<a name="359"><span class="lineNum">     359 </span>            :         for (size_t c = r + 1; c &lt; RW.cols(); ++c)</a>
-<a name="360"><span class="lineNum">     360 </span>            :             os &lt;&lt; std::setw(w) &lt;&lt; RW(r, c);</a>
-<a name="361"><span class="lineNum">     361 </span>            :         os &lt;&lt; std::endl;</a>
+<a name="177"><span class="lineNum">     177 </span><span class="lineCov">          8 : void HouseholderQR::apply_QT_inplace(Matrix &amp;B) const {</span></a>
+<a name="178"><span class="lineNum">     178 </span><span class="lineCov">          8 :     assert(is_factored());</span></a>
+<a name="179"><span class="lineNum">     179 </span><span class="lineCov">          8 :     assert(RW.rows() == B.rows());</span></a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineCov">         20 :     for (size_t c = 0; c &lt; B.cols(); ++c) {</span></a>
+<a name="181"><span class="lineNum">     181 </span><span class="lineCov">         48 :         for (size_t r = 0; r &lt; RW.cols(); ++r) {</span></a>
+<a name="182"><span class="lineNum">     182 </span><span class="lineCov">         36 :             double dot_product = 0;</span></a>
+<a name="183"><span class="lineNum">     183 </span><span class="lineCov">        126 :             for (size_t i = r; i &lt; RW.rows(); ++i)</span></a>
+<a name="184"><span class="lineNum">     184 </span><span class="lineCov">         90 :                 dot_product += RW(i, r) * B(i, c);</span></a>
+<a name="185"><span class="lineNum">     185 </span><span class="lineCov">        126 :             for (size_t i = r; i &lt; RW.rows(); ++i)</span></a>
+<a name="186"><span class="lineNum">     186 </span><span class="lineCov">         90 :                 B(i, c) -= RW(i, r) * dot_product;</span></a>
+<a name="187"><span class="lineNum">     187 </span>            :         }</a>
+<a name="188"><span class="lineNum">     188 </span>            :     }</a>
+<a name="189"><span class="lineNum">     189 </span><span class="lineCov">          8 : }</span></a>
+<a name="190"><span class="lineNum">     190 </span>            : </a>
+<a name="191"><span class="lineNum">     191 </span><span class="lineCov">          6 : void HouseholderQR::apply_Q_inplace(Matrix &amp;X) const {</span></a>
+<a name="192"><span class="lineNum">     192 </span><span class="lineCov">          6 :     assert(is_factored());</span></a>
+<a name="193"><span class="lineNum">     193 </span><span class="lineCov">          6 :     assert(RW.rows() == X.rows());</span></a>
+<a name="194"><span class="lineNum">     194 </span><span class="lineCov">         27 :     for (size_t c = 0; c &lt; X.cols(); ++c) {</span></a>
+<a name="195"><span class="lineNum">     195 </span><span class="lineCov">         92 :         for (size_t r = RW.cols(); r-- &gt; 0;) {</span></a>
+<a name="196"><span class="lineNum">     196 </span><span class="lineCov">         71 :             double dot_product = 0;</span></a>
+<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        268 :             for (size_t i = r; i &lt; RW.rows(); ++i)</span></a>
+<a name="198"><span class="lineNum">     198 </span><span class="lineCov">        197 :                 dot_product += RW(i, r) * X(i, c);</span></a>
+<a name="199"><span class="lineNum">     199 </span><span class="lineCov">        268 :             for (size_t i = r; i &lt; RW.rows(); ++i)</span></a>
+<a name="200"><span class="lineNum">     200 </span><span class="lineCov">        197 :                 X(i, c) -= RW(i, r) * dot_product;</span></a>
+<a name="201"><span class="lineNum">     201 </span>            :         }</a>
+<a name="202"><span class="lineNum">     202 </span>            :     }</a>
+<a name="203"><span class="lineNum">     203 </span><span class="lineCov">          6 : }</span></a>
+<a name="204"><span class="lineNum">     204 </span>            : </a>
+<a name="205"><span class="lineNum">     205 </span><span class="lineCov">          7 : void HouseholderQR::back_subs(const Matrix &amp;B, Matrix &amp;X) const {</span></a>
+<a name="206"><span class="lineNum">     206 </span>            :     // Solve upper triangular system RX = B by solving each column of B as a</a>
+<a name="207"><span class="lineNum">     207 </span>            :     // vector system Rxᵢ = bᵢ</a>
+<a name="208"><span class="lineNum">     208 </span>            :     //</a>
+<a name="209"><span class="lineNum">     209 </span>            :     //     ┌                 ┐┌     ┐   ┌     ┐</a>
+<a name="210"><span class="lineNum">     210 </span>            :     //     │ r₁₁ r₁₂ r₁₃ r₁₄ ││ x₁ᵢ │   │ b₁ᵢ │</a>
+<a name="211"><span class="lineNum">     211 </span>            :     //     │     r₂₂ r₂₃ r₂₄ ││ x₂ᵢ │ = │ b₂ᵢ │</a>
+<a name="212"><span class="lineNum">     212 </span>            :     //     │         r₃₃ r₃₄ ││ x₃ᵢ │   │ b₃ᵢ │</a>
+<a name="213"><span class="lineNum">     213 </span>            :     //     │             r₄₄ ││ x₄ᵢ │   │ b₄ᵢ │</a>
+<a name="214"><span class="lineNum">     214 </span>            :     //     └                 ┘└     ┘   └     ┘</a>
+<a name="215"><span class="lineNum">     215 </span>            :     //</a>
+<a name="216"><span class="lineNum">     216 </span>            :     // b₄ᵢ = r₄₄·x₄ᵢ                     ⟺ x₄ᵢ = b₄ᵢ/r₄₄</a>
+<a name="217"><span class="lineNum">     217 </span>            :     // b₃ᵢ = r₃₃·x₃ᵢ + r₃₄·x₄ᵢ           ⟺ x₃ᵢ = (b₃ᵢ - r₃₄·x₄ᵢ)/r₃₃</a>
+<a name="218"><span class="lineNum">     218 </span>            :     // b₂ᵢ = r₂₂·x₂ᵢ + r₂₃·x₃ᵢ + r₂₄·x₄ᵢ ⟺ x₂ᵢ = (b₂ᵢ - r₂₃·x₃ᵢ + r₂₄·x₄ᵢ)/r₂₂</a>
+<a name="219"><span class="lineNum">     219 </span>            :     // ...</a>
+<a name="220"><span class="lineNum">     220 </span>            :     </a>
+<a name="221"><span class="lineNum">     221 </span><span class="lineCov">         16 :     for (size_t i = 0; i &lt; B.cols(); ++i) {</span></a>
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">         36 :         for (size_t k = RW.cols(); k-- &gt; 0;) {</span></a>
+<a name="223"><span class="lineNum">     223 </span><span class="lineCov">         27 :             X(k, i) = B(k, i);</span></a>
+<a name="224"><span class="lineNum">     224 </span><span class="lineCov">         54 :             for (size_t j = k + 1; j &lt; RW.cols(); ++j) {</span></a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">         27 :                 X(k, i) -= RW(k, j) * X(j, i);</span></a>
+<a name="226"><span class="lineNum">     226 </span>            :             }</a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">         27 :             X(k, i) /= R_diag(k);</span></a>
+<a name="228"><span class="lineNum">     228 </span>            :         }</a>
+<a name="229"><span class="lineNum">     229 </span>            :     }</a>
+<a name="230"><span class="lineNum">     230 </span><span class="lineCov">          7 : }</span></a>
+<a name="231"><span class="lineNum">     231 </span>            : </a>
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">          4 : void HouseholderQR::solve_inplace(Matrix &amp;B) const {</span></a>
+<a name="233"><span class="lineNum">     233 </span><span class="lineCov">          4 :     apply_QT_inplace(B);</span></a>
+<a name="234"><span class="lineNum">     234 </span>            : </a>
+<a name="235"><span class="lineNum">     235 </span>            :     // If the matrix is square, operate on B directly</a>
+<a name="236"><span class="lineNum">     236 </span><span class="lineCov">          4 :     if (RW.cols() == RW.rows()) {</span></a>
+<a name="237"><span class="lineNum">     237 </span><span class="lineCov">          3 :         back_subs(B, B);</span></a>
+<a name="238"><span class="lineNum">     238 </span>            :     }</a>
+<a name="239"><span class="lineNum">     239 </span>            :     // If the matrix is rectangular, use a separate result variable</a>
+<a name="240"><span class="lineNum">     240 </span>            :     else {</a>
+<a name="241"><span class="lineNum">     241 </span><span class="lineCov">          2 :         Matrix X(RW.cols(), B.cols());</span></a>
+<a name="242"><span class="lineNum">     242 </span><span class="lineCov">          1 :         back_subs(B, X);</span></a>
+<a name="243"><span class="lineNum">     243 </span><span class="lineCov">          1 :         B = std::move(X);</span></a>
+<a name="244"><span class="lineNum">     244 </span>            :     }</a>
+<a name="245"><span class="lineNum">     245 </span><span class="lineCov">          4 : }</span></a>
+<a name="246"><span class="lineNum">     246 </span>            : </a>
+<a name="247"><span class="lineNum">     247 </span>            : //                                                                            //</a>
+<a name="248"><span class="lineNum">     248 </span>            : // :::::::::::::::::::::::: Mostly boilerplate below :::::::::::::::::::::::: //</a>
+<a name="249"><span class="lineNum">     249 </span>            : //                                                                            //</a>
+<a name="250"><span class="lineNum">     250 </span>            : </a>
+<a name="251"><span class="lineNum">     251 </span><span class="lineCov">          1 : void HouseholderQR::compute(Matrix &amp;&amp;matrix) {</span></a>
+<a name="252"><span class="lineNum">     252 </span><span class="lineCov">          1 :     RW = std::move(matrix);</span></a>
+<a name="253"><span class="lineNum">     253 </span><span class="lineCov">          1 :     R_diag.resize(RW.cols());</span></a>
+<a name="254"><span class="lineNum">     254 </span><span class="lineCov">          1 :     compute_factorization();</span></a>
+<a name="255"><span class="lineNum">     255 </span><span class="lineCov">          1 : }</span></a>
+<a name="256"><span class="lineNum">     256 </span>            : </a>
+<a name="257"><span class="lineNum">     257 </span><span class="lineCov">         11 : void HouseholderQR::compute(const Matrix &amp;matrix) {</span></a>
+<a name="258"><span class="lineNum">     258 </span><span class="lineCov">         11 :     RW = matrix;</span></a>
+<a name="259"><span class="lineNum">     259 </span><span class="lineCov">         11 :     R_diag.resize(RW.cols());</span></a>
+<a name="260"><span class="lineNum">     260 </span><span class="lineCov">         11 :     compute_factorization();</span></a>
+<a name="261"><span class="lineNum">     261 </span><span class="lineCov">         11 : }</span></a>
+<a name="262"><span class="lineNum">     262 </span>            : </a>
+<a name="263"><span class="lineNum">     263 </span><span class="lineCov">          3 : Matrix HouseholderQR::apply_QT(const Matrix &amp;B) const {</span></a>
+<a name="264"><span class="lineNum">     264 </span><span class="lineCov">          3 :     Matrix result = B;</span></a>
+<a name="265"><span class="lineNum">     265 </span><span class="lineCov">          3 :     apply_QT_inplace(result);</span></a>
+<a name="266"><span class="lineNum">     266 </span><span class="lineCov">          3 :     return result;</span></a>
+<a name="267"><span class="lineNum">     267 </span>            : }</a>
+<a name="268"><span class="lineNum">     268 </span>            : </a>
+<a name="269"><span class="lineNum">     269 </span><span class="lineCov">          1 : Matrix &amp;&amp;HouseholderQR::apply_QT(Matrix &amp;&amp;B) const {</span></a>
+<a name="270"><span class="lineNum">     270 </span><span class="lineCov">          1 :     apply_QT_inplace(B);</span></a>
+<a name="271"><span class="lineNum">     271 </span><span class="lineCov">          1 :     return std::move(B);</span></a>
+<a name="272"><span class="lineNum">     272 </span>            : }</a>
+<a name="273"><span class="lineNum">     273 </span>            : </a>
+<a name="274"><span class="lineNum">     274 </span><span class="lineCov">          1 : Matrix HouseholderQR::apply_Q(const Matrix &amp;X) const {</span></a>
+<a name="275"><span class="lineNum">     275 </span><span class="lineCov">          1 :     Matrix result = X;</span></a>
+<a name="276"><span class="lineNum">     276 </span><span class="lineCov">          1 :     apply_Q_inplace(result);</span></a>
+<a name="277"><span class="lineNum">     277 </span><span class="lineCov">          1 :     return result;</span></a>
+<a name="278"><span class="lineNum">     278 </span>            : }</a>
+<a name="279"><span class="lineNum">     279 </span>            : </a>
+<a name="280"><span class="lineNum">     280 </span><span class="lineCov">          1 : Matrix &amp;&amp;HouseholderQR::apply_Q(Matrix &amp;&amp;B) const {</span></a>
+<a name="281"><span class="lineNum">     281 </span><span class="lineCov">          1 :     apply_Q_inplace(B);</span></a>
+<a name="282"><span class="lineNum">     282 </span><span class="lineCov">          1 :     return std::move(B);</span></a>
+<a name="283"><span class="lineNum">     283 </span>            : }</a>
+<a name="284"><span class="lineNum">     284 </span>            : </a>
+<a name="285"><span class="lineNum">     285 </span><span class="lineCov">          4 : void HouseholderQR::get_R_inplace(Matrix &amp;R) const {</span></a>
+<a name="286"><span class="lineNum">     286 </span><span class="lineCov">          4 :     assert(is_factored());</span></a>
+<a name="287"><span class="lineNum">     287 </span><span class="lineCov">          4 :     assert(R.rows() == RW.rows());</span></a>
+<a name="288"><span class="lineNum">     288 </span><span class="lineCov">          4 :     assert(R.cols() == RW.cols());</span></a>
+<a name="289"><span class="lineNum">     289 </span><span class="lineCov">         17 :     for (size_t r = 0; r &lt; R.cols(); ++r) {</span></a>
+<a name="290"><span class="lineNum">     290 </span><span class="lineCov">         28 :         for (size_t c = 0; c &lt; r; ++c)</span></a>
+<a name="291"><span class="lineNum">     291 </span><span class="lineCov">         15 :             R(r, c) = 0;</span></a>
+<a name="292"><span class="lineNum">     292 </span><span class="lineCov">         13 :         R(r, r) = R_diag(r);</span></a>
+<a name="293"><span class="lineNum">     293 </span><span class="lineCov">         28 :         for (size_t c = r + 1; c &lt; R.cols(); ++c)</span></a>
+<a name="294"><span class="lineNum">     294 </span><span class="lineCov">         15 :             R(r, c) = RW(r, c);</span></a>
+<a name="295"><span class="lineNum">     295 </span>            :     }</a>
+<a name="296"><span class="lineNum">     296 </span><span class="lineCov">          7 :     for (size_t r = R.cols(); r &lt; R.rows(); ++r) {</span></a>
+<a name="297"><span class="lineNum">     297 </span><span class="lineCov">         12 :         for (size_t c = 0; c &lt; R.cols(); ++c)</span></a>
+<a name="298"><span class="lineNum">     298 </span><span class="lineCov">          9 :             R(r, c) = 0;</span></a>
+<a name="299"><span class="lineNum">     299 </span>            :     }</a>
+<a name="300"><span class="lineNum">     300 </span><span class="lineCov">          4 : }</span></a>
+<a name="301"><span class="lineNum">     301 </span>            : </a>
+<a name="302"><span class="lineNum">     302 </span><span class="lineCov">          4 : Matrix HouseholderQR::get_R() const &amp; {</span></a>
+<a name="303"><span class="lineNum">     303 </span><span class="lineCov">          4 :     Matrix R(RW.rows(), RW.cols());</span></a>
+<a name="304"><span class="lineNum">     304 </span><span class="lineCov">          4 :     get_R_inplace(R);</span></a>
+<a name="305"><span class="lineNum">     305 </span><span class="lineCov">          4 :     return R;</span></a>
+<a name="306"><span class="lineNum">     306 </span>            : }</a>
+<a name="307"><span class="lineNum">     307 </span>            : </a>
+<a name="308"><span class="lineNum">     308 </span><span class="lineCov">          1 : Matrix &amp;&amp;HouseholderQR::steal_R() {</span></a>
+<a name="309"><span class="lineNum">     309 </span><span class="lineCov">          1 :     state = NotFactored;</span></a>
+<a name="310"><span class="lineNum">     310 </span><span class="lineCov">          4 :     for (size_t r = 0; r &lt; RW.cols(); ++r) {</span></a>
+<a name="311"><span class="lineNum">     311 </span><span class="lineCov">          6 :         for (size_t c = 0; c &lt; r; ++c)</span></a>
+<a name="312"><span class="lineNum">     312 </span><span class="lineCov">          3 :             RW(r, c) = 0;</span></a>
+<a name="313"><span class="lineNum">     313 </span><span class="lineCov">          3 :         RW(r, r) = R_diag(r);</span></a>
+<a name="314"><span class="lineNum">     314 </span>            :     }</a>
+<a name="315"><span class="lineNum">     315 </span><span class="lineCov">          2 :     for (size_t r = RW.cols(); r &lt; RW.rows(); ++r) {</span></a>
+<a name="316"><span class="lineNum">     316 </span><span class="lineCov">          4 :         for (size_t c = 0; c &lt; RW.cols(); ++c)</span></a>
+<a name="317"><span class="lineNum">     317 </span><span class="lineCov">          3 :             RW(r, c) = 0;</span></a>
+<a name="318"><span class="lineNum">     318 </span>            :     }</a>
+<a name="319"><span class="lineNum">     319 </span><span class="lineCov">          1 :     return std::move(RW);</span></a>
+<a name="320"><span class="lineNum">     320 </span>            : }</a>
+<a name="321"><span class="lineNum">     321 </span>            : </a>
+<a name="322"><span class="lineNum">     322 </span><span class="lineCov">          2 : void HouseholderQR::get_Q_inplace(SquareMatrix &amp;Q) const {</span></a>
+<a name="323"><span class="lineNum">     323 </span><span class="lineCov">          2 :     assert(Q.rows() == RW.rows());</span></a>
+<a name="324"><span class="lineNum">     324 </span><span class="lineCov">          2 :     assert(Q.cols() == RW.rows());</span></a>
+<a name="325"><span class="lineNum">     325 </span><span class="lineCov">          2 :     Q.fill_identity();</span></a>
+<a name="326"><span class="lineNum">     326 </span><span class="lineCov">          2 :     apply_Q_inplace(Q);</span></a>
+<a name="327"><span class="lineNum">     327 </span><span class="lineCov">          2 : }</span></a>
+<a name="328"><span class="lineNum">     328 </span>            : </a>
+<a name="329"><span class="lineNum">     329 </span><span class="lineCov">          2 : SquareMatrix HouseholderQR::get_Q() const {</span></a>
+<a name="330"><span class="lineNum">     330 </span><span class="lineCov">          2 :     SquareMatrix Q(RW.rows());</span></a>
+<a name="331"><span class="lineNum">     331 </span><span class="lineCov">          2 :     get_Q_inplace(Q);</span></a>
+<a name="332"><span class="lineNum">     332 </span><span class="lineCov">          2 :     return Q;</span></a>
+<a name="333"><span class="lineNum">     333 </span>            : }</a>
+<a name="334"><span class="lineNum">     334 </span>            : </a>
+<a name="335"><span class="lineNum">     335 </span><span class="lineCov">          3 : Matrix HouseholderQR::solve(const Matrix &amp;B) const {</span></a>
+<a name="336"><span class="lineNum">     336 </span><span class="lineCov">          6 :     Matrix B_cpy = apply_QT(B);</span></a>
+<a name="337"><span class="lineNum">     337 </span><span class="lineCov">          3 :     Matrix X(RW.cols(), B.cols());</span></a>
+<a name="338"><span class="lineNum">     338 </span><span class="lineCov">          3 :     back_subs(B_cpy, X);</span></a>
+<a name="339"><span class="lineNum">     339 </span><span class="lineCov">          6 :     return X;</span></a>
+<a name="340"><span class="lineNum">     340 </span>            : }</a>
+<a name="341"><span class="lineNum">     341 </span>            : </a>
+<a name="342"><span class="lineNum">     342 </span><span class="lineCov">          1 : Matrix &amp;&amp;HouseholderQR::solve(Matrix &amp;&amp;B) const {</span></a>
+<a name="343"><span class="lineNum">     343 </span><span class="lineCov">          1 :     solve_inplace(B);</span></a>
+<a name="344"><span class="lineNum">     344 </span><span class="lineCov">          1 :     return std::move(B);</span></a>
+<a name="345"><span class="lineNum">     345 </span>            : }</a>
+<a name="346"><span class="lineNum">     346 </span>            : </a>
+<a name="347"><span class="lineNum">     347 </span><span class="lineCov">          3 : Vector HouseholderQR::solve(const Vector &amp;b) const {</span></a>
+<a name="348"><span class="lineNum">     348 </span><span class="lineCov">          3 :     return Vector(solve(static_cast&lt;const Matrix &amp;&gt;(b)));</span></a>
+<a name="349"><span class="lineNum">     349 </span>            : }</a>
+<a name="350"><span class="lineNum">     350 </span>            : </a>
+<a name="351"><span class="lineNum">     351 </span><span class="lineCov">          1 : Vector &amp;&amp;HouseholderQR::solve(Vector &amp;&amp;b) const {</span></a>
+<a name="352"><span class="lineNum">     352 </span><span class="lineCov">          1 :     solve_inplace(b);</span></a>
+<a name="353"><span class="lineNum">     353 </span><span class="lineCov">          1 :     return std::move(b);</span></a>
+<a name="354"><span class="lineNum">     354 </span>            : }</a>
+<a name="355"><span class="lineNum">     355 </span>            : </a>
+<a name="356"><span class="lineNum">     356 </span>            : // LCOV_EXCL_START</a>
+<a name="357"><span class="lineNum">     357 </span>            : </a>
+<a name="358"><span class="lineNum">     358 </span>            : std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const HouseholderQR &amp;qr) {</a>
+<a name="359"><span class="lineNum">     359 </span>            :     if (!qr.is_factored()) {</a>
+<a name="360"><span class="lineNum">     360 </span>            :         os &lt;&lt; &quot;Not factored.&quot; &lt;&lt; std::endl;</a>
+<a name="361"><span class="lineNum">     361 </span>            :         return os;</a>
 <a name="362"><span class="lineNum">     362 </span>            :     }</a>
-<a name="363"><span class="lineNum">     363 </span>            :     for (size_t r = RW.cols(); r &lt; RW.rows(); ++r) {</a>
-<a name="364"><span class="lineNum">     364 </span>            :         for (size_t c = 0; c &lt; RW.cols(); ++c)</a>
-<a name="365"><span class="lineNum">     365 </span>            :             os &lt;&lt; std::setw(w) &lt;&lt; 0;</a>
-<a name="366"><span class="lineNum">     366 </span>            :     }</a>
-<a name="367"><span class="lineNum">     367 </span>            :     return os;</a>
-<a name="368"><span class="lineNum">     368 </span>            : }</a>
-<a name="369"><span class="lineNum">     369 </span>            : </a>
-<a name="370"><span class="lineNum">     370 </span>            : // LCOV_EXCL_STOP</a>
+<a name="363"><span class="lineNum">     363 </span>            : </a>
+<a name="364"><span class="lineNum">     364 </span>            :     Matrix Q = qr.get_Q();</a>
+<a name="365"><span class="lineNum">     365 </span>            :     os &lt;&lt; &quot;Q = &quot; &lt;&lt; std::endl;</a>
+<a name="366"><span class="lineNum">     366 </span>            :     Q.print(os);</a>
+<a name="367"><span class="lineNum">     367 </span>            : </a>
+<a name="368"><span class="lineNum">     368 </span>            :     // Output field width (characters)</a>
+<a name="369"><span class="lineNum">     369 </span>            :     int w = os.precision() + 9;</a>
+<a name="370"><span class="lineNum">     370 </span>            : </a>
+<a name="371"><span class="lineNum">     371 </span>            :     const auto &amp;RW = qr.get_RW();</a>
+<a name="372"><span class="lineNum">     372 </span>            :     const auto &amp;R_diag = qr.get_R_diag();</a>
+<a name="373"><span class="lineNum">     373 </span>            :     os &lt;&lt; &quot;R = &quot; &lt;&lt; std::endl;</a>
+<a name="374"><span class="lineNum">     374 </span>            :     for (size_t r = 0; r &lt; RW.cols(); ++r) {</a>
+<a name="375"><span class="lineNum">     375 </span>            :         for (size_t c = 0; c &lt; r; ++c)</a>
+<a name="376"><span class="lineNum">     376 </span>            :             os &lt;&lt; std::setw(w) &lt;&lt; 0;</a>
+<a name="377"><span class="lineNum">     377 </span>            :         os &lt;&lt; std::setw(w) &lt;&lt; R_diag(r);</a>
+<a name="378"><span class="lineNum">     378 </span>            :         for (size_t c = r + 1; c &lt; RW.cols(); ++c)</a>
+<a name="379"><span class="lineNum">     379 </span>            :             os &lt;&lt; std::setw(w) &lt;&lt; RW(r, c);</a>
+<a name="380"><span class="lineNum">     380 </span>            :         os &lt;&lt; std::endl;</a>
+<a name="381"><span class="lineNum">     381 </span>            :     }</a>
+<a name="382"><span class="lineNum">     382 </span>            :     for (size_t r = RW.cols(); r &lt; RW.rows(); ++r) {</a>
+<a name="383"><span class="lineNum">     383 </span>            :         for (size_t c = 0; c &lt; RW.cols(); ++c)</a>
+<a name="384"><span class="lineNum">     384 </span>            :             os &lt;&lt; std::setw(w) &lt;&lt; 0;</a>
+<a name="385"><span class="lineNum">     385 </span>            :     }</a>
+<a name="386"><span class="lineNum">     386 </span>            :     return os;</a>
+<a name="387"><span class="lineNum">     387 </span>            : }</a>
+<a name="388"><span class="lineNum">     388 </span>            : </a>
+<a name="389"><span class="lineNum">     389 </span>            : // LCOV_EXCL_STOP</a>
 </pre>
       </td>
     </tr>

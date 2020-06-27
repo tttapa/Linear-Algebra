@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['storage_5ft_215',['storage_t',['../d3/d3f/classMatrix.html#af036c6884cbfc793a3fb7782f86bbacd',1,'Matrix']]]
+  ['permutation_281',['Permutation',['../d4/d74/classPermutationMatrix.html#a848d3a2969a8c952c353f86c510b594f',1,'PermutationMatrix']]]
 ];

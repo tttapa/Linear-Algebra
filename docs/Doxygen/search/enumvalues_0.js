@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['factored_217',['Factored',['../d1/dac/classHouseholderQR.html#a5d74787dedbc4e11c1ab15bf487e61f8a9b07360223fa1f78b5be6ff5fc9bc5ba',1,'HouseholderQR::Factored()'],['../d5/d2b/classLU.html#a5d74787dedbc4e11c1ab15bf487e61f8a9b07360223fa1f78b5be6ff5fc9bc5ba',1,'LU::Factored()']]]
+  ['columnpermutation_285',['ColumnPermutation',['../d4/d74/classPermutationMatrix.html#a1d1cfd8ffb84e947f82999c682b666a7a8ada43fb4896cf9a51c6c52dbc101406',1,'PermutationMatrix']]]
 ];

@@ -91,8 +91,7 @@ $(function() {
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d6/dbb/classLU__coll__graph.svg" width="198" height="1639"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d6/dbb/classLU__coll__graph.svg" width="198" height="1698"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
@@ -129,6 +128,9 @@ Related Functions</h2></td></tr>
 <tr class="memitem:a2827067ac54aee925eba3801c985e3ac"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2b/classLU.html#a2827067ac54aee925eba3801c985e3ac">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d5/d2b/classLU.html">LU</a> &amp;qr)</td></tr>
 <tr class="memdesc:a2827067ac54aee925eba3801c985e3ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the L and U matrices of an <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> object.  <a href="../../d5/d2b/classLU.html#a2827067ac54aee925eba3801c985e3ac">More...</a><br /></td></tr>
 <tr class="separator:a2827067ac54aee925eba3801c985e3ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acda89122dbb691ce955017c0e15f3d1c"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2b/classLU.html#acda89122dbb691ce955017c0e15f3d1c">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../d6/d1a/classRowPivotLU.html">RowPivotLU</a> &amp;qr)</td></tr>
+<tr class="memdesc:acda89122dbb691ce955017c0e15f3d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the L and U matrices of an <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> object.  <a href="../../d5/d2b/classLU.html#acda89122dbb691ce955017c0e15f3d1c">More...</a><br /></td></tr>
+<tr class="separator:acda89122dbb691ce955017c0e15f3d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Constructors</h2></td></tr>
@@ -204,8 +206,14 @@ Access to internal representation</h2></td></tr>
 <tr class="memitem:a72727c9a258b59544c087ce95148fe8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2b/classLU.html#a72727c9a258b59544c087ce95148fe8d">is_factored</a> () const</td></tr>
 <tr class="memdesc:a72727c9a258b59544c087ce95148fe8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this object contains a factorization.  <a href="../../d5/d2b/classLU.html#a72727c9a258b59544c087ce95148fe8d">More...</a><br /></td></tr>
 <tr class="separator:a72727c9a258b59544c087ce95148fe8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c549f050f7c054670ce783127eeb7c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2b/classLU.html#a2c549f050f7c054670ce783127eeb7c7">has_LU</a> () const</td></tr>
+<tr class="memdesc:a2c549f050f7c054670ce783127eeb7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this object contains valid L and U factors.  <a href="../../d5/d2b/classLU.html#a2c549f050f7c054670ce783127eeb7c7">More...</a><br /></td></tr>
+<tr class="separator:a2c549f050f7c054670ce783127eeb7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0993470185efafff4b19ee997d9941c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2b/classLU.html#a0993470185efafff4b19ee997d9941c4">steal_LU</a> ()</td></tr>
+<tr class="memdesc:a0993470185efafff4b19ee997d9941c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the upper-triangular matrix U and the strict lower-triangular part of matrix L.  <a href="../../d5/d2b/classLU.html#a0993470185efafff4b19ee997d9941c4">More...</a><br /></td></tr>
+<tr class="separator:a0993470185efafff4b19ee997d9941c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a13c2f111112257624875a2bd3bdf47"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2b/classLU.html#a0a13c2f111112257624875a2bd3bdf47">get_LU</a> () const &amp;</td></tr>
-<tr class="memdesc:a0a13c2f111112257624875a2bd3bdf47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the upper-triangular matrix U and the strict lower-triangular part of matrix L.  <a href="../../d5/d2b/classLU.html#a0a13c2f111112257624875a2bd3bdf47">More...</a><br /></td></tr>
+<tr class="memdesc:a0a13c2f111112257624875a2bd3bdf47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a copy of the internal storage of the upper-triangular matrix U and the strict lower-triangular part of matrix L.  <a href="../../d5/d2b/classLU.html#a0a13c2f111112257624875a2bd3bdf47">More...</a><br /></td></tr>
 <tr class="separator:a0a13c2f111112257624875a2bd3bdf47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacf81bb4ae8c798c972153c3adde2d1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d2b/classLU.html#aacf81bb4ae8c798c972153c3adde2d1c">get_LU</a> () &amp;&amp;</td></tr>
 <tr class="memdesc:aacf81bb4ae8c798c972153c3adde2d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the internal storage of the upper-triangular matrix U and the strict lower-triangular part of matrix L.  <a href="../../d5/d2b/classLU.html#aacf81bb4ae8c798c972153c3adde2d1c">More...</a><br /></td></tr>
@@ -214,10 +222,10 @@ Access to internal representation</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> factorization without pivoting. </p>
 <p>Factorizes a square matrix into a lower triangular and an upper-triangular factor.</p>
-<p>This version does not use column pivoting, and is not rank-revealing.</p>
+<p>This version does not use row pivoting, and is not rank-revealing.</p>
 <dl class="section warning"><dt>Warning</dt><dd><b>Never</b> use this factorization, it is not numerically stable and will fail completely if a zero pivot is encountered. This algorithm is included for educational purposes only. Use a pivoted <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> factorization or a QR factorization instead. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a5d74787dedbc4e11c1ab15bf487e61f8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d74787dedbc4e11c1ab15bf487e61f8">&#9670;&nbsp;</a></span>State</h2>
@@ -243,7 +251,7 @@ Access to internal representation</h2></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a9b07360223fa1f78b5be6ff5fc9bc5ba"></a>Factored&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00127">127</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00139">139</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 
 </div>
 </div>
@@ -301,7 +309,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Factorize the given matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 
 </div>
 </div>
@@ -331,7 +339,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Factorize the given matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 
 </div>
 </div>
@@ -354,7 +362,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Perform the <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> factorization of the given matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00216">216</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00233">233</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -376,7 +384,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Perform the <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> factorization of the given matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00221">221</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00238">238</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -398,7 +406,7 @@ Access to internal representation</h2></td></tr>
 <p>Get the lower-triangular matrix L, reusing the internal storage. </p>
 <dl class="section warning"><dt>Warning</dt><dd>After calling this function, the <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> object is no longer valid, because this function steals its storage. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00226">226</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00243">243</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -420,7 +428,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Copy the lower-triangular matrix L to the given matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00239">239</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00257">257</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -441,7 +449,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Get a copy of the lower-triangular matrix L. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00255">255</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00273">273</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -470,7 +478,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Get the lower-triangular matrix L. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 
 </div>
 </div>
@@ -492,7 +500,7 @@ Access to internal representation</h2></td></tr>
 <p>Get the upper-triangular matrix U, reusing the internal storage. </p>
 <dl class="section warning"><dt>Warning</dt><dd>After calling this function, the <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> object is no longer valid, because this function steals its storage. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00261">261</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00279">279</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -514,7 +522,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Copy the upper-triangular matrix U to the given matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00272">272</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00291">291</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -535,7 +543,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Get a copy of the upper-triangular matrix U. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00286">286</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00305">305</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -564,7 +572,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Get the upper-triangular matrix U. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00077">77</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 
 </div>
 </div>
@@ -587,7 +595,7 @@ Access to internal representation</h2></td></tr>
 <p>Solve the system AX = B or LUX = B. </p>
 <p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> B is overwritten with the result X. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00292">292</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00216">216</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -609,7 +617,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Solve the system AX = B or LUX = B. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00304">304</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00316">316</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -631,7 +639,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Solve the system AX = B or LUX = B. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00310">310</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00322">322</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -653,7 +661,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Solve the system Ax = b or LUx = b. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00315">315</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00327">327</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -675,7 +683,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Solve the system Ax = b or LUx = b. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00319">319</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00331">331</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -704,7 +712,58 @@ Access to internal representation</h2></td></tr>
 
 <p>Check if this object contains a factorization. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00102">102</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00104">104</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2c549f050f7c054670ce783127eeb7c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c549f050f7c054670ce783127eeb7c7">&#9670;&nbsp;</a></span>has_LU()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool has_LU </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if this object contains valid L and U factors. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00107">107</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0993470185efafff4b19ee997d9941c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0993470185efafff4b19ee997d9941c4">&#9670;&nbsp;</a></span>steal_LU()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d61/classSquareMatrix.html">SquareMatrix</a> &amp;&amp; steal_LU </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the internal storage of the upper-triangular matrix U and the strict lower-triangular part of matrix L. </p>
+<dl class="section warning"><dt>Warning</dt><dd>After calling this function, the <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> object is no longer valid, because this function steals its storage. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00311">311</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
 
 </div>
 </div>
@@ -731,9 +790,9 @@ Access to internal representation</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the internal storage of the upper-triangular matrix U and the strict lower-triangular part of matrix L. </p>
+<p>Get a copy of the internal storage of the upper-triangular matrix U and the strict lower-triangular part of matrix L. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00106">106</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00117">117</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 
 </div>
 </div>
@@ -762,7 +821,7 @@ Access to internal representation</h2></td></tr>
 
 <p>Get the internal storage of the upper-triangular matrix U and the strict lower-triangular part of matrix L. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00108">108</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00120">120</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 
 </div>
 </div>
@@ -792,7 +851,7 @@ Access to internal representation</h2></td></tr>
 <p>The actual <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> factorization algorithm. </p>
 <dl class="section pre"><dt>Precondition</dt><dd><code>LU_</code> contains the matrix A to be factorized </dd>
 <dd>
-<code>RW.rows() == RW.cols()</code></dd></dl>
+<code>LU_.rows() == LU_.cols()</code></dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The complete upper-triangular part of <code>LU_</code> contains the full upper-triangular matrix U and the strict lower-triangular part of matrix L. The diagonal elements of L are implicitly 1. </dd>
 <dd>
 <code><a class="el" href="../../d5/d2b/classLU.html#a9fcf69e4e4d12c88df4dffadbd54eafb" title="Get a copy of the lower-triangular matrix L.">get_L()</a> * <a class="el" href="../../d5/d2b/classLU.html#aa5a6dafa073642f32aa50d8187a4765d" title="Get a copy of the upper-triangular matrix U.">get_U()</a> == A</code> (up to rounding errors) </dd></dl>
@@ -883,7 +942,7 @@ Access to internal representation</h2></td></tr>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
 <a id="a2827067ac54aee925eba3801c985e3ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2827067ac54aee925eba3801c985e3ac">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2827067ac54aee925eba3801c985e3ac">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -918,7 +977,47 @@ Access to internal representation</h2></td></tr>
 
 <p>Print the L and U matrices of an <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00326">326</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d57/LU_8cpp_source.html#l00338">338</a> of file <a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acda89122dbb691ce955017c0e15f3d1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acda89122dbb691ce955017c0e15f3d1c">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d6/d1a/classRowPivotLU.html">RowPivotLU</a> &amp;&#160;</td>
+          <td class="paramname"><em>qr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">related</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Print the L and U matrices of an <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> object. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d1c/RowPivotLU_8cpp_source.html#l00286">286</a> of file <a class="el" href="../../d7/d1c/RowPivotLU_8cpp_source.html">RowPivotLU.cpp</a>.</p>
 
 </div>
 </div>
@@ -946,7 +1045,7 @@ Access to internal representation</h2></td></tr>
 <p>Result of a <a class="el" href="../../d5/d2b/classLU.html" title="LU factorization without pivoting.">LU</a> factorization: stores the upper-triangular matrix U and the strict lower-triangular part of matrix L. </p>
 <p>The diagonal elements of L are implicitly 1. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00125">125</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dcf/LU_8hpp_source.html#l00137">137</a> of file <a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a>.</p>
 
 </div>
 </div>
@@ -975,6 +1074,7 @@ Access to internal representation</h2></td></tr>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="../../d6/dcf/LU_8hpp_source.html">LU.hpp</a></li>
 <li><a class="el" href="../../d6/d57/LU_8cpp_source.html">LU.cpp</a></li>
+<li><a class="el" href="../../d3/d5d/RowPivotLU_8hpp_source.html">RowPivotLU.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

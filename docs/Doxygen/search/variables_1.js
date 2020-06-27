@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['lu_5f_208',['LU_',['../d5/d2b/classLU.html#adb6c7aa6baa17506c9b089f4e7b096f3',1,'LU']]]
+  ['has_5flu_5f_269',['has_LU_',['../d6/d1a/classRowPivotLU.html#acd73afc05c937709ee804bbdc4c681b7',1,'RowPivotLU']]],
+  ['has_5fp_5f_270',['has_P_',['../d6/d1a/classRowPivotLU.html#aecfd077ea00f517e832510fe71c74f6c',1,'RowPivotLU']]]
 ];

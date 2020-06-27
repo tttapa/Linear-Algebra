@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rowvector_115',['RowVector',['../d2/d78/classRowVector.html',1,'']]]
+  ['permutationmatrix_149',['PermutationMatrix',['../d4/d74/classPermutationMatrix.html',1,'']]]
 ];
