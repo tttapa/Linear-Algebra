@@ -16,6 +16,10 @@
  * @post    `get_L() * get_U() == get_P() * A`
  *          (up to rounding errors)
  * 
+ * @see     @ref NoPivotLU::compute_factorization() for an introduction to the
+ *          LU factorization. The basics presented there will not be reiterated
+ *          here.
+ * 
  * ## Implementation
  * @snippet this RowPivotLU::compute_factorization
  */
@@ -32,7 +36,7 @@ void RowPivotLU::compute_factorization() {
     // triangular matrix U. When row pivoting is used, the rows of A are
     // permuted using a permutation matrix P:
     //
-    //     Lₙ⋯L₂L₁PA = U
+    //     Lₙ'⋯L₂'L₁'PA = U
     //
     // The main steps of the algorithm are exactly the same as the original
     // LU algorithm explained in LU.cpp, and will not be repeated here.
@@ -72,8 +76,48 @@ void RowPivotLU::compute_factorization() {
             LU.swap_rows(k, max_index); // actually perfrom the permutation
         }
 
+        // Note how all columns of the two rows are permuted, not just the 
+        // columns greater than k. You might wonder how that'll ever work out
+        // correctly in the end.
+        // Recall that for the LU factorization without pivoting, the result was
+        //     Lₙ⋯L₂L₁A = U.
+        // When pivoting is used, however, the matrix is permuted before each
+        // elimination step:
+        //
+        //     LₙPₙ⋯L₂P₂L₁P₁A = U
+        //
+        // Luckily, the product can be reordered, and all permutation matrices
+        // Pₖ can be grouped together. 
+        // Without loss of generality, consider the pivoted LU factorization of 
+        // a 3×3 matrix:
+        //
+        //     L₃P₃L₂P₂L₁P₁A = U
+        //
+        // Now introduce the following permuted matrices Lₖ':
+        //
+        //     L₃' = L₃
+        //     L₂' = P₃L₂P₃⁻¹
+        //     L₁' = P₃P₂L₁P₂⁻¹P₃⁻¹
+        //
+        // You can then easily see that the following equation holds:
+        //
+        //     L₃'L₂'L₁'P₂P₃P₁A = U
+        //   ⇔ L₃(P₃L₂P₃⁻¹)(P₃P₂L₁P₂⁻¹P₃⁻¹)P₃P₂P₁A = U
+        //   ⇔ L₃P₃L₂P₂L₁P₁A = U
+        //
+        // Furthermore, the matrices Lₖ' have the same structure as Lₖ, because
+        // only rows below the k-th pivot are permuted.
+        //
+        // All of this allows us to group all row permutations into a single 
+        // permutation matrix P, and use the same algorithm and storage format 
+        // as for the unpivoted case.
+        // 
+        // The factors Lₖ' are computed implicitly by applying the row 
+        // permutations to the entire matrix that stores both the U and L 
+        // factors, rather than just to the elements of the trailing submatrix.
+
         // The rest of the algorithm is identical to the one explained in
-        // LU.cpp.
+        // NoPivotLU.cpp.
 
         double pivot = LU(k, k);
 
