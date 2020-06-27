@@ -32,10 +32,10 @@ set(CMAKE_C_FLAGS_TSAN   "-g3 -O0 -D_GLIBCXX_DEBUG \
 
 # Coverage
 set(CMAKE_C_FLAGS_COVERAGE "${CMAKE_C_FLAGS_ASAN} \
-    -fprofile-arcs -ftest-coverage")
+    --coverage -fno-inline")
 set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_ASAN} \
-      -fprofile-arcs -ftest-coverage")
-set(CMAKE_EXE_LINKER_FLAGS_COVERAGE "-fprofile-arcs -ftest-coverage")
+    --coverage -fno-inline")
+set(CMAKE_EXE_LINKER_FLAGS_COVERAGE "--coverage")
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
 add_compile_definitions(MATRIX_COUNT_ALLOCATIONS)
