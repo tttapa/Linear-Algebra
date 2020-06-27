@@ -1,11 +1,13 @@
 <map id="Matrix.hpp" name="Matrix.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="434,5,526,32"/>
-<area shape="rect" id="node2" href="$d3/da8/ArduinoMatrixPrinter_8cpp.html" title="Fallback functions for printing matrices without relying on std::ostream or printf." alt="" coords="34,80,217,107"/>
-<area shape="rect" id="node3" href="$d9/d52/HouseholderQR_8hpp.html" title=" " alt="" coords="241,80,391,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="490,5,582,32"/>
+<area shape="rect" id="node2" href="$d3/da8/ArduinoMatrixPrinter_8cpp.html" title="Fallback functions for printing matrices without relying on std::ostream or printf." alt="" coords="38,80,221,107"/>
+<area shape="rect" id="node3" href="$d9/d52/HouseholderQR_8hpp.html" title=" " alt="" coords="245,80,395,107"/>
 <area shape="rect" id="node5" href="$dd/d4f/Basic-matrix-operations_8ino.html" title=" " alt="" coords="323,162,525,189"/>
 <area shape="rect" id="node6" href="$de/dd7/Basic-matrix-operations-no-iostream_8ino.html" title=" " alt="" coords="549,155,728,196"/>
-<area shape="rect" id="node8" href="$d9/d1c/Linear__Algebra_8h.html" title=" " alt="" coords="467,80,597,107"/>
-<area shape="rect" id="node9" href="$dd/d52/Matrix_8cpp.html" title=" " alt="" coords="672,80,763,107"/>
+<area shape="rect" id="node8" href="$d9/d1c/Linear__Algebra_8h.html" title=" " alt="" coords="471,80,601,107"/>
+<area shape="rect" id="node9" href="$d6/dcf/LU_8hpp.html" title=" " alt="" coords="676,80,743,107"/>
+<area shape="rect" id="node11" href="$dd/d52/Matrix_8cpp.html" title=" " alt="" coords="767,80,857,107"/>
 <area shape="rect" id="node4" href="$df/d5c/HouseholderQR_8cpp.html" title=" " alt="" coords="147,162,298,189"/>
 <area shape="rect" id="node7" href="$de/d90/qr-perftest_8cpp.html" title=" " alt="" coords="5,162,123,189"/>
+<area shape="rect" id="node10" href="$d6/d57/LU_8cpp.html" title=" " alt="" coords="752,162,819,189"/>
 </map>
