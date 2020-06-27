@@ -152,7 +152,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> transpose for general matrices. </p>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Implementation</h2>
 <div class="fragment"><div class="line"><span class="keyword">inline</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> <a class="code" href="../../d3/dcb/group__MatTrans.html#gabb8f143fb04edf2dec42293e29007341">explicit_transpose</a>(<span class="keyword">const</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;in) {</div>
 <div class="line">    <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> out(in.<a class="code" href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">cols</a>(), in.<a class="code" href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">rows</a>());</div>
@@ -191,7 +191,7 @@ Implementation</h2>
 </div><div class="memdoc">
 
 <p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> transpose for rectangular or square square matrices and row or column vectors. </p>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Implementation</h2>
 <div class="fragment"><div class="line"><span class="keyword">inline</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> <a class="code" href="../../d3/dcb/group__MatTrans.html#ga008d66ad0c0a1a84c382047537c67a42">transpose</a>(<span class="keyword">const</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;in) {</div>
 <div class="line">    <span class="keywordflow">if</span> (in.<a class="code" href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">rows</a>() == 1 || in.<a class="code" href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">cols</a>() == 1) { <span class="comment">// Vectors</span></div>
@@ -232,7 +232,7 @@ Implementation</h2>
 </div><div class="memdoc">
 
 <p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> transpose for rectangular or square square matrices and row or column vectors. </p>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Implementation</h2>
 <div class="fragment"><div class="line"><span class="keyword">inline</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;<a class="code" href="../../d3/dcb/group__MatTrans.html#ga008d66ad0c0a1a84c382047537c67a42">transpose</a>(<a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;in) {</div>
 <div class="line">    <span class="keywordflow">if</span> (in.<a class="code" href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">rows</a>() == in.<a class="code" href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">cols</a>())                <span class="comment">// Square matrices</span></div>

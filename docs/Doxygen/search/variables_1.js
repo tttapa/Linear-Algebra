@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['has_5flu_5f_267',['has_LU_',['../d6/d1a/classRowPivotLU.html#acd73afc05c937709ee804bbdc4c681b7',1,'RowPivotLU']]],
-  ['has_5fp_5f_268',['has_P_',['../d6/d1a/classRowPivotLU.html#aecfd077ea00f517e832510fe71c74f6c',1,'RowPivotLU']]]
+  ['lu_267',['LU',['../d2/d7b/classNoPivotLU.html#a04e37d91ea68baabc1007c521fdcd4bf',1,'NoPivotLU::LU()'],['../d6/d1a/classRowPivotLU.html#a04e37d91ea68baabc1007c521fdcd4bf',1,'RowPivotLU::LU()']]]
 ];

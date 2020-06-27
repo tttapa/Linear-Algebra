@@ -17,8 +17,8 @@
 <text text-anchor="middle" x="87" y="-386.5" font-family="Helvetica,sans-Serif" font-size="10.00">RowPivotLU</text>
 <polyline fill="none" stroke="black" points="17,-379.5 157,-379.5 "/>
 <text text-anchor="start" x="25" y="-367.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45; state</text>
-<text text-anchor="start" x="25" y="-356.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45; has_LU_</text>
-<text text-anchor="start" x="25" y="-345.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45; has_P_</text>
+<text text-anchor="start" x="25" y="-356.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45; valid_LU</text>
+<text text-anchor="start" x="25" y="-345.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45; valid_P</text>
 <polyline fill="none" stroke="black" points="17,-338.5 157,-338.5 "/>
 <text text-anchor="start" x="25" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45; compute_factorization()</text>
 <text text-anchor="start" x="25" y="-315.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45; back_subs()</text>
@@ -148,7 +148,7 @@
 <title>Node3&#45;&gt;Node1</title>
 <path fill="none" stroke="#404040" d="M190.3,-605.75C175.92,-549.33 157.65,-477.66 140.48,-410.32"/>
 <polygon fill="none" stroke="#404040" points="140.48,-410.31 135.12,-405.48 137.52,-398.68 142.87,-403.51 140.48,-410.31"/>
-<text text-anchor="middle" x="156.5" y="-420" font-family="Helvetica,sans-Serif" font-size="10.00"> &#45;LU_</text>
+<text text-anchor="middle" x="154" y="-420" font-family="Helvetica,sans-Serif" font-size="10.00"> &#45;LU</text>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">

@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - d7a35229dadf2c36f5289caceb6a4c1cd267917c - src/RowPivotLU.hpp</title>
+  <title>LCOV - b844bdb30990a9b029f532660124832d4aecffa9 - src/RowPivotLU.hpp</title>
   <link rel="stylesheet" type="text/css" href="../gcov.css">
 </head>
 
@@ -28,7 +28,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">d7a35229dadf2c36f5289caceb6a4c1cd267917c</td>
+            <td class="headerValue">b844bdb30990a9b029f532660124832d4aecffa9</td>
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">10</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2020-06-27 17:54:53</td>
+            <td class="headerValue">2020-06-27 18:10:18</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -191,10 +191,10 @@
 <a name="121"><span class="lineNum">     121 </span><span class="lineCov">          5 :     bool is_factored() const { return state == Factored; }</span></a>
 <a name="122"><span class="lineNum">     122 </span>            : </a>
 <a name="123"><span class="lineNum">     123 </span>            :     /// Check if this object contains valid L and U factors.</a>
-<a name="124"><span class="lineNum">     124 </span><span class="lineCov">         10 :     bool has_LU() const { return has_LU_; }</span></a>
+<a name="124"><span class="lineNum">     124 </span><span class="lineCov">         10 :     bool has_LU() const { return valid_LU; }</span></a>
 <a name="125"><span class="lineNum">     125 </span>            : </a>
 <a name="126"><span class="lineNum">     126 </span>            :     /// Check if this object contains a valid permutation matrix P.</a>
-<a name="127"><span class="lineNum">     127 </span>            :     bool has_P() const { return has_P_; }</a>
+<a name="127"><span class="lineNum">     127 </span>            :     bool has_P() const { return valid_P; }</a>
 <a name="128"><span class="lineNum">     128 </span>            : </a>
 <a name="129"><span class="lineNum">     129 </span>            :     /// Get the internal storage of the upper-triangular matrix U and the strict</a>
 <a name="130"><span class="lineNum">     130 </span>            :     /// lower-triangular part of matrix L.</a>
@@ -206,7 +206,7 @@
 <a name="136"><span class="lineNum">     136 </span>            : </a>
 <a name="137"><span class="lineNum">     137 </span>            :     /// Get a copy of the internal storage of the upper-triangular matrix U and</a>
 <a name="138"><span class="lineNum">     138 </span>            :     /// the strict lower-triangular part of matrix L.</a>
-<a name="139"><span class="lineNum">     139 </span><span class="lineCov">          1 :     const SquareMatrix &amp;get_LU() const &amp; { return LU_; }</span></a>
+<a name="139"><span class="lineNum">     139 </span><span class="lineCov">          1 :     const SquareMatrix &amp;get_LU() const &amp; { return LU; }</span></a>
 <a name="140"><span class="lineNum">     140 </span>            :     /// Get the internal storage of the upper-triangular matrix U and the strict</a>
 <a name="141"><span class="lineNum">     141 </span>            :     /// lower-triangular part of matrix L.</a>
 <a name="142"><span class="lineNum">     142 </span><span class="lineCov">          1 :     SquareMatrix &amp;&amp;get_LU() &amp;&amp; { return steal_LU(); }</span></a>
@@ -226,7 +226,7 @@
 <a name="156"><span class="lineNum">     156 </span>            :     /// Result of a LU factorization: stores the upper-triangular</a>
 <a name="157"><span class="lineNum">     157 </span>            :     /// matrix U and the strict lower-triangular part of matrix L. The diagonal</a>
 <a name="158"><span class="lineNum">     158 </span>            :     /// elements of L are implicitly 1.</a>
-<a name="159"><span class="lineNum">     159 </span>            :     SquareMatrix LU_;</a>
+<a name="159"><span class="lineNum">     159 </span>            :     SquareMatrix LU;</a>
 <a name="160"><span class="lineNum">     160 </span>            :     /// The permutation of A that maximizes pivot size.</a>
 <a name="161"><span class="lineNum">     161 </span>            :     PermutationMatrix P = PermutationMatrix::RowPermutation;</a>
 <a name="162"><span class="lineNum">     162 </span>            : </a>
@@ -235,8 +235,8 @@
 <a name="165"><span class="lineNum">     165 </span>            :         Factored = 1,</a>
 <a name="166"><span class="lineNum">     166 </span>            :     } state = NotFactored;</a>
 <a name="167"><span class="lineNum">     167 </span>            : </a>
-<a name="168"><span class="lineNum">     168 </span>            :     bool has_LU_ = false;</a>
-<a name="169"><span class="lineNum">     169 </span>            :     bool has_P_ = false;</a>
+<a name="168"><span class="lineNum">     168 </span>            :     bool valid_LU = false;</a>
+<a name="169"><span class="lineNum">     169 </span>            :     bool valid_P = false;</a>
 <a name="170"><span class="lineNum">     170 </span>            : };</a>
 <a name="171"><span class="lineNum">     171 </span>            : </a>
 <a name="172"><span class="lineNum">     172 </span>            : /// Print the L and U matrices of an LU object.</a>

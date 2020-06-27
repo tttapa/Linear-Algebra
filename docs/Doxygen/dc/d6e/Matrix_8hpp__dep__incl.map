@@ -1,13 +1,13 @@
 <map id="Matrix.hpp" name="Matrix.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="420,5,512,32"/>
-<area shape="rect" id="node2" href="$d9/d52/HouseholderQR_8hpp.html" title=" " alt="" coords="155,80,305,107"/>
-<area shape="rect" id="node5" href="$d6/dcf/LU_8hpp.html" title=" " alt="" coords="330,80,397,107"/>
-<area shape="rect" id="node7" href="$dd/d52/Matrix_8cpp.html" title=" " alt="" coords="421,80,511,107"/>
-<area shape="rect" id="node8" href="$df/d3f/PermutationMatrix_8hpp.html" title=" " alt="" coords="536,80,708,107"/>
-<area shape="rect" id="node10" href="$d3/d5d/RowPivotLU_8hpp.html" title=" " alt="" coords="682,155,810,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="413,5,505,32"/>
+<area shape="rect" id="node2" href="$d9/d52/HouseholderQR_8hpp.html" title=" " alt="" coords="109,80,260,107"/>
+<area shape="rect" id="node5" href="$dd/d52/Matrix_8cpp.html" title=" " alt="" coords="285,80,375,107"/>
+<area shape="rect" id="node6" href="$d5/db4/NoPivotLU_8hpp.html" title=" " alt="" coords="400,80,519,107"/>
+<area shape="rect" id="node8" href="$df/d3f/PermutationMatrix_8hpp.html" title=" " alt="" coords="543,80,715,107"/>
+<area shape="rect" id="node10" href="$d3/d5d/RowPivotLU_8hpp.html" title=" " alt="" coords="725,155,853,181"/>
 <area shape="rect" id="node3" href="$df/d5c/HouseholderQR_8cpp.html" title=" " alt="" coords="5,155,156,181"/>
 <area shape="rect" id="node4" href="$de/d90/qr-perftest_8cpp.html" title=" " alt="" coords="181,155,298,181"/>
-<area shape="rect" id="node6" href="$d6/d57/LU_8cpp.html" title=" " alt="" coords="330,155,397,181"/>
-<area shape="rect" id="node9" href="$d9/d7f/PermutationMatrix_8cpp.html" title=" " alt="" coords="487,155,658,181"/>
-<area shape="rect" id="node11" href="$d7/d1c/RowPivotLU_8cpp.html" title=" " alt="" coords="683,229,809,256"/>
+<area shape="rect" id="node7" href="$dc/d48/NoPivotLU_8cpp.html" title=" " alt="" coords="389,155,506,181"/>
+<area shape="rect" id="node9" href="$d9/d7f/PermutationMatrix_8cpp.html" title=" " alt="" coords="530,155,701,181"/>
+<area shape="rect" id="node11" href="$d7/d1c/RowPivotLU_8cpp.html" title=" " alt="" coords="725,229,852,256"/>
 </map>

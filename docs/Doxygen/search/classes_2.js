@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['matrix_147',['Matrix',['../d3/d3f/classMatrix.html',1,'']]]
+  ['nopivotlu_147',['NoPivotLU',['../d2/d7b/classNoPivotLU.html',1,'']]]
 ];

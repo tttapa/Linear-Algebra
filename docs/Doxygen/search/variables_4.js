@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['r_5fdiag_271',['R_diag',['../d1/dac/classHouseholderQR.html#a0394778e11e33b448f8f33cbccfb41dd',1,'HouseholderQR']]],
-  ['reverse_5f_272',['reverse_',['../d4/d74/classPermutationMatrix.html#aeae704668ea77ad91c0d84485ef7677e',1,'PermutationMatrix']]],
-  ['rows_5f_273',['rows_',['../d3/d3f/classMatrix.html#a5fd613a6db0a8b62d801dc3514123237',1,'Matrix']]],
-  ['rw_274',['RW',['../d1/dac/classHouseholderQR.html#a67995a258750772424b54f88705d4537',1,'HouseholderQR']]]
+  ['state_273',['state',['../d1/dac/classHouseholderQR.html#a4ffbf2e71230a700f37745ccbe0767aa',1,'HouseholderQR::state()'],['../d2/d7b/classNoPivotLU.html#a98fb732cc2b56b7b8fb91d770f310f7d',1,'NoPivotLU::state()'],['../d6/d1a/classRowPivotLU.html#ae832f61bf566d70baa17f91c6a604bfd',1,'RowPivotLU::state()']]],
+  ['storage_274',['storage',['../d3/d3f/classMatrix.html#a59d4b705843702c7c2d2ad89bed06163',1,'Matrix::storage()'],['../d4/d74/classPermutationMatrix.html#a59d4b705843702c7c2d2ad89bed06163',1,'PermutationMatrix::storage()']]]
 ];
