@@ -121,10 +121,10 @@ class RowPivotLU {
     bool is_factored() const { return state == Factored; }
 
     /// Check if this object contains valid L and U factors.
-    bool has_LU() const { return has_LU_; }
+    bool has_LU() const { return valid_LU; }
 
     /// Check if this object contains a valid permutation matrix P.
-    bool has_P() const { return has_P_; }
+    bool has_P() const { return valid_P; }
 
     /// Get the internal storage of the upper-triangular matrix U and the strict
     /// lower-triangular part of matrix L.
@@ -136,7 +136,7 @@ class RowPivotLU {
 
     /// Get a copy of the internal storage of the upper-triangular matrix U and
     /// the strict lower-triangular part of matrix L.
-    const SquareMatrix &get_LU() const & { return LU_; }
+    const SquareMatrix &get_LU() const & { return LU; }
     /// Get the internal storage of the upper-triangular matrix U and the strict
     /// lower-triangular part of matrix L.
     SquareMatrix &&get_LU() && { return steal_LU(); }
@@ -156,7 +156,7 @@ class RowPivotLU {
     /// Result of a LU factorization: stores the upper-triangular
     /// matrix U and the strict lower-triangular part of matrix L. The diagonal
     /// elements of L are implicitly 1.
-    SquareMatrix LU_;
+    SquareMatrix LU;
     /// The permutation of A that maximizes pivot size.
     PermutationMatrix P = PermutationMatrix::RowPermutation;
 
@@ -165,8 +165,8 @@ class RowPivotLU {
         Factored = 1,
     } state = NotFactored;
 
-    bool has_LU_ = false;
-    bool has_P_ = false;
+    bool valid_LU = false;
+    bool valid_P = false;
 };
 
 /// Print the L and U matrices of an LU object.

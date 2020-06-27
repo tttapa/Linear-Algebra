@@ -1,28 +1,28 @@
-#include "LU.hpp"
+#include "NoPivotLU.hpp"
 
 #include <cassert>
 #include <iomanip>
 #include <iostream>
 
 /**
- * @pre     `LU_` contains the matrix A to be factorized
- * @pre     `LU_.rows() == LU_.cols()`
+ * @pre     `LU` contains the matrix A to be factorized
+ * @pre     `LU.rows() == LU.cols()`
  * 
- * @post    The complete upper-triangular part of `LU_` contains the full 
+ * @post    The complete upper-triangular part of `LU` contains the full 
  *          upper-triangular matrix U and the strict lower-triangular part of 
  *          matrix L. The diagonal elements of L are implicitly 1.
  * @post    `get_L() * get_U() == A`
  *          (up to rounding errors)
  * 
  * ## Implementation
- * @snippet this LU::compute_factorization
+ * @snippet this NoPivotLU::compute_factorization
  */
-//! <!-- [LU::compute_factorization] -->
-void LU::compute_factorization() {
-    // For the intermediate calculations, we'll be working with LU_.
+//! <!-- [NoPivotLU::compute_factorization] -->
+void NoPivotLU::compute_factorization() {
+    // For the intermediate calculations, we'll be working with LU.
     // It is initialized to the square n×n matrix to be factored.
 
-    assert(LU_.rows() == LU_.cols());
+    assert(LU.rows() == LU.cols());
 
     // The goal of the LU factorization algorithm is to repeatedly apply
     // transformations Lₖ to the matrix A to eventually end up with an upper-
@@ -36,7 +36,7 @@ void LU::compute_factorization() {
     // so on, until all elements below the diagonal are zero.
 
     // Loop over all columns of A:
-    for (size_t k = 0; k < LU_.cols(); ++k) {
+    for (size_t k = 0; k < LU.cols(); ++k) {
         // In the following comments, k = [1, n], because this is more intuitive
         // and it follows the usual mathematical convention.
         // In the code, however, array indices start at zero, so k = [0, n-1].
@@ -122,11 +122,11 @@ void LU::compute_factorization() {
         // stored either, because they're always 1.
 
         // Use the diagonal element as the pivot:
-        double pivot = LU_(k, k);
+        double pivot = LU(k, k);
 
         // Compute the k-th column of L, the coefficients lᵢₖ:
-        for (size_t i = k + 1; i < LU_.rows(); ++i)
-            LU_(i, k) /= pivot;
+        for (size_t i = k + 1; i < LU.rows(); ++i)
+            LU(i, k) /= pivot;
 
         // Now update the rest of the matrix, we already (implicitly) introduced
         // zeros below the diagonal in the k-th column, and we also stored the
@@ -143,11 +143,11 @@ void LU::compute_factorization() {
         // updated.
 
         // Update the trailing submatrix A'(k+1:n,k+1:n) = LₖA(k+1:n,k+1:n):
-        for (size_t c = k + 1; c < LU_.cols(); ++c)
+        for (size_t c = k + 1; c < LU.cols(); ++c)
             // Subtract lᵢₖ times the current pivot row A(k,:):
-            for (size_t i = k + 1; i < LU_.rows(); ++i)
+            for (size_t i = k + 1; i < LU.rows(); ++i)
                 // A'(i,c) = 1·A(i,c) - lᵢₖ·A(k,c)
-                LU_(i, c) -= LU_(i, k) * LU_(k, c);
+                LU(i, c) -= LU(i, k) * LU(k, c);
 
         // We won't handle this here explicitly, but notice how the algorithm
         // fails when the value of the pivot is zero (or very small), as this
@@ -163,14 +163,14 @@ void LU::compute_factorization() {
     }
     state = Factored;
 }
-//! <!-- [LU::compute_factorization] -->
+//! <!-- [NoPivotLU::compute_factorization] -->
 
 /**
  * ## Implementation
- * @snippet this LU::back_subs
+ * @snippet this NoPivotLU::back_subs
  */
-//! <!-- [LU::back_subs] -->
-void LU::back_subs(const Matrix &B, Matrix &X) const {
+//! <!-- [NoPivotLU::back_subs] -->
+void NoPivotLU::back_subs(const Matrix &B, Matrix &X) const {
     // Solve upper triangular system UX = B by solving each column of B as a
     // vector system Uxᵢ = bᵢ
     //
@@ -187,22 +187,22 @@ void LU::back_subs(const Matrix &B, Matrix &X) const {
     // ...
 
     for (size_t i = 0; i < B.cols(); ++i) {
-        for (size_t r = LU_.rows(); r-- > 0;) {
+        for (size_t r = LU.rows(); r-- > 0;) {
             X(r, i) = B(r, i);
-            for (size_t c = r + 1; c < LU_.cols(); ++c)
-                X(r, i) -= LU_(r, c) * X(c, i);
-            X(r, i) /= LU_(r, r);
+            for (size_t c = r + 1; c < LU.cols(); ++c)
+                X(r, i) -= LU(r, c) * X(c, i);
+            X(r, i) /= LU(r, r);
         }
     }
 }
-//! <!-- [LU::back_subs] -->
+//! <!-- [NoPivotLU::back_subs] -->
 
 /**
  * ## Implementation
- * @snippet this LU::forward_subs
+ * @snippet this NoPivotLU::forward_subs
  */
-//! <!-- [LU::forward_subs] -->
-void LU::forward_subs(const Matrix &B, Matrix &X) const {
+//! <!-- [NoPivotLU::forward_subs] -->
+void NoPivotLU::forward_subs(const Matrix &B, Matrix &X) const {
     // Solve lower triangular system LX = B by solving each column of B as a
     // vector system Lxᵢ = bᵢ.
     // The diagonal is always 1, due to the construction of the L matrix in the
@@ -221,21 +221,21 @@ void LU::forward_subs(const Matrix &B, Matrix &X) const {
     // ...
 
     for (size_t i = 0; i < B.cols(); ++i) {
-        for (size_t r = 0; r < LU_.rows(); ++r) {
+        for (size_t r = 0; r < LU.rows(); ++r) {
             X(r, i) = B(r, i);
             for (size_t c = 0; c < r; ++c)
-                X(r, i) -= LU_(r, c) * X(c, i);
+                X(r, i) -= LU(r, c) * X(c, i);
         }
     }
 }
-//! <!-- [LU::forward_subs] -->
+//! <!-- [NoPivotLU::forward_subs] -->
 
 /**
  * ## Implementation
- * @snippet this LU::solve_inplace
+ * @snippet this NoPivotLU::solve_inplace
  */
-//! <!-- [LU::solve_inplace] -->
-void LU::solve_inplace(Matrix &B) const {
+//! <!-- [NoPivotLU::solve_inplace] -->
+void NoPivotLU::solve_inplace(Matrix &B) const {
     // Solve the system AX = B, or LUX = B.
     //
     // Let UX = Z, and first solve LZ = B, which is a simple lower-triangular
@@ -247,118 +247,118 @@ void LU::solve_inplace(Matrix &B) const {
     forward_subs(B, B); // overwrite B with Z
     back_subs(B, B);    // overwrite B (Z) with X
 }
-//! <!-- [LU::solve_inplace] -->
+//! <!-- [NoPivotLU::solve_inplace] -->
 
 //                                                                            //
 // :::::::::::::::::::::::: Mostly boilerplate below :::::::::::::::::::::::: //
 //                                                                            //
 
-void LU::compute(SquareMatrix &&matrix) {
-    LU_ = std::move(matrix);
+void NoPivotLU::compute(SquareMatrix &&matrix) {
+    LU = std::move(matrix);
     compute_factorization();
 }
 
-void LU::compute(const SquareMatrix &matrix) {
-    LU_ = matrix;
+void NoPivotLU::compute(const SquareMatrix &matrix) {
+    LU = matrix;
     compute_factorization();
 }
 
-SquareMatrix &&LU::steal_L() {
+SquareMatrix &&NoPivotLU::steal_L() {
     assert(has_LU());
     state = NotFactored;
-    for (size_t c = 0; c < LU_.cols(); ++c) {
+    for (size_t c = 0; c < LU.cols(); ++c) {
         // Elements above the diagonal are zero
         for (size_t r = 0; r < c; ++r)
-            LU_(r, c) = 0;
+            LU(r, c) = 0;
         // Diagonal elements are one
-        LU_(c, c) = 1;
-        // Elements below the diagonal are stored in LU_ already
+        LU(c, c) = 1;
+        // Elements below the diagonal are stored in LU already
     }
-    return std::move(LU_);
+    return std::move(LU);
 }
 
-void LU::get_L_inplace(Matrix &L) const {
+void NoPivotLU::get_L_inplace(Matrix &L) const {
     assert(has_LU());
-    assert(L.rows() == LU_.rows());
-    assert(L.cols() == LU_.cols());
+    assert(L.rows() == LU.rows());
+    assert(L.cols() == LU.cols());
     for (size_t c = 0; c < L.cols(); ++c) {
         // Elements above the diagonal are zero
         for (size_t r = 0; r < c; ++r)
             L(r, c) = 0;
         // Diagonal elements are one
         L(c, c) = 1;
-        // Elements below the diagonal are stored in LU_
+        // Elements below the diagonal are stored in LU
         for (size_t r = c + 1; r < L.rows(); ++r)
-            L(r, c) = LU_(r, c);
+            L(r, c) = LU(r, c);
     }
 }
 
-SquareMatrix LU::get_L() const & {
-    SquareMatrix L(LU_.rows());
+SquareMatrix NoPivotLU::get_L() const & {
+    SquareMatrix L(LU.rows());
     get_L_inplace(L);
     return L;
 }
 
-SquareMatrix &&LU::steal_U() {
+SquareMatrix &&NoPivotLU::steal_U() {
     assert(has_LU());
     state = NotFactored;
-    for (size_t c = 0; c < LU_.cols(); ++c) {
-        // Elements above and on the diagonal are stored in LU_ already
+    for (size_t c = 0; c < LU.cols(); ++c) {
+        // Elements above and on the diagonal are stored in LU already
         // Elements below the diagonal are zero
-        for (size_t r = c + 1; r < LU_.rows(); ++r)
-            LU_(r, c) = 0;
+        for (size_t r = c + 1; r < LU.rows(); ++r)
+            LU(r, c) = 0;
     }
-    return std::move(LU_);
+    return std::move(LU);
 }
 
-void LU::get_U_inplace(Matrix &U) const {
+void NoPivotLU::get_U_inplace(Matrix &U) const {
     assert(has_LU());
-    assert(U.rows() == LU_.rows());
-    assert(U.cols() == LU_.cols());
+    assert(U.rows() == LU.rows());
+    assert(U.cols() == LU.cols());
     for (size_t c = 0; c < U.cols(); ++c) {
-        // Elements above and on the diagonal are stored in LU_
+        // Elements above and on the diagonal are stored in LU
         for (size_t r = 0; r <= c; ++r)
-            U(r, c) = LU_(r, c);
+            U(r, c) = LU(r, c);
         // Elements below the diagonal are zero
         for (size_t r = c + 1; r < U.rows(); ++r)
             U(r, c) = 0;
     }
 }
 
-SquareMatrix LU::get_U() const & {
-    SquareMatrix U(LU_.rows());
+SquareMatrix NoPivotLU::get_U() const & {
+    SquareMatrix U(LU.rows());
     get_U_inplace(U);
     return U;
 }
 
-SquareMatrix &&LU::steal_LU() {
+SquareMatrix &&NoPivotLU::steal_LU() {
     state = NotFactored;
-    return std::move(LU_);
+    return std::move(LU);
 }
 
-Matrix LU::solve(const Matrix &B) const {
+Matrix NoPivotLU::solve(const Matrix &B) const {
     Matrix B_cpy = B;
     solve_inplace(B_cpy);
     return B_cpy;
 }
 
-Matrix &&LU::solve(Matrix &&B) const {
+Matrix &&NoPivotLU::solve(Matrix &&B) const {
     solve_inplace(B);
     return std::move(B);
 }
 
-Vector LU::solve(const Vector &b) const {
+Vector NoPivotLU::solve(const Vector &b) const {
     return Vector(solve(static_cast<const Matrix &>(b)));
 }
 
-Vector &&LU::solve(Vector &&b) const {
+Vector &&NoPivotLU::solve(Vector &&b) const {
     solve_inplace(b);
     return std::move(b);
 }
 
 // LCOV_EXCL_START
 
-std::ostream &operator<<(std::ostream &os, const LU &lu) {
+std::ostream &operator<<(std::ostream &os, const NoPivotLU &lu) {
     if (!lu.is_factored()) {
         os << "Not factored." << std::endl;
         return os;
@@ -366,23 +366,23 @@ std::ostream &operator<<(std::ostream &os, const LU &lu) {
 
     // Output field width (characters)
     int w = os.precision() + 9;
-    auto &LU_ = lu.get_LU();
+    auto &LU = lu.get_LU();
 
     os << "L = " << std::endl;
-    for (size_t r = 0; r < LU_.cols(); ++r) {
+    for (size_t r = 0; r < LU.cols(); ++r) {
         for (size_t c = 0; c < r; ++c)
             os << std::setw(w) << 0;
-        for (size_t c = r; c < LU_.cols(); ++c)
-            os << std::setw(w) << LU_(r, c);
+        for (size_t c = r; c < LU.cols(); ++c)
+            os << std::setw(w) << LU(r, c);
         os << std::endl;
     }
 
     os << "U = " << std::endl;
-    for (size_t r = 0; r < LU_.cols(); ++r) {
+    for (size_t r = 0; r < LU.cols(); ++r) {
         for (size_t c = 0; c < r; ++c)
-            os << std::setw(w) << LU_(r, c);
+            os << std::setw(w) << LU(r, c);
         os << std::setw(w) << 1;
-        for (size_t c = r; c < LU_.cols(); ++c)
+        for (size_t c = r; c < LU.cols(); ++c)
             os << std::setw(w) << 0;
         os << std::endl;
     }

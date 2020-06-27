@@ -17,17 +17,17 @@
  * 
  * @ingroup Factorizations
  */
-class LU {
+class NoPivotLU {
   public:
     /// @name Constructors
     /// @{
 
     /// Default constructor.
-    LU() = default;
+    NoPivotLU() = default;
     /// Factorize the given matrix.
-    LU(const SquareMatrix &matrix) { compute(matrix); }
+    NoPivotLU(const SquareMatrix &matrix) { compute(matrix); }
     /// Factorize the given matrix.
-    LU(SquareMatrix &&matrix) { compute(std::move(matrix)); }
+    NoPivotLU(SquareMatrix &&matrix) { compute(std::move(matrix)); }
 
     /// @}
 
@@ -47,7 +47,7 @@ class LU {
     /// @{
 
     /// Get the lower-triangular matrix L, reusing the internal storage.
-    /// @warning    After calling this function, the LU object is no
+    /// @warning    After calling this function, the NoPivotLU object is no
     ///             longer valid, because this function steals its storage.
     SquareMatrix &&steal_L();
 
@@ -65,7 +65,7 @@ class LU {
     /// @{
 
     /// Get the upper-triangular matrix U, reusing the internal storage.
-    /// @warning    After calling this function, the LU object is no
+    /// @warning    After calling this function, the NoPivotLU object is no
     ///             longer valid, because this function steals its storage.
     SquareMatrix &&steal_U();
 
@@ -114,7 +114,7 @@ class LU {
 
     /// Get a copy of the internal storage of the upper-triangular matrix U and
     /// the strict lower-triangular part of matrix L.
-    const SquareMatrix &get_LU() const & { return LU_; }
+    const SquareMatrix &get_LU() const & { return LU; }
     /// Get the internal storage of the upper-triangular matrix U and the strict
     /// lower-triangular part of matrix L.
     SquareMatrix &&get_LU() && { return steal_LU(); }
@@ -134,7 +134,7 @@ class LU {
     /// Result of a LU factorization: stores the upper-triangular
     /// matrix U and the strict lower-triangular part of matrix L. The diagonal
     /// elements of L are implicitly 1.
-    SquareMatrix LU_;
+    SquareMatrix LU;
 
     enum State {
         NotFactored = 0,
@@ -142,6 +142,6 @@ class LU {
     } state = NotFactored;
 };
 
-/// Print the L and U matrices of an LU object.
+/// Print the L and U matrices of an NoPivotLU object.
 /// @related    LU
-std::ostream &operator<<(std::ostream &os, const LU &lu);
+std::ostream &operator<<(std::ostream &os, const NoPivotLU &lu);

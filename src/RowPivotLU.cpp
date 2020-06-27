@@ -5,12 +5,12 @@
 #include <iostream>
 
 /**
- * @pre     `LU_` contains the matrix A to be factorized
+ * @pre     `LU` contains the matrix A to be factorized
  * @pre     `P` contains the identity matrix (no permutations)
- * @pre     `LU_.rows() == LU_.cols()`
- * @pre     `P.size() == LU_.rows()`
+ * @pre     `LU.rows() == LU.cols()`
+ * @pre     `P.size() == LU.rows()`
  * 
- * @post    The complete upper-triangular part of `LU_` contains the full 
+ * @post    The complete upper-triangular part of `LU` contains the full 
  *          upper-triangular matrix U and the strict lower-triangular part of 
  *          matrix L. The diagonal elements of L are implicitly 1.
  * @post    `get_L() * get_U() == get_P() * A`
@@ -21,11 +21,11 @@
  */
 //! <!-- [RowPivotLU::compute_factorization] -->
 void RowPivotLU::compute_factorization() {
-    // For the intermediate calculations, we'll be working with LU_.
+    // For the intermediate calculations, we'll be working with LU.
     // It is initialized to the square n×n matrix to be factored.
 
-    assert(LU_.rows() == LU_.cols());
-    assert(P.size() == LU_.rows());
+    assert(LU.rows() == LU.cols());
+    assert(P.size() == LU.rows());
 
     // The goal of the LU factorization algorithm is to repeatedly apply
     // transformations Lₖ to the matrix A to eventually end up with an upper-
@@ -41,7 +41,7 @@ void RowPivotLU::compute_factorization() {
     // ends up on the diagonal and can be used as the pivot.
 
     // Loop over all columns of A:
-    for (size_t k = 0; k < LU_.cols(); ++k) {
+    for (size_t k = 0; k < LU.cols(); ++k) {
         // In the following comments, k = [1, n], because this is more intuitive
         // and it follows the usual mathematical convention.
         // In the code, however, array indices start at zero, so k = [0, n-1].
@@ -54,10 +54,10 @@ void RowPivotLU::compute_factorization() {
         // equations for example.
 
         // Find the largest element (in absolute value)
-        double max_elem = std::abs(LU_(k, k));
+        double max_elem = std::abs(LU(k, k));
         size_t max_index = k;
-        for (size_t i = k + 1; i < LU_.rows(); ++i) {
-            double abs_elem = std::abs(LU_(i, k));
+        for (size_t i = k + 1; i < LU.rows(); ++i) {
+            double abs_elem = std::abs(LU(i, k));
             if (abs_elem > max_elem) {
                 max_elem = abs_elem;
                 max_index = i;
@@ -68,25 +68,25 @@ void RowPivotLU::compute_factorization() {
         // the new pivot index.
         // If this index is not the diagonal element, rows have to be swapped:
         if (max_index != k) {
-            P(k) = max_index;            // save the permutation
-            LU_.swap_rows(k, max_index); // actually perfrom the permutation
+            P(k) = max_index;           // save the permutation
+            LU.swap_rows(k, max_index); // actually perfrom the permutation
         }
 
         // The rest of the algorithm is identical to the one explained in
         // LU.cpp.
 
-        double pivot = LU_(k, k);
+        double pivot = LU(k, k);
 
         // Compute the k-th column of L, the coefficients lᵢₖ:
-        for (size_t i = k + 1; i < LU_.rows(); ++i)
-            LU_(i, k) /= pivot;
+        for (size_t i = k + 1; i < LU.rows(); ++i)
+            LU(i, k) /= pivot;
 
         // Update the trailing submatrix A'(k+1:n,k+1:n) = LₖA(k+1:n,k+1:n):
-        for (size_t c = k + 1; c < LU_.cols(); ++c)
+        for (size_t c = k + 1; c < LU.cols(); ++c)
             // Subtract lᵢₖ times the current pivot row A(k,:):
-            for (size_t i = k + 1; i < LU_.rows(); ++i)
+            for (size_t i = k + 1; i < LU.rows(); ++i)
                 // A'(i,c) = 1·A(i,c) - lᵢₖ·A(k,c)
-                LU_(i, c) -= LU_(i, k) * LU_(k, c);
+                LU(i, c) -= LU(i, k) * LU(k, c);
 
         // Because of the row pivoting, zero pivots are no longer an issue,
         // since the pivot is always chosen to be the largest possible element.
@@ -94,8 +94,8 @@ void RowPivotLU::compute_factorization() {
         // course.
     }
     state = Factored;
-    has_LU_ = true;
-    has_P_ = true;
+    valid_LU = true;
+    valid_P = true;
 }
 //! <!-- [RowPivotLU::compute_factorization] -->
 
@@ -121,11 +121,11 @@ void RowPivotLU::back_subs(const Matrix &B, Matrix &X) const {
     // ...
 
     for (size_t i = 0; i < B.cols(); ++i) {
-        for (size_t r = LU_.rows(); r-- > 0;) {
+        for (size_t r = LU.rows(); r-- > 0;) {
             X(r, i) = B(r, i);
-            for (size_t c = r + 1; c < LU_.cols(); ++c)
-                X(r, i) -= LU_(r, c) * X(c, i);
-            X(r, i) /= LU_(r, r);
+            for (size_t c = r + 1; c < LU.cols(); ++c)
+                X(r, i) -= LU(r, c) * X(c, i);
+            X(r, i) /= LU(r, r);
         }
     }
 }
@@ -155,10 +155,10 @@ void RowPivotLU::forward_subs(const Matrix &B, Matrix &X) const {
     // ...
 
     for (size_t i = 0; i < B.cols(); ++i) {
-        for (size_t r = 0; r < LU_.rows(); ++r) {
+        for (size_t r = 0; r < LU.rows(); ++r) {
             X(r, i) = B(r, i);
             for (size_t c = 0; c < r; ++c)
-                X(r, i) -= LU_(r, c) * X(c, i);
+                X(r, i) -= LU(r, c) * X(c, i);
         }
     }
 }
@@ -189,15 +189,15 @@ void RowPivotLU::solve_inplace(Matrix &B) const {
 //                                                                            //
 
 void RowPivotLU::compute(SquareMatrix &&matrix) {
-    LU_ = std::move(matrix);
-    P.resize(LU_.rows());
+    LU = std::move(matrix);
+    P.resize(LU.rows());
     P.fill_identity();
     compute_factorization();
 }
 
 void RowPivotLU::compute(const SquareMatrix &matrix) {
-    LU_ = matrix;
-    P.resize(LU_.rows());
+    LU = matrix;
+    P.resize(LU.rows());
     P.fill_identity();
     compute_factorization();
 }
@@ -205,36 +205,36 @@ void RowPivotLU::compute(const SquareMatrix &matrix) {
 SquareMatrix &&RowPivotLU::steal_L() {
     assert(has_LU());
     state = NotFactored;
-    has_LU_ = false;
-    for (size_t c = 0; c < LU_.cols(); ++c) {
+    valid_LU = false;
+    for (size_t c = 0; c < LU.cols(); ++c) {
         // Elements above the diagonal are zero
         for (size_t r = 0; r < c; ++r)
-            LU_(r, c) = 0;
+            LU(r, c) = 0;
         // Diagonal elements are one
-        LU_(c, c) = 1;
-        // Elements below the diagonal are stored in LU_ already
+        LU(c, c) = 1;
+        // Elements below the diagonal are stored in LU already
     }
-    return std::move(LU_);
+    return std::move(LU);
 }
 
 void RowPivotLU::get_L_inplace(Matrix &L) const {
     assert(has_LU());
-    assert(L.rows() == LU_.rows());
-    assert(L.cols() == LU_.cols());
+    assert(L.rows() == LU.rows());
+    assert(L.cols() == LU.cols());
     for (size_t c = 0; c < L.cols(); ++c) {
         // Elements above the diagonal are zero
         for (size_t r = 0; r < c; ++r)
             L(r, c) = 0;
         // Diagonal elements are one
         L(c, c) = 1;
-        // Elements below the diagonal are stored in LU_
+        // Elements below the diagonal are stored in LU
         for (size_t r = c + 1; r < L.rows(); ++r)
-            L(r, c) = LU_(r, c);
+            L(r, c) = LU(r, c);
     }
 }
 
 SquareMatrix RowPivotLU::get_L() const & {
-    SquareMatrix L(LU_.rows());
+    SquareMatrix L(LU.rows());
     get_L_inplace(L);
     return L;
 }
@@ -242,24 +242,24 @@ SquareMatrix RowPivotLU::get_L() const & {
 SquareMatrix &&RowPivotLU::steal_U() {
     assert(has_LU());
     state = NotFactored;
-    has_LU_ = false;
-    for (size_t c = 0; c < LU_.cols(); ++c) {
-        // Elements above and on the diagonal are stored in LU_ already
+    valid_LU = false;
+    for (size_t c = 0; c < LU.cols(); ++c) {
+        // Elements above and on the diagonal are stored in LU already
         // Elements below the diagonal are zero
-        for (size_t r = c + 1; r < LU_.rows(); ++r)
-            LU_(r, c) = 0;
+        for (size_t r = c + 1; r < LU.rows(); ++r)
+            LU(r, c) = 0;
     }
-    return std::move(LU_);
+    return std::move(LU);
 }
 
 void RowPivotLU::get_U_inplace(Matrix &U) const {
     assert(has_LU());
-    assert(U.rows() == LU_.rows());
-    assert(U.cols() == LU_.cols());
+    assert(U.rows() == LU.rows());
+    assert(U.cols() == LU.cols());
     for (size_t c = 0; c < U.cols(); ++c) {
-        // Elements above and on the diagonal are stored in LU_
+        // Elements above and on the diagonal are stored in LU
         for (size_t r = 0; r <= c; ++r)
-            U(r, c) = LU_(r, c);
+            U(r, c) = LU(r, c);
         // Elements below the diagonal are zero
         for (size_t r = c + 1; r < U.rows(); ++r)
             U(r, c) = 0;
@@ -267,21 +267,21 @@ void RowPivotLU::get_U_inplace(Matrix &U) const {
 }
 
 SquareMatrix RowPivotLU::get_U() const & {
-    SquareMatrix U(LU_.rows());
+    SquareMatrix U(LU.rows());
     get_U_inplace(U);
     return U;
 }
 
 PermutationMatrix &&RowPivotLU::steal_P() {
     state = NotFactored;
-    has_P_ = false;
+    valid_P = false;
     return std::move(P);
 }
 
 SquareMatrix &&RowPivotLU::steal_LU() {
     state = NotFactored;
-    has_LU_ = false;
-    return std::move(LU_);
+    valid_LU = false;
+    return std::move(LU);
 }
 
 Matrix RowPivotLU::solve(const Matrix &B) const {
@@ -314,23 +314,23 @@ std::ostream &operator<<(std::ostream &os, const RowPivotLU &lu) {
 
     // Output field width (characters)
     int w = os.precision() + 9;
-    auto &LU_ = lu.get_LU();
+    auto &LU = lu.get_LU();
 
     os << "L = " << std::endl;
-    for (size_t r = 0; r < LU_.cols(); ++r) {
+    for (size_t r = 0; r < LU.cols(); ++r) {
         for (size_t c = 0; c < r; ++c)
             os << std::setw(w) << 0;
-        for (size_t c = r; c < LU_.cols(); ++c)
-            os << std::setw(w) << LU_(r, c);
+        for (size_t c = r; c < LU.cols(); ++c)
+            os << std::setw(w) << LU(r, c);
         os << std::endl;
     }
 
     os << "U = " << std::endl;
-    for (size_t r = 0; r < LU_.cols(); ++r) {
+    for (size_t r = 0; r < LU.cols(); ++r) {
         for (size_t c = 0; c < r; ++c)
-            os << std::setw(w) << LU_(r, c);
+            os << std::setw(w) << LU(r, c);
         os << std::setw(w) << 1;
-        for (size_t c = r; c < LU_.cols(); ++c)
+        for (size_t c = r; c < LU.cols(); ++c)
             os << std::setw(w) << 0;
         os << std::endl;
     }

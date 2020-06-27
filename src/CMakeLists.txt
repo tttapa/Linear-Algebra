@@ -2,7 +2,7 @@ add_library(matrix
     Matrix.cpp
     PermutationMatrix.cpp
     HouseholderQR.cpp
-    LU.cpp
+    NoPivotLU.cpp
     RowPivotLU.cpp
 )
 target_include_directories(matrix PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

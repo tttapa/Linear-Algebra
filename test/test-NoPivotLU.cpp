@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <LU.hpp>
+#include <NoPivotLU.hpp>
 #include <Matrix.hpp>
 
 #include "CountAllocationsTests.hpp"
@@ -11,13 +11,13 @@
 #define EXPECT_CLOSE_ENOUGH(X, R)                                              \
     EXPECT_NEAR((X), (R), std::max(std::abs(X) * 1e-14, 1e-14))
 
-TEST(LU, LU) {
+TEST(NoPivotLU, NoPivotLU) {
     SquareMatrix A = {
         {7, 3, 4},
         {1, 2, 3},
         {6, 5, 4},
     };
-    LU lu(A);
+    NoPivotLU lu(A);
 
     SquareMatrix LU_prod = lu.get_L() * lu.get_U();
 
@@ -30,7 +30,7 @@ TEST(LU, LU) {
         }
 }
 
-TEST(LU, solve) {
+TEST(NoPivotLU, solve) {
     SquareMatrix A = {
         {7, 3, 4},
         {1, 2, 3},
@@ -38,7 +38,7 @@ TEST(LU, solve) {
     };
     Vector x = {7, 11, 13};
     Vector b = A * x;
-    LU lu(A);
+    NoPivotLU lu(A);
 
     Vector solution = lu.solve(b);
 
@@ -47,7 +47,7 @@ TEST(LU, solve) {
         EXPECT_CLOSE_ENOUGH(solution(c), x(c)) << "(" << c << ")";
 }
 
-TEST(LU, solveMoveA) {
+TEST(NoPivotLU, solveMoveA) {
     SquareMatrix A = {
         {7, 3, 4},
         {1, 2, 3},
@@ -55,7 +55,7 @@ TEST(LU, solveMoveA) {
     };
     Vector x = {7, 11, 13};
     Vector b = A * x;
-    LU lu(std::move(A));
+    NoPivotLU lu(std::move(A));
 
     Vector solution = lu.solve(b);
 
@@ -64,14 +64,14 @@ TEST(LU, solveMoveA) {
         EXPECT_CLOSE_ENOUGH(solution(c), x(c)) << "(" << c << ")";
 }
 
-TEST(LU, solveMove) {
+TEST(NoPivotLU, solveMove) {
     SquareMatrix A = {
         {7, 3, 4},
         {1, 2, 3},
         {6, 5, 4},
     };
     Vector x = {7, 11, 13};
-    LU lu(A);
+    NoPivotLU lu(A);
 
     Vector solution = lu.solve(A * x);
 
@@ -80,7 +80,7 @@ TEST(LU, solveMove) {
         EXPECT_CLOSE_ENOUGH(solution(c), x(c)) << "(" << c << ")";
 }
 
-TEST(LU, solveSquareInplace) {
+TEST(NoPivotLU, solveSquareInplace) {
     RESET_ALLOC_COUNT();
     SquareMatrix A = {
         {7, 3, 4},
@@ -89,7 +89,7 @@ TEST(LU, solveSquareInplace) {
     };
     Vector x = {7, 11, 13};
     Vector b = A * x;
-    LU lu(A);
+    NoPivotLU lu(A);
     EXPECT_ALLOC_COUNT(4);
     EXPECT_ALLOC_ALIVE(4); // A, lu, x, b
     lu.solve_inplace(b);
@@ -101,13 +101,13 @@ TEST(LU, solveSquareInplace) {
         EXPECT_CLOSE_ENOUGH(b(c), x(c)) << "(" << c << ")";
 }
 
-TEST(LU, solveSquareInvert) {
+TEST(NoPivotLU, solveSquareInvert) {
     SquareMatrix A = {
         {7, 3, 4},
         {1, 2, 3},
         {6, 5, 4},
     };
-    LU lu(A);
+    NoPivotLU lu(A);
     Matrix A_inv = lu.solve(Matrix::identity(3));
 
     Matrix expected = Matrix::identity(3);
@@ -119,13 +119,13 @@ TEST(LU, solveSquareInvert) {
                 << "(" << r << ", " << c << ")";
 }
 
-TEST(LU, LURepresentation) {
+TEST(NoPivotLU, LURepresentation) {
     SquareMatrix A = {
         {7, 3, 4},
         {1, 2, 3},
         {6, 5, 4},
     };
-    LU lu(A);
+    NoPivotLU lu(A);
 
     Matrix result = lu.get_L() + lu.get_U() - lu.get_LU() - Matrix::identity(3);
 
@@ -135,13 +135,13 @@ TEST(LU, LURepresentation) {
                 << "(" << r << ", " << c << ")";
 }
 
-TEST(LU, LUSteal) {
+TEST(NoPivotLU, LUSteal) {
     SquareMatrix A = {
         {7, 3, 4},
         {1, 2, 3},
         {6, 5, 4},
     };
-    SquareMatrix LU_prod = LU(A).get_L() * LU(A).get_U();
+    SquareMatrix LU_prod = NoPivotLU(A).get_L() * NoPivotLU(A).get_U();
 
     for (size_t r = 0; r < A.rows(); ++r)
         for (size_t c = 0; c < A.cols(); ++c) {
@@ -152,7 +152,7 @@ TEST(LU, LUSteal) {
         }
 
     Matrix result =
-        LU(A).get_L() + LU(A).get_U() - LU(A).get_LU() - Matrix::identity(3);
+        NoPivotLU(A).get_L() + NoPivotLU(A).get_U() - NoPivotLU(A).get_LU() - Matrix::identity(3);
 
     for (size_t r = 0; r < A.rows(); ++r)
         for (size_t c = 0; c < A.cols(); ++c)
