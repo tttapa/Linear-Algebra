@@ -15,7 +15,11 @@
  *          matrix L. The diagonal elements of L are implicitly 1.
  * @post    `get_L() * get_U() == get_P() * A`
  *          (up to rounding errors)
+ * 
+ * ## Implementation
+ * @snippet this RowPivotLU::compute_factorization
  */
+//! <!-- [RowPivotLU::compute_factorization] -->
 void RowPivotLU::compute_factorization() {
     // For the intermediate calculations, we'll be working with LU_.
     // It is initialized to the square n×n matrix to be factored.
@@ -93,7 +97,13 @@ void RowPivotLU::compute_factorization() {
     has_LU_ = true;
     has_P_ = true;
 }
+//! <!-- [RowPivotLU::compute_factorization] -->
 
+/**
+ * ## Implementation
+ * @snippet this RowPivotLU::back_subs
+ */
+//! <!-- [RowPivotLU::back_subs] -->
 void RowPivotLU::back_subs(const Matrix &B, Matrix &X) const {
     // Solve upper triangular system UX = B by solving each column of B as a
     // vector system Uxᵢ = bᵢ
@@ -119,7 +129,13 @@ void RowPivotLU::back_subs(const Matrix &B, Matrix &X) const {
         }
     }
 }
+//! <!-- [RowPivotLU::back_subs] -->
 
+/**
+ * ## Implementation
+ * @snippet this RowPivotLU::forward_subs
+ */
+//! <!-- [RowPivotLU::forward_subs] -->
 void RowPivotLU::forward_subs(const Matrix &B, Matrix &X) const {
     // Solve lower triangular system LX = B by solving each column of B as a
     // vector system Lxᵢ = bᵢ.
@@ -146,7 +162,13 @@ void RowPivotLU::forward_subs(const Matrix &B, Matrix &X) const {
         }
     }
 }
+//! <!-- [RowPivotLU::forward_subs] -->
 
+/**
+ * ## Implementation
+ * @snippet this RowPivotLU::solve_inplace
+ */
+//! <!-- [RowPivotLU::solve_inplace] -->
 void RowPivotLU::solve_inplace(Matrix &B) const {
     // Solve the system AX = B, PAX = PB or LUX = PB.
     //
@@ -160,6 +182,7 @@ void RowPivotLU::solve_inplace(Matrix &B) const {
     forward_subs(B, B); // overwrite B with Z
     back_subs(B, B);    // overwrite B (Z) with X
 }
+//! <!-- [RowPivotLU::solve_inplace] -->
 
 //                                                                            //
 // :::::::::::::::::::::::: Mostly boilerplate below :::::::::::::::::::::::: //

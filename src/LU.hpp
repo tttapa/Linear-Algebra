@@ -144,4 +144,4 @@ class LU {
 
 /// Print the L and U matrices of an LU object.
 /// @related    LU
-std::ostream &operator<<(std::ostream &os, const LU &qr);
+std::ostream &operator<<(std::ostream &os, const LU &lu);

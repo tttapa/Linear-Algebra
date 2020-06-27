@@ -16,7 +16,11 @@
  *          the Householder reflectors wₖ, with ‖wₖ‖ = √2.
  * @post    `apply_Q(get_R()) == A == get_Q() * get_R()`
  *          (up to rounding errors)
+ * 
+ * ## Implementation
+ * @snippet this HouseholderQR::compute_factorization
  */
+//! <!-- [HouseholderQR::compute_factorization] -->
 void HouseholderQR::compute_factorization() {
     // For the intermediate calculations, we'll be working with RW.
     // It is initialized to the rectangular matrix to be factored.
@@ -173,10 +177,17 @@ void HouseholderQR::compute_factorization() {
     }
     state = Factored;
 }
+//! <!-- [HouseholderQR::compute_factorization] -->
 
+/**
+ * ## Implementation
+ * @snippet this HouseholderQR::apply_QT_inplace
+ */
+//! <!-- [HouseholderQR::apply_QT_inplace] -->
 void HouseholderQR::apply_QT_inplace(Matrix &B) const {
     assert(is_factored());
     assert(RW.rows() == B.rows());
+    // Apply the Householder reflectors to each column of B.
     for (size_t c = 0; c < B.cols(); ++c) {
         for (size_t r = 0; r < RW.cols(); ++r) {
             double dot_product = 0;
@@ -187,10 +198,17 @@ void HouseholderQR::apply_QT_inplace(Matrix &B) const {
         }
     }
 }
+//! <!-- [HouseholderQR::apply_QT_inplace] -->
 
+/**
+ * ## Implementation
+ * @snippet this HouseholderQR::apply_QT_inplace
+ */
+//! <!-- [HouseholderQR::apply_Q_inplace] -->
 void HouseholderQR::apply_Q_inplace(Matrix &X) const {
     assert(is_factored());
     assert(RW.rows() == X.rows());
+    // Apply the Householder reflectors in reverse order to each column of B.
     for (size_t c = 0; c < X.cols(); ++c) {
         for (size_t r = RW.cols(); r-- > 0;) {
             double dot_product = 0;
@@ -201,7 +219,13 @@ void HouseholderQR::apply_Q_inplace(Matrix &X) const {
         }
     }
 }
+//! <!-- [HouseholderQR::apply_Q_inplace] -->
 
+/**
+ * ## Implementation
+ * @snippet this HouseholderQR::back_subs
+ */
+//! <!-- [HouseholderQR::back_subs] -->
 void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
     // Solve upper triangular system RX = B by solving each column of B as a
     // vector system Rxᵢ = bᵢ
@@ -228,21 +252,33 @@ void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
         }
     }
 }
+//! <!-- [HouseholderQR::back_subs] -->
 
+/**
+ * ## Implementation
+ * @snippet this HouseholderQR::solve_inplace
+ */
+//! <!-- [HouseholderQR::solve_inplace] -->
 void HouseholderQR::solve_inplace(Matrix &B) const {
+    // If AX = B, then QRX = B, or RX = QᵀB, so first apply Qᵀ to B:
     apply_QT_inplace(B);
 
-    // If the matrix is square, operate on B directly
+    // To solve RX = QᵀB, use back substitution:
+
+    // If the matrix is square, B and X have the same size, so we can reuse B's
+    // storage if we operate on B directly:
     if (RW.cols() == RW.rows()) {
         back_subs(B, B);
     }
-    // If the matrix is rectangular, use a separate result variable
+    // If the matrix is rectangular, the sizes of B and X differ, so use a 
+    // separate result variable:
     else {
         Matrix X(RW.cols(), B.cols());
         back_subs(B, X);
         B = std::move(X);
     }
 }
+//! <!-- [HouseholderQR::solve_inplace] -->
 
 //                                                                            //
 // :::::::::::::::::::::::: Mostly boilerplate below :::::::::::::::::::::::: //

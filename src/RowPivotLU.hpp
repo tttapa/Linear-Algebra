@@ -170,5 +170,5 @@ class RowPivotLU {
 };
 
 /// Print the L and U matrices of an LU object.
-/// @related    LU
-std::ostream &operator<<(std::ostream &os, const RowPivotLU &qr);
+/// @related    RowPivotLU
+std::ostream &operator<<(std::ostream &os, const RowPivotLU &lu);

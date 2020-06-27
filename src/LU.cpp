@@ -13,7 +13,11 @@
  *          matrix L. The diagonal elements of L are implicitly 1.
  * @post    `get_L() * get_U() == A`
  *          (up to rounding errors)
+ * 
+ * ## Implementation
+ * @snippet this LU::compute_factorization
  */
+//! <!-- [LU::compute_factorization] -->
 void LU::compute_factorization() {
     // For the intermediate calculations, we'll be working with LU_.
     // It is initialized to the square n×n matrix to be factored.
@@ -159,7 +163,13 @@ void LU::compute_factorization() {
     }
     state = Factored;
 }
+//! <!-- [LU::compute_factorization] -->
 
+/**
+ * ## Implementation
+ * @snippet this LU::back_subs
+ */
+//! <!-- [LU::back_subs] -->
 void LU::back_subs(const Matrix &B, Matrix &X) const {
     // Solve upper triangular system UX = B by solving each column of B as a
     // vector system Uxᵢ = bᵢ
@@ -185,7 +195,13 @@ void LU::back_subs(const Matrix &B, Matrix &X) const {
         }
     }
 }
+//! <!-- [LU::back_subs] -->
 
+/**
+ * ## Implementation
+ * @snippet this LU::forward_subs
+ */
+//! <!-- [LU::forward_subs] -->
 void LU::forward_subs(const Matrix &B, Matrix &X) const {
     // Solve lower triangular system LX = B by solving each column of B as a
     // vector system Lxᵢ = bᵢ.
@@ -212,7 +228,13 @@ void LU::forward_subs(const Matrix &B, Matrix &X) const {
         }
     }
 }
+//! <!-- [LU::forward_subs] -->
 
+/**
+ * ## Implementation
+ * @snippet this LU::solve_inplace
+ */
+//! <!-- [LU::solve_inplace] -->
 void LU::solve_inplace(Matrix &B) const {
     // Solve the system AX = B, or LUX = B.
     //
@@ -225,6 +247,7 @@ void LU::solve_inplace(Matrix &B) const {
     forward_subs(B, B); // overwrite B with Z
     back_subs(B, B);    // overwrite B (Z) with X
 }
+//! <!-- [LU::solve_inplace] -->
 
 //                                                                            //
 // :::::::::::::::::::::::: Mostly boilerplate below :::::::::::::::::::::::: //
