@@ -94,7 +94,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga987ec347864c562e168efb8f273d1cbe"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> multiplication.  <a href="../../df/d18/group__MatMul.html#ga987ec347864c562e168efb8f273d1cbe">More...</a><br /></td></tr>
 <tr class="separator:ga987ec347864c562e168efb8f273d1cbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8336a452bf08e54c9f18f8b183f9e538"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d18/group__MatMul.html#ga8336a452bf08e54c9f18f8b183f9e538">operator*</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;A, const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;B)</td></tr>
-<tr class="memdesc:ga8336a452bf08e54c9f18f8b183f9e538"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> multiplication.  <a href="../../df/d18/group__MatMul.html#ga8336a452bf08e54c9f18f8b183f9e538">More...</a><br /></td></tr>
 <tr class="separator:ga8336a452bf08e54c9f18f8b183f9e538"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga27f7a8a476cd74db6da2bcbd3a686de0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d18/group__MatMul.html#ga27f7a8a476cd74db6da2bcbd3a686de0">operator*</a> (const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;A, <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;B)</td></tr>
 <tr class="memdesc:ga27f7a8a476cd74db6da2bcbd3a686de0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> multiplication.  <a href="../../df/d18/group__MatMul.html#ga27f7a8a476cd74db6da2bcbd3a686de0">More...</a><br /></td></tr>
@@ -237,8 +236,19 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> multiplication. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00806">806</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Implementation</h2>
+<div class="fragment"><div class="line"><span class="keyword">inline</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> <a class="code" href="../../df/d18/group__MatMul.html#ga987ec347864c562e168efb8f273d1cbe">operator*</a>(<span class="keyword">const</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;A, <span class="keyword">const</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;B) {</div>
+<div class="line">    assert(A.<a class="code" href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">cols</a>() == B.<a class="code" href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">rows</a>() &amp;&amp; <span class="stringliteral">&quot;Inner dimensions don&#39;t match&quot;</span>);</div>
+<div class="line">    <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> C = <a class="code" href="../../d3/d3f/classMatrix.html#aa81cb58f0e7b0353aaf518cc323e9e96">Matrix::zeros</a>(A.<a class="code" href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">rows</a>(), B.<a class="code" href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">cols</a>());</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; B.<a class="code" href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">cols</a>(); ++j)</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> k = 0; k &lt; A.<a class="code" href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">cols</a>(); ++k)</div>
+<div class="line">            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; A.<a class="code" href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">rows</a>(); ++i)</div>
+<div class="line">                C(i, j) += A(i, k) * B(k, j);</div>
+<div class="line">    <span class="keywordflow">return</span> C;</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00812">812</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -275,10 +285,9 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
 <p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00816">816</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00824">824</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -318,7 +327,7 @@ Functions</h2></td></tr>
 
 <p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00823">823</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00831">831</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -358,7 +367,7 @@ Functions</h2></td></tr>
 
 <p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00830">830</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00838">838</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -398,7 +407,7 @@ Functions</h2></td></tr>
 
 <p>Square matrix multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00839">839</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00847">847</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -438,7 +447,7 @@ Functions</h2></td></tr>
 
 <p>Square matrix multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00844">844</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00852">852</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -478,7 +487,7 @@ Functions</h2></td></tr>
 
 <p>Square matrix multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00849">849</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00857">857</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -518,7 +527,7 @@ Functions</h2></td></tr>
 
 <p>Square matrix multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00854">854</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00862">862</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -558,7 +567,7 @@ Functions</h2></td></tr>
 
 <p>Matrix-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00860">860</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00868">868</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -598,7 +607,7 @@ Functions</h2></td></tr>
 
 <p>Matrix-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00864">864</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00872">872</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -638,7 +647,7 @@ Functions</h2></td></tr>
 
 <p>Matrix-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00868">868</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00876">876</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -678,7 +687,7 @@ Functions</h2></td></tr>
 
 <p>Matrix-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00872">872</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00880">880</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -718,7 +727,7 @@ Functions</h2></td></tr>
 
 <p>Matrix-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00877">877</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00885">885</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -758,7 +767,7 @@ Functions</h2></td></tr>
 
 <p>Matrix-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00881">881</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00889">889</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -798,7 +807,7 @@ Functions</h2></td></tr>
 
 <p>Matrix-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00885">885</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00893">893</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -838,7 +847,7 @@ Functions</h2></td></tr>
 
 <p>Matrix-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00889">889</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00897">897</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -878,7 +887,7 @@ Functions</h2></td></tr>
 
 <p>Vector-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00894">894</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00902">902</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -918,7 +927,7 @@ Functions</h2></td></tr>
 
 <p>Vector-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00898">898</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00906">906</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -958,7 +967,7 @@ Functions</h2></td></tr>
 
 <p>Vector-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00902">902</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00910">910</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -998,7 +1007,7 @@ Functions</h2></td></tr>
 
 <p>Vector-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00906">906</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00914">914</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -1038,7 +1047,7 @@ Functions</h2></td></tr>
 
 <p>Vector-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00911">911</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00919">919</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -1078,7 +1087,7 @@ Functions</h2></td></tr>
 
 <p>Vector-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00915">915</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00923">923</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -1118,7 +1127,7 @@ Functions</h2></td></tr>
 
 <p>Vector-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00919">919</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00927">927</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -1158,7 +1167,7 @@ Functions</h2></td></tr>
 
 <p>Vector-vector multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00923">923</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l00931">931</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -1643,6 +1652,11 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+<div class="ttc" id="aclassMatrix_html"><div class="ttname"><a href="../../d3/d3f/classMatrix.html">Matrix</a></div><div class="ttdoc">General matrix class.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00027">Matrix.hpp:27</a></div></div>
+<div class="ttc" id="agroup__MatMul_html_ga987ec347864c562e168efb8f273d1cbe"><div class="ttname"><a href="../../df/d18/group__MatMul.html#ga987ec347864c562e168efb8f273d1cbe">operator*</a></div><div class="ttdeci">Matrix operator*(const Matrix &amp;A, const Matrix &amp;B)</div><div class="ttdoc">Matrix multiplication.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00812">Matrix.hpp:812</a></div></div>
+<div class="ttc" id="aclassMatrix_html_ad721833df820880f31e488d1a5e5aade"><div class="ttname"><a href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">Matrix::cols</a></div><div class="ttdeci">size_t cols() const</div><div class="ttdoc">Get the number of columns of the matrix.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00090">Matrix.hpp:90</a></div></div>
+<div class="ttc" id="aclassMatrix_html_aa81cb58f0e7b0353aaf518cc323e9e96"><div class="ttname"><a href="../../d3/d3f/classMatrix.html#aa81cb58f0e7b0353aaf518cc323e9e96">Matrix::zeros</a></div><div class="ttdeci">static Matrix zeros(size_t rows, size_t cols)</div><div class="ttdoc">Create a matrix filled with zeros.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00193">Matrix.hpp:193</a></div></div>
+<div class="ttc" id="aclassMatrix_html_a9be86262d8ec3739dba5e0910c2339ad"><div class="ttname"><a href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">Matrix::rows</a></div><div class="ttdeci">size_t rows() const</div><div class="ttdoc">Get the number of rows of the matrix.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00088">Matrix.hpp:88</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

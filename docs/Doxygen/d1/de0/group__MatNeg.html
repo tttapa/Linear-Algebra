@@ -91,6 +91,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga1de66c0cf1fecc5722a0059f13c94e16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/de0/group__MatNeg.html#ga1de66c0cf1fecc5722a0059f13c94e16">operator-</a> (const <a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;A)</td></tr>
+<tr class="memdesc:ga1de66c0cf1fecc5722a0059f13c94e16"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> negation.  <a href="../../d1/de0/group__MatNeg.html#ga1de66c0cf1fecc5722a0059f13c94e16">More...</a><br /></td></tr>
 <tr class="separator:ga1de66c0cf1fecc5722a0059f13c94e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga946ba8c3bfc11aa5124bda67695d101c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/de0/group__MatNeg.html#ga946ba8c3bfc11aa5124bda67695d101c">operator-</a> (<a class="el" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;&amp;A)</td></tr>
 <tr class="separator:ga946ba8c3bfc11aa5124bda67695d101c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,7 +135,16 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01110">1110</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p><a class="el" href="../../d3/d3f/classMatrix.html" title="General matrix class.">Matrix</a> negation. </p>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Implementation</h2>
+<div class="fragment"><div class="line"><span class="keyword">inline</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> <a class="code" href="../../dc/df7/group__MatSub.html#ga5665c385ae2843aa1b0434c1e03233a7">operator-</a>(<span class="keyword">const</span> <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> &amp;A) {</div>
+<div class="line">    <a class="code" href="../../d3/d3f/classMatrix.html">Matrix</a> result(A.<a class="code" href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">rows</a>(), A.<a class="code" href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">cols</a>());</div>
+<div class="line">    std::transform(A.<a class="code" href="../../d3/d3f/classMatrix.html#aee8e4e0fbf511eae3b18531679b53969">begin</a>(), A.<a class="code" href="../../d3/d3f/classMatrix.html#a38b22f2ed14bf87a855967f67915bb65">end</a>(), result.begin(), std::negate&lt;double&gt;());</div>
+<div class="line">    <span class="keywordflow">return</span> result;</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01143">1143</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -162,7 +172,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01115">1115</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01150">1150</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -190,7 +200,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01119">1119</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01154">1154</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -218,7 +228,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01123">1123</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01158">1158</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -246,7 +256,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01127">1127</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01162">1162</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -274,7 +284,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01131">1131</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01166">1166</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -302,7 +312,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01134">1134</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01169">1169</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
@@ -330,11 +340,17 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01137">1137</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html#l01172">1172</a> of file <a class="el" href="../../d9/d1c/Matrix_8hpp_source.html">Matrix.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
+<div class="ttc" id="aclassMatrix_html"><div class="ttname"><a href="../../d3/d3f/classMatrix.html">Matrix</a></div><div class="ttdoc">General matrix class.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00027">Matrix.hpp:27</a></div></div>
+<div class="ttc" id="aclassMatrix_html_ad721833df820880f31e488d1a5e5aade"><div class="ttname"><a href="../../d3/d3f/classMatrix.html#ad721833df820880f31e488d1a5e5aade">Matrix::cols</a></div><div class="ttdeci">size_t cols() const</div><div class="ttdoc">Get the number of columns of the matrix.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00090">Matrix.hpp:90</a></div></div>
+<div class="ttc" id="aclassMatrix_html_a9be86262d8ec3739dba5e0910c2339ad"><div class="ttname"><a href="../../d3/d3f/classMatrix.html#a9be86262d8ec3739dba5e0910c2339ad">Matrix::rows</a></div><div class="ttdeci">size_t rows() const</div><div class="ttdoc">Get the number of rows of the matrix.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00088">Matrix.hpp:88</a></div></div>
+<div class="ttc" id="agroup__MatSub_html_ga5665c385ae2843aa1b0434c1e03233a7"><div class="ttname"><a href="../../dc/df7/group__MatSub.html#ga5665c385ae2843aa1b0434c1e03233a7">operator-</a></div><div class="ttdeci">Matrix operator-(const Matrix &amp;A, const Matrix &amp;B)</div><div class="ttdoc">Matrix subtraction.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l01046">Matrix.hpp:1046</a></div></div>
+<div class="ttc" id="aclassMatrix_html_aee8e4e0fbf511eae3b18531679b53969"><div class="ttname"><a href="../../d3/d3f/classMatrix.html#aee8e4e0fbf511eae3b18531679b53969">Matrix::begin</a></div><div class="ttdeci">storage_t::iterator begin()</div><div class="ttdoc">Get the iterator to the first element of the matrix.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00266">Matrix.hpp:266</a></div></div>
+<div class="ttc" id="aclassMatrix_html_a38b22f2ed14bf87a855967f67915bb65"><div class="ttname"><a href="../../d3/d3f/classMatrix.html#a38b22f2ed14bf87a855967f67915bb65">Matrix::end</a></div><div class="ttdeci">storage_t::iterator end()</div><div class="ttdoc">Get the iterator to the element past the end of the matrix.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d1c/Matrix_8hpp_source.html#l00273">Matrix.hpp:273</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
