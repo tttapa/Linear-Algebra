@@ -143,5 +143,5 @@ class NoPivotLU {
 };
 
 /// Print the L and U matrices of an NoPivotLU object.
-/// @related    LU
+/// @related    NoPivotLU
 std::ostream &operator<<(std::ostream &os, const NoPivotLU &lu);
