@@ -1322,8 +1322,8 @@ inline Matrix explicit_transpose(const Matrix &in) {
 //! <!-- [explicit_transpose] -->
 
 /**
- * @brief   Matrix transpose for rectangular or square square matrices and row 
- *          or column vectors.
+ * @brief   Matrix transpose for rectangular or square matrices and row or
+ *          column vectors.
  * 
  * ## Implementation
  * @snippet this transpose(const Matrix &)
@@ -1341,8 +1341,8 @@ inline Matrix transpose(const Matrix &in) {
 //! <!-- [transpose(const Matrix &)] -->
 
 /**
- * @brief   Matrix transpose for rectangular or square square matrices and row 
- *          or column vectors.
+ * @brief   Matrix transpose for rectangular or square matrices and row or
+ *          column vectors.
  * 
  * ## Implementation
  * @snippet this transpose(Matrix &&)
