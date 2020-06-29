@@ -1,8 +1,6 @@
 #include "PermutationMatrix.hpp"
 
-#include <iomanip>
-#include <iostream>
-
+#ifndef NO_RANDOM_SUPPORT
 PermutationMatrix::Permutation PermutationMatrix::random_permutation(
     size_t length, std::default_random_engine::result_type seed) {
     // Create a random engine for shuffling
@@ -17,6 +15,7 @@ PermutationMatrix::Permutation PermutationMatrix::random_permutation(
         });
     return permutation;
 }
+#endif
 
 PermutationMatrix::Permutation
 PermutationMatrix::identity_permutation(size_t length) {
@@ -55,6 +54,11 @@ void PermutationMatrix::fill_from_permutation(Permutation permutation) {
     }
 }
 
+#ifndef NO_IOSTREAM_SUPPORT
+
+#include <iomanip>
+#include <iostream>
+
 // LCOV_EXCL_START
 
 void PermutationMatrix::print(std::ostream &os, uint8_t precision,
@@ -76,3 +80,5 @@ std::ostream &operator<<(std::ostream &os, const PermutationMatrix &P) {
 }
 
 // LCOV_EXCL_STOP
+
+#endif

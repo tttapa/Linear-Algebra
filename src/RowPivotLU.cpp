@@ -1,8 +1,6 @@
 #include "RowPivotLU.hpp"
 
 #include <cassert>
-#include <iomanip>
-#include <iostream>
 
 /**
  * @pre     `LU` contains the matrix A to be factorized
@@ -348,6 +346,11 @@ Vector &&RowPivotLU::solve(Vector &&b) const {
     return std::move(b);
 }
 
+#ifndef NO_IOSTREAM_SUPPORT
+
+#include <iomanip>
+#include <iostream>
+
 // LCOV_EXCL_START
 
 std::ostream &operator<<(std::ostream &os, const RowPivotLU &lu) {
@@ -382,3 +385,5 @@ std::ostream &operator<<(std::ostream &os, const RowPivotLU &lu) {
 }
 
 // LCOV_EXCL_STOP
+
+#endif

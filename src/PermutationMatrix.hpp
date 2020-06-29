@@ -153,11 +153,13 @@ class PermutationMatrix {
     /// @name    Generating permutations
     /// @{
 
+#ifndef NO_RANDOM_SUPPORT
     /// Return a random permutation of the integers 0 through length-1.
     static Permutation
     random_permutation(size_t length,
                        std::default_random_engine::result_type seed =
                            std::default_random_engine::default_seed);
+#endif
 
     /// Return the identity permutation (0, 1, 2, 3, ..., length-1).
     static Permutation identity_permutation(size_t length);
@@ -180,12 +182,14 @@ class PermutationMatrix {
     ///         here, anyway).
     void fill_from_permutation(Permutation permutation);
 
+#ifndef NO_RANDOM_SUPPORT
     /// Fill the matrix with a random permutation.
     /// @note   This isn't a very fast method, it's mainly used for tests.
     void fill_random(std::default_random_engine::result_type seed =
                          std::default_random_engine::default_seed) {
         fill_from_permutation(random_permutation(size(), seed));
     }
+#endif
 
     /// @}
 
@@ -207,6 +211,7 @@ class PermutationMatrix {
         return p;
     }
 
+#ifndef NO_RANDOM_SUPPORT
     /// Create a random permutation matrix.
     /// @note   This isn't a very fast method, it's mainly used for tests.
     static PermutationMatrix
@@ -217,6 +222,7 @@ class PermutationMatrix {
         p.fill_random(seed);
         return p;
     }
+#endif
 
     /// @}
 

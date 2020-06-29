@@ -1,8 +1,6 @@
 #include "NoPivotLU.hpp"
 
 #include <cassert>
-#include <iomanip>
-#include <iostream>
 
 /**
  * @pre     `LU` contains the matrix A to be factorized
@@ -356,6 +354,11 @@ Vector &&NoPivotLU::solve(Vector &&b) const {
     return std::move(b);
 }
 
+#ifndef NO_IOSTREAM_SUPPORT
+
+#include <iomanip>
+#include <iostream>
+
 // LCOV_EXCL_START
 
 std::ostream &operator<<(std::ostream &os, const NoPivotLU &lu) {
@@ -390,3 +393,5 @@ std::ostream &operator<<(std::ostream &os, const NoPivotLU &lu) {
 }
 
 // LCOV_EXCL_STOP
+
+#endif
