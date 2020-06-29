@@ -35,7 +35,7 @@ jobs:
     - name: Create staging area
       run: |
         rm -rf /tmp/staging
-        git fetch origin gh-pages:gh-pages
+        git fetch origin gh-pages:gh-pages ||:
         git checkout gh-pages || { git checkout --orphan gh-pages && git rm -rf . && git clean -fxd ; }
         cp -ar $GITHUB_WORKSPACE/ /tmp/staging
         git checkout ${GITHUB_REF##*/}
