@@ -16,9 +16,9 @@ jobs:
     # Cache the doxygen executable
     - uses: actions/cache@v2
       with:
-        path: 
-          - "/tmp/doxygen"
-          - "/tmp/gtest"
+        path: |
+          "/tmp/doxygen"
+          "/tmp/gtest"
         key: ${{ runner.os }}
     
     # Download and build doxygen (if not cached already)
