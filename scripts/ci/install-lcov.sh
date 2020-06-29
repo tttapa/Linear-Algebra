@@ -4,7 +4,7 @@
 
 set -ex
 
-version="v1.14" # Release tag on GitHub
+version="master" # Release tag on GitHub
 prefix="${1:-$HOME/.local}"
 
 [ -e "$prefix/bin/lcov" ] \
