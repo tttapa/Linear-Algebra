@@ -19,8 +19,17 @@ jobs:
         path: |
           "/tmp/doxygen"
           "/tmp/gtest"
+          "/tmp/lcov"
         key: ${{ runner.os }}
     
+    - name: Install Graphviz/Dot
+      run: sudo apt-get install graphviz
+
+    - name: Install LCOV
+      run: |
+        ./scripts/ci/install-lcov.sh 
+        echo "::add-path::/tmp/lcov/bin"
+
     # Download and build doxygen (if not cached already)
     - name: Install Doxygen
       run: |
