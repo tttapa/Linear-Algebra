@@ -20,7 +20,7 @@ jobs:
           "/tmp/doxygen"
           "/tmp/gtest"
           "/tmp/lcov"
-        key: ${{ runner.os }}
+        key: ${{ runner.os }}-${{ hashFiles('scripts/ci/**') }}
     
     - name: Install Graphviz/Dot and LCOV Perl dependencies
       run: sudo apt-get install graphviz libjson-perl libperlio-gzip-perl perl
