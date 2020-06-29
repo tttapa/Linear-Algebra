@@ -22,8 +22,8 @@ jobs:
           "/tmp/lcov"
         key: ${{ runner.os }}
     
-    - name: Install Graphviz/Dot
-      run: sudo apt-get install graphviz
+    - name: Install Graphviz/Dot and LCOV Perl dependencies
+      run: sudo apt-get install graphviz libjson-perl libperlio-gzip-perl perl
 
     - name: Install LCOV
       run: |
