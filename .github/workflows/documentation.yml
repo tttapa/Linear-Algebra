@@ -9,6 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    steps:
     # Checks-out the repository under $GITHUB_WORKSPACE
     - uses: actions/checkout@v2
 
