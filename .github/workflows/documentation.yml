@@ -27,7 +27,7 @@ jobs:
 
     - name: Install LCOV
       run: |
-        ./scripts/ci/install-lcov.sh 
+        ./scripts/ci/install-lcov.sh /tmp/lcov
         echo "::add-path::/tmp/lcov/bin"
 
     # Download and build doxygen (if not cached already)
