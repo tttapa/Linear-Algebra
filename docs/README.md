@@ -1,4 +1,22 @@
-Documentation for [**Linear Algebra**](https://github.com/tttapa/Linear-Algebra).
+# Documentation
 
-- [master](https://tttapa.github.io/Linear-Algebra/Doxygen/index.html)
-- [arduino](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/index.html)
+View the online documentation at **https://tttapa.github.io/Linear-Algebra**.
+
+## Generate the documentation yourself
+
+```sh
+cd doxygen
+doxygen
+```
+
+You'll need Doxygen and Dot (Graphviz).
+
+## Generate the coverage information
+
+```sh
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Coverage
+make coverage
+```
+
+You'll need GCC or Clang, Google Test, LCOV and its dependencies.

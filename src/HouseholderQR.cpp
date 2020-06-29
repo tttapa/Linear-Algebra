@@ -14,7 +14,11 @@
  *          the Householder reflectors wₖ, with ‖wₖ‖ = √2.
  * @post    `apply_Q(get_R()) == A == get_Q() * get_R()`
  *          (up to rounding errors)
+ * 
+ * ## Implementation
+ * @snippet this HouseholderQR::compute_factorization
  */
+//! <!-- [HouseholderQR::compute_factorization] -->
 void HouseholderQR::compute_factorization() {
     // For the intermediate calculations, we'll be working with RW.
     // It is initialized to the rectangular matrix to be factored.
@@ -171,6 +175,112 @@ void HouseholderQR::compute_factorization() {
     }
     state = Factored;
 }
+//! <!-- [HouseholderQR::compute_factorization] -->
+
+/**
+ * ## Implementation
+ * @snippet this HouseholderQR::apply_QT_inplace
+ */
+//! <!-- [HouseholderQR::apply_QT_inplace] -->
+void HouseholderQR::apply_QT_inplace(Matrix &B) const {
+    assert(is_factored());
+    assert(RW.rows() == B.rows());
+    // Apply the Householder reflectors to each column of B.
+    for (size_t c = 0; c < B.cols(); ++c) {
+        for (size_t r = 0; r < RW.cols(); ++r) {
+            double dot_product = 0;
+            for (size_t i = r; i < RW.rows(); ++i)
+                dot_product += RW(i, r) * B(i, c);
+            for (size_t i = r; i < RW.rows(); ++i)
+                B(i, c) -= RW(i, r) * dot_product;
+        }
+    }
+}
+//! <!-- [HouseholderQR::apply_QT_inplace] -->
+
+/**
+ * ## Implementation
+ * @snippet this HouseholderQR::apply_QT_inplace
+ */
+//! <!-- [HouseholderQR::apply_Q_inplace] -->
+void HouseholderQR::apply_Q_inplace(Matrix &X) const {
+    assert(is_factored());
+    assert(RW.rows() == X.rows());
+    // Apply the Householder reflectors in reverse order to each column of B.
+    for (size_t c = 0; c < X.cols(); ++c) {
+        for (size_t r = RW.cols(); r-- > 0;) {
+            double dot_product = 0;
+            for (size_t i = r; i < RW.rows(); ++i)
+                dot_product += RW(i, r) * X(i, c);
+            for (size_t i = r; i < RW.rows(); ++i)
+                X(i, c) -= RW(i, r) * dot_product;
+        }
+    }
+}
+//! <!-- [HouseholderQR::apply_Q_inplace] -->
+
+/**
+ * ## Implementation
+ * @snippet this HouseholderQR::back_subs
+ */
+//! <!-- [HouseholderQR::back_subs] -->
+void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
+    // Solve upper triangular system RX = B by solving each column of B as a
+    // vector system Rxᵢ = bᵢ
+    //
+    //     ┌                 ┐┌     ┐   ┌     ┐
+    //     │ r₁₁ r₁₂ r₁₃ r₁₄ ││ x₁ᵢ │   │ b₁ᵢ │
+    //     │     r₂₂ r₂₃ r₂₄ ││ x₂ᵢ │ = │ b₂ᵢ │
+    //     │         r₃₃ r₃₄ ││ x₃ᵢ │   │ b₃ᵢ │
+    //     │             r₄₄ ││ x₄ᵢ │   │ b₄ᵢ │
+    //     └                 ┘└     ┘   └     ┘
+    //
+    // b₄ᵢ = r₄₄·x₄ᵢ                     ⟺ x₄ᵢ = b₄ᵢ/r₄₄
+    // b₃ᵢ = r₃₃·x₃ᵢ + r₃₄·x₄ᵢ           ⟺ x₃ᵢ = (b₃ᵢ - r₃₄·x₄ᵢ)/r₃₃
+    // b₂ᵢ = r₂₂·x₂ᵢ + r₂₃·x₃ᵢ + r₂₄·x₄ᵢ ⟺ x₂ᵢ = (b₂ᵢ - r₂₃·x₃ᵢ + r₂₄·x₄ᵢ)/r₂₂
+    // ...
+    
+    for (size_t i = 0; i < B.cols(); ++i) {
+        for (size_t k = RW.cols(); k-- > 0;) {
+            X(k, i) = B(k, i);
+            for (size_t j = k + 1; j < RW.cols(); ++j) {
+                X(k, i) -= RW(k, j) * X(j, i);
+            }
+            X(k, i) /= R_diag(k);
+        }
+    }
+}
+//! <!-- [HouseholderQR::back_subs] -->
+
+/**
+ * ## Implementation
+ * @snippet this HouseholderQR::solve_inplace
+ */
+//! <!-- [HouseholderQR::solve_inplace] -->
+void HouseholderQR::solve_inplace(Matrix &B) const {
+    // If AX = B, then QRX = B, or RX = QᵀB, so first apply Qᵀ to B:
+    apply_QT_inplace(B);
+
+    // To solve RX = QᵀB, use back substitution:
+
+    // If the matrix is square, B and X have the same size, so we can reuse B's
+    // storage if we operate on B directly:
+    if (RW.cols() == RW.rows()) {
+        back_subs(B, B);
+    }
+    // If the matrix is rectangular, the sizes of B and X differ, so use a 
+    // separate result variable:
+    else {
+        Matrix X(RW.cols(), B.cols());
+        back_subs(B, X);
+        B = std::move(X);
+    }
+}
+//! <!-- [HouseholderQR::solve_inplace] -->
+
+//                                                                            //
+// :::::::::::::::::::::::: Mostly boilerplate below :::::::::::::::::::::::: //
+//                                                                            //
 
 void HouseholderQR::compute(Matrix &&matrix) {
     RW = std::move(matrix);
@@ -184,20 +294,6 @@ void HouseholderQR::compute(const Matrix &matrix) {
     compute_factorization();
 }
 
-void HouseholderQR::apply_QT_inplace(Matrix &B) const {
-    assert(is_factored());
-    assert(RW.rows() == B.rows());
-    for (size_t c = 0; c < B.cols(); ++c) {
-        for (size_t r = 0; r < RW.cols(); ++r) {
-            double dot_product = 0;
-            for (size_t i = r; i < RW.rows(); ++i)
-                dot_product += RW(i, r) * B(i, c);
-            for (size_t i = r; i < RW.rows(); ++i)
-                B(i, c) -= RW(i, r) * dot_product;
-        }
-    }
-}
-
 Matrix HouseholderQR::apply_QT(const Matrix &B) const {
     Matrix result = B;
     apply_QT_inplace(result);
@@ -207,20 +303,6 @@ Matrix HouseholderQR::apply_QT(const Matrix &B) const {
 Matrix &&HouseholderQR::apply_QT(Matrix &&B) const {
     apply_QT_inplace(B);
     return std::move(B);
-}
-
-void HouseholderQR::apply_Q_inplace(Matrix &X) const {
-    assert(is_factored());
-    assert(RW.rows() == X.rows());
-    for (size_t c = 0; c < X.cols(); ++c) {
-        for (size_t r = RW.cols(); r-- > 0;) {
-            double dot_product = 0;
-            for (size_t i = r; i < RW.rows(); ++i)
-                dot_product += RW(i, r) * X(i, c);
-            for (size_t i = r; i < RW.rows(); ++i)
-                X(i, c) -= RW(i, r) * dot_product;
-        }
-    }
 }
 
 Matrix HouseholderQR::apply_Q(const Matrix &X) const {
@@ -282,33 +364,6 @@ SquareMatrix HouseholderQR::get_Q() const {
     SquareMatrix Q(RW.rows());
     get_Q_inplace(Q);
     return Q;
-}
-
-void HouseholderQR::back_subs(const Matrix &B, Matrix &X) const {
-    for (size_t i = 0; i < B.cols(); ++i) {
-        for (size_t k = RW.cols(); k-- > 0;) {
-            X(k, i) = B(k, i);
-            for (size_t j = k + 1; j < RW.cols(); ++j) {
-                X(k, i) -= RW(k, j) * X(j, i);
-            }
-            X(k, i) /= R_diag(k);
-        }
-    }
-}
-
-void HouseholderQR::solve_inplace(Matrix &B) const {
-    apply_QT_inplace(B);
-
-    // If the matrix is square, operate on B directly
-    if (RW.cols() == RW.rows()) {
-        back_subs(B, B);
-    }
-    // If the matrix is rectangular, use a separate result variable
-    else {
-        Matrix X(RW.cols(), B.cols());
-        back_subs(B, X);
-        B = std::move(X);
-    }
 }
 
 Matrix HouseholderQR::solve(const Matrix &B) const {

@@ -76,7 +76,6 @@ class Matrix {
 
     /// Create a matrix with the given values.
     Matrix(std::initializer_list<std::initializer_list<double>> init);
-
     /// Assign the given values to the matrix.
     Matrix &
     operator=(std::initializer_list<std::initializer_list<double>> init);
@@ -145,7 +144,7 @@ class Matrix {
 
     /// Get the element at the given position in the linearized matrix.
     double &operator()(size_t index) { return storage[index]; }
-    /// Get the element at the given position in the linearlized matrix.
+    /// Get the element at the given position in the linearized matrix.
     const double &operator()(size_t index) const { return storage[index]; }
 
     /// @}
@@ -235,6 +234,17 @@ class Matrix {
         return m;
     }
 #endif
+
+    /// @}
+
+  public:
+    /// @name   Swapping rows and columns
+    /// @{
+
+    /// Swap two rows of the matrix.
+    void swap_rows(size_t a, size_t b);
+    /// Swap two columns of the matrix.
+    void swap_columns(size_t a, size_t b);
 
     /// @}
 
@@ -824,6 +834,18 @@ class SquareMatrix : public Matrix {
 
 /// @}
 
+#ifndef NO_IOSTREAM_SUPPORT
+/// Print a matrix.
+/// @related    Matrix
+std::ostream &operator<<(std::ostream &os, const Matrix &M);
+#endif
+
+#ifndef NO_ARDUINO_PRINT_SUPPORT
+/// Print a matrix.
+/// @related    Matrix
+Print &operator<<(Print &p, const Matrix &M);
+#endif
+
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 
 /// @addtogroup MatVecOp
@@ -833,7 +855,13 @@ class SquareMatrix : public Matrix {
 /// @brief   Matrix-matrix, matrix-vector and vector-vector multiplication.
 /// @{
 
-/// Matrix multiplication.
+/** 
+ * @brief   Matrix multiplication.
+ * 
+ * ## Implementation
+ * @snippet this operator*(Matrix, Matrix)
+ */
+//! <!-- [operator*(Matrix, Matrix)] -->
 inline Matrix operator*(const Matrix &A, const Matrix &B) {
     assert(A.cols() == B.rows() && "Inner dimensions don't match");
     Matrix C = Matrix::zeros(A.rows(), B.cols());
@@ -843,6 +871,8 @@ inline Matrix operator*(const Matrix &A, const Matrix &B) {
                 C(i, j) += A(i, k) * B(k, j);
     return C;
 }
+//! <!-- [operator*(Matrix, Matrix)] -->
+
 /// Matrix multiplication.
 inline Matrix operator*(Matrix &&A, const Matrix &B) {
     Matrix result = static_cast<const Matrix &>(A) * //
@@ -963,12 +993,13 @@ inline double operator*(RowVector &&a, Vector &&b) {
 /// @brief  Matrix and vector addition
 /// @{
 
-inline void operator+=(Matrix &A, const Matrix &B) {
-    assert(A.rows() == B.rows());
-    assert(A.cols() == B.cols());
-    std::transform(A.begin(), A.end(), B.begin(), A.begin(),
-                   std::plus<double>());
-}
+/**
+ * @brief   Matrix addition.
+ * 
+ * ## Implementation
+ * @snippet this operator+(Matrix, Matrix)
+ */
+//! <!-- [operator+(Matrix, Matrix)] -->
 inline Matrix operator+(const Matrix &A, const Matrix &B) {
     assert(A.rows() == B.rows());
     assert(A.cols() == B.cols());
@@ -976,6 +1007,14 @@ inline Matrix operator+(const Matrix &A, const Matrix &B) {
     std::transform(A.begin(), A.end(), B.begin(), C.begin(),
                    std::plus<double>());
     return C;
+}
+//! <!-- [operator+(Matrix, Matrix)] -->
+
+inline void operator+=(Matrix &A, const Matrix &B) {
+    assert(A.rows() == B.rows());
+    assert(A.cols() == B.cols());
+    std::transform(A.begin(), A.end(), B.begin(), A.begin(),
+                   std::plus<double>());
 }
 inline Matrix &&operator+(Matrix &&A, const Matrix &B) {
     A += B;
@@ -1050,12 +1089,13 @@ inline SquareMatrix operator+(const SquareMatrix &a, const SquareMatrix &b) {
 /// @brief  Matrix and vector subtraction
 /// @{
 
-inline void operator-=(Matrix &A, const Matrix &B) {
-    assert(A.rows() == B.rows());
-    assert(A.cols() == B.cols());
-    std::transform(A.begin(), A.end(), B.begin(), A.begin(),
-                   std::minus<double>());
-}
+/**
+ * @brief   Matrix subtraction.
+ * 
+ * ## Implementation
+ * @snippet this operator-(Matrix, Matrix)
+ */
+//! <!-- [operator-(Matrix, Matrix)] -->
 inline Matrix operator-(const Matrix &A, const Matrix &B) {
     assert(A.rows() == B.rows());
     assert(A.cols() == B.cols());
@@ -1063,6 +1103,14 @@ inline Matrix operator-(const Matrix &A, const Matrix &B) {
     std::transform(A.begin(), A.end(), B.begin(), C.begin(),
                    std::minus<double>());
     return C;
+}
+//! <!-- [operator-(Matrix, Matrix)] -->
+
+inline void operator-=(Matrix &A, const Matrix &B) {
+    assert(A.rows() == B.rows());
+    assert(A.cols() == B.cols());
+    std::transform(A.begin(), A.end(), B.begin(), A.begin(),
+                   std::minus<double>());
 }
 inline Matrix &&operator-(Matrix &&A, const Matrix &B) {
     A -= B;
@@ -1138,11 +1186,20 @@ inline SquareMatrix operator-(const SquareMatrix &a, const SquareMatrix &b) {
 /// @brief  Matrix and vector negation
 /// @{
 
+/**
+ * @brief   Matrix negation.
+ * 
+ * ## Implementation
+ * @snippet this operator-(Matrix)
+ */
+//! <!-- [operator-(Matrix)] -->
 inline Matrix operator-(const Matrix &A) {
     Matrix result(A.rows(), A.cols());
     std::transform(A.begin(), A.end(), result.begin(), std::negate<double>());
     return result;
 }
+//! <!-- [operator-(Matrix)] -->
+
 inline Matrix &&operator-(Matrix &&A) {
     std::transform(A.begin(), A.end(), A.begin(), std::negate<double>());
     return std::move(A);
@@ -1177,15 +1234,24 @@ inline SquareMatrix operator-(const SquareMatrix &a) {
 /// @brief  Multiplication by a scalar
 /// @{
 
-inline void operator*=(Matrix &A, double s) {
-    std::transform(A.begin(), A.end(), A.begin(),
-                   [s](double a) { return a * s; });
-}
+/**
+ * @brief   Scalar multiplication.
+ * 
+ * ## Implementation
+ * @snippet this operator*(Matrix, double)
+ */
+//! <!-- [operator*(Matrix, double)] -->
 inline Matrix operator*(const Matrix &A, double s) {
     Matrix C(A.rows(), A.cols());
     std::transform(A.begin(), A.end(), C.begin(),
                    [s](double a) { return a * s; });
     return C;
+}
+//! <!-- [operator*(Matrix, double)] -->
+
+inline void operator*=(Matrix &A, double s) {
+    std::transform(A.begin(), A.end(), A.begin(),
+                   [s](double a) { return a * s; });
 }
 inline Matrix &&operator*(Matrix &&A, double s) {
     A *= s;
@@ -1234,15 +1300,24 @@ inline SquareMatrix &&operator*(double s, SquareMatrix &&a) {
 /// @brief  Division by a scalar
 /// @{
 
-inline void operator/=(Matrix &A, double s) {
-    std::transform(A.begin(), A.end(), A.begin(),
-                   [s](double a) { return a / s; });
-}
+/**
+ * @brief   Scalar division.
+ * 
+ * ## Implementation
+ * @snippet this operator/(Matrix, double)
+ */
+//! <!-- [operator/(Matrix, double)] -->
 inline Matrix operator/(const Matrix &A, double s) {
     Matrix C(A.rows(), A.cols());
     std::transform(A.begin(), A.end(), C.begin(),
                    [s](double a) { return a / s; });
     return C;
+}
+//! <!-- [operator/(Matrix, double)] -->
+
+inline void operator/=(Matrix &A, double s) {
+    std::transform(A.begin(), A.end(), A.begin(),
+                   [s](double a) { return a / s; });
 }
 inline Matrix &&operator/(Matrix &&A, double s) {
     A /= s;
@@ -1272,14 +1347,24 @@ inline SquareMatrix &&operator/(SquareMatrix &&a, double s) {
 
 /// @}
 
+/// @}
+
 // -------------------------------------------------------------------------- //
+
+/// @addtogroup MatVecOp
+/// @{
 
 /// @defgroup   MatTrans    Transposition
 /// @brief  Matrix and vector transposition
 /// @{
 
-namespace detail {
-/// Matrix transpose.
+/**
+ * @brief Matrix transpose for general matrices.
+ * 
+ * ## Implementation
+ * @snippet this explicit_transpose
+ */
+//! <!-- [explicit_transpose] -->
 inline Matrix explicit_transpose(const Matrix &in) {
     Matrix out(in.cols(), in.rows());
     for (size_t n = 0; n < in.rows(); ++n)
@@ -1287,30 +1372,47 @@ inline Matrix explicit_transpose(const Matrix &in) {
             out(m, n) = in(n, m);
     return out;
 }
-} // namespace detail
+//! <!-- [explicit_transpose] -->
 
-/// Matrix transpose.
-inline Matrix &&transpose(Matrix &&in) {
-    if (in.rows() == in.cols()) // Square matrices
-        SquareMatrix::transpose_inplace(in);
-    else if (in.rows() == 1 || in.cols() == 1) // Vectors
-        in.reshape(in.cols(), in.rows());
-    else // General rectangular matrices
-        in = detail::explicit_transpose(in);
-    return std::move(in);
-}
-/// Matrix transpose.
+/**
+ * @brief   Matrix transpose for rectangular or square matrices and row or
+ *          column vectors.
+ * 
+ * ## Implementation
+ * @snippet this transpose(const Matrix &)
+ */
+//! <!-- [transpose(const Matrix &)] -->
 inline Matrix transpose(const Matrix &in) {
     if (in.rows() == 1 || in.cols() == 1) { // Vectors
         Matrix out = in;
         out.reshape(in.cols(), in.rows());
         return out;
     } else { // General matrices (square and rectangular)
-        return detail::explicit_transpose(in);
+        return explicit_transpose(in);
     }
 }
+//! <!-- [transpose(const Matrix &)] -->
 
-/// Square matrix transpose.
+/**
+ * @brief   Matrix transpose for rectangular or square matrices and row or
+ *          column vectors.
+ * 
+ * ## Implementation
+ * @snippet this transpose(Matrix &&)
+ */
+//! <!-- [transpose(Matrix &&)] -->
+inline Matrix &&transpose(Matrix &&in) {
+    if (in.rows() == in.cols())                // Square matrices
+        SquareMatrix::transpose_inplace(in);   //     → reuse storage
+    else if (in.rows() == 1 || in.cols() == 1) // Vectors
+        in.reshape(in.cols(), in.rows());      //     → reshape row ↔ column
+    else                                       // General rectangular matrices
+        in = explicit_transpose(in);           //     → full transpose
+    return std::move(in);
+}
+//! <!-- [transpose(Matrix &&)] -->
+
+/// @brief  Square matrix transpose.
 inline SquareMatrix transpose(const SquareMatrix &in) {
     SquareMatrix out = in;
     out.transpose_inplace();
@@ -1322,26 +1424,18 @@ inline SquareMatrix &&transpose(SquareMatrix &&in) {
     return std::move(in);
 }
 
+/// Vector transpose.
 inline RowVector transpose(const Vector &in) { return RowVector(in); }
+/// Vector transpose.
 inline RowVector transpose(Vector &&in) { return RowVector(std::move(in)); }
+/// Vector transpose.
 inline Vector transpose(const RowVector &in) { return Vector(in); }
+/// Vector transpose.
 inline Vector transpose(RowVector &&in) { return Vector(std::move(in)); }
 
 /// @}
 
 /// @}
-
-#ifndef NO_IOSTREAM_SUPPORT
-/// Print a matrix.
-/// @related    Matrix
-std::ostream &operator<<(std::ostream &os, const Matrix &M);
-#endif
-
-#ifndef NO_ARDUINO_PRINT_SUPPORT
-/// Print a matrix.
-/// @related    Matrix
-Print &operator<<(Print &p, const Matrix &M);
-#endif
 
 //                              Implementations                               //
 // -------------------------------------------------------------------------- //
@@ -1391,6 +1485,16 @@ Matrix::operator=(std::initializer_list<std::initializer_list<double>> init) {
     }
 
     return *this;
+}
+
+inline void Matrix::swap_columns(size_t a, size_t b) {
+    for (size_t r = 0; r < rows(); ++r)
+        std::swap((*this)(r, a), (*this)(r, b));
+}
+
+inline void Matrix::swap_rows(size_t a, size_t b) {
+    for (size_t c = 0; c < cols(); ++c)
+        std::swap((*this)(a, c), (*this)(b, c));
 }
 
 inline bool Matrix::operator==(const Matrix &other) const {
