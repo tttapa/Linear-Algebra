@@ -15,14 +15,28 @@ mkdir -p "$html_dest"
 rm -f "$dest/*.info"
 rm -rf "$html_dest/*"
 
-if [ "${1,,}" == "clang" ]; then
-    gcov_bin="$dir/llvm-cov-gcov.sh"
+# Parse command line arguments
+
+compiler="${1,,}"
+version="${2%%.*}"
+
+if [ ! -z "$version" ]; then version="-${version}"; fi
+
+echo "Compiler: ${compiler}${version}"
+
+# If the compiler is Clang, use a wrapper around llvm-cov that emulates gcov
+# and use the right c++filt
+if [ "${compiler}" == "clang" ]; then
+    mkdir -p "/tmp/clang-cxxfilt-gcov"
+    echo -e "#!/usr/bin/env sh\nexec llvm-cov${version} gcov \"\$@\"" \
+    > "/tmp/clang-cxxfilt-gcov/llvm-cov"
+    chmod +x "/tmp/clang-cxxfilt-gcov/llvm-cov"
     # Replace the default c++filt program with LLVM/Clang's version
-    mkdir -p /tmp/clang-cxxfilt
-    ln -sf `which llvm-cxxfilt` /tmp/clang-cxxfilt/c++filt
-    export PATH=/tmp/clang-cxxfilt:$PATH
+    ln -sf `which llvm-cxxfilt${version}` /tmp/clang-cxxfilt-gcov/c++filt
+    export PATH="/tmp/clang-cxxfilt-gcov:$PATH"
+    gcov_bin="llvm-cov"
 else
-    gcov_bin="gcov"
+    gcov_bin="gcov${version}"
 fi
 
 branches=0

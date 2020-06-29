@@ -14,7 +14,7 @@ jobs:
         path: "/tmp/gtest"
         key: ${{ runner.os }}
     - name: Install Google Test
-      run: ./install-gtest-ci.sh /tmp/gtest
+      run: ./ci/install-gtest.sh /tmp/gtest
       working-directory: scripts
     - name: Create build directory
       run: mkdir -p build
