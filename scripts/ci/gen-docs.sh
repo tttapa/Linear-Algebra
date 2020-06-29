@@ -41,7 +41,8 @@ function run_doxygen_coverage {
     make coverage
     mkdir -p "$2/$dir"
     popd
-    mv docs/Coverage/* "$2/$dir"
+    rm -rf "$2/$dir"
+    mv docs/Coverage "$2/$dir"
     popd
 }
 
