@@ -1,6 +1,6 @@
 # This action generates the documentation and then deploys it to the `gh-pages` branch.
 
-name: Documentation
+name: Documentation & Coverage
 
 on:
   push:
@@ -16,9 +16,11 @@ jobs:
     # Cache the doxygen executable
     - uses: actions/cache@v2
       with:
-        path: "/tmp/doxygen"
+        path: 
+          - "/tmp/doxygen"
+          - "/tmp/gtest"
         key: ${{ runner.os }}
-
+    
     # Download and build doxygen (if not cached already)
     - name: Install Doxygen
       run: |
@@ -30,13 +32,18 @@ jobs:
         which doxygen
         doxygen --version
 
+    - name: Install Google Test
+      run: ./ci/install-gtest.sh /tmp/gtest
+      working-directory: scripts
+
     # Create the `gh-pages` branch if it doesn't exist already, check it out, 
     # and copy it to /tmp/staging.
     - name: Create staging area
       run: |
         rm -rf /tmp/staging
         git fetch origin gh-pages:gh-pages ||:
-        git checkout gh-pages || { git checkout --orphan gh-pages && git rm -rf . && git clean -fxd ; }
+        git checkout gh-pages || \
+        { git checkout --orphan gh-pages && git rm -rf . && git clean -fxd ; }
         cp -ar $GITHUB_WORKSPACE/ /tmp/staging
         git checkout ${GITHUB_REF##*/}
 

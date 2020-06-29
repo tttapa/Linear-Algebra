@@ -5,9 +5,10 @@ cd "$(dirname "$0")"
 output_folder="${1:-/tmp}"
 mkdir -p "$output_folder"
 
-# Function that builds the doxygen documentation.
-# usage:    run_doxygen_output <branch-name> <output-directory>
-function run_doxygen_output {
+# Function that builds the doxygen documentation and generates the
+# coverage information.
+# usage:    run_doxygen_coverage <branch-name> <output-directory>
+function run_doxygen_coverage {
     pushd ../../doxygen
     if [ "$1" = "master" ]; then dir="Doxygen"; else dir="$1/Doxygen"; fi
     # Remove the old documentation
@@ -26,15 +27,31 @@ function run_doxygen_output {
     doxygen tmp-Doxyfile
     rm -rf tmp-Doxyfile
     popd
+
+    if [ "$1" = "master" ]; then dir="Coverage"; else dir="$1/Coverage"; fi
+    pushd ../..
+    rm -rf docs/Coverage build
+    mkdir -p docs/Coverage
+    mkdir -p build 
+    pushd build
+    CC=gcc-9 \
+    CXX=g++-9 \
+    CMAKE_PREFIX_PATH="/tmp/gtest" \
+    cmake .. -DCMAKE_BUILD_TYPE=Coverage
+    make coverage
+    mkdir -p "$2/$dir"
+    popd
+    mv docs/Coverage/* "$2/$dir"
+    popd
 }
 
 # Generate the documentation for the current branch
 if curr_branch=$(git branch --show-current); then
-    run_doxygen_output "$curr_branch" "$output_folder"
+    run_doxygen_coverage "$curr_branch" "$output_folder"
 fi
 # Generate the documentation for the current tag
 if curr_tag=$(git describe --tags --exact-match); then
-    run_doxygen_output "$curr_tag" "$output_folder"
+    run_doxygen_coverage "$curr_tag" "$output_folder"
 fi
 
 echo "Done generating documentation"
@@ -50,7 +67,7 @@ echo "Documentation for" \
 > "$README"
 # Always have a link to master, it's at the root of the docs folder
 echo -e '\n### Main Branch\n' >> "$README"
-echo '- [master](./Doxygen/index.html)' >> "$README"
+echo '- [master](Doxygen/index.html)' >> "$README"
 # Find all tags with documentation (version numbers)
 echo -e '\n### Tags and Releases\n' >> "$README"
 git tag -l --sort=-creatordate \
