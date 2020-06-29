@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 
+project(LinearAlgebra VERSION 0.0.9)
+
 set(CMAKE_CXX_STANDARD 11)
-project(matrix)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 # find_package(GTest REQUIRED PATHS "$ENV{HOME}/.local/lib/cmake" NO_DEFAULT_PATH)
 find_package(GTest REQUIRED NO_CMAKE_SYSTEM_PATH)
@@ -12,23 +14,27 @@ enable_testing()
 set(CMAKE_CPP_FLAGS "${CMAKE_CPP_FLAGS} \
     -Wmissing-include-dirs")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
-    -Wall -Wextra -Werror -pedantic -pedantic-errors -fdiagnostics-show-option")
+    -Wall -Wextra -Werror -pedantic -pedantic-errors -fdiagnostics-show-option \
+    -Wno-unknown-pragmas")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
     -Wall -Wextra -Werror -pedantic -pedantic-errors -fdiagnostics-show-option")
-
+    
 # Build-type specific flags
 set(CMAKE_CXX_FLAGS_DEBUG "-ggdb3 -O0 -D_GLIBCXX_DEBUG")
 set(CMAKE_C_FLAGS_DEBUG   "-ggdb3 -O0 -D_GLIBCXX_DEBUG")
+set(CMAKE_DEBUG_POSTFIX "-debug")
 
 set(CMAKE_CXX_FLAGS_ASAN "-g3 -O0 -D_GLIBCXX_DEBUG \
     -fsanitize=address,leak,undefined,pointer-compare,pointer-subtract")
 set(CMAKE_C_FLAGS_ASAN   "-g3 -O0 -D_GLIBCXX_DEBUG \
     -fsanitize=address,leak,undefined,pointer-compare,pointer-subtract")
+set(CMAKE_ASAN_POSTFIX "-asan")
 
 set(CMAKE_CXX_FLAGS_TSAN "-g3 -O0 -D_GLIBCXX_DEBUG \
     -fsanitize=thread,undefined")
 set(CMAKE_C_FLAGS_TSAN   "-g3 -O0 -D_GLIBCXX_DEBUG \
     -fsanitize=thread,undefined")
+set(CMAKE_TSAN_POSTFIX "-tsan")
 
 # Coverage
 set(CMAKE_C_FLAGS_COVERAGE "${CMAKE_C_FLAGS_ASAN} \
@@ -38,7 +44,11 @@ set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_ASAN} \
 set(CMAKE_EXE_LINKER_FLAGS_COVERAGE "--coverage")
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
+if (NOT (CMAKE_BUILD_TYPE MATCHES "[Rr][Ee][Ll].*"))
+message(STATUS "Counting allocations for tests (no-release)")
 add_compile_definitions(MATRIX_COUNT_ALLOCATIONS)
+endif()
+
 
 # ----
 
@@ -59,3 +69,15 @@ if (CMAKE_BUILD_TYPE STREQUAL "Coverage")
         ${CMAKE_CURRENT_LIST_DIR}/scripts/coverage.sh ${CMAKE_CXX_COMPILER_ID}
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
+
+# ----
+
+include(InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGE_VERSION_MAJOR "${LinearAlgebra_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${LinearAlgebra_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${LinearAlgebra_VERSION_PATCH}")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+SET(CPACK_GENERATOR "DEB;TGZ")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Pieter P")
+include(CPack)

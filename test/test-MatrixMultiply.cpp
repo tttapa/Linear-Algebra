@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <HouseholderQR.hpp>
-#include <Matrix.hpp>
+#include <linalg/Matrix.hpp>
 
 #include "CountAllocationsTests.hpp"
 

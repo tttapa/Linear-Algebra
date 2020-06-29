@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
-#include <sstream>
-
-#include <Matrix.hpp>
+#include <linalg/Matrix.hpp>
 
 #include "CountAllocationsTests.hpp"
+
+#include <sstream>
 
 // Matrix
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

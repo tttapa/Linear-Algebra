@@ -30,7 +30,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "HouseholderQR.hpp"
+#include <linalg/HouseholderQR.hpp>
 #include <Eigen/QR>
 using EigenMat =
     Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::ColMajor>;

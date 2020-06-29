@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Matrix.hpp>
+#include "Matrix.hpp"
 
 /// @addtogroup MatVec
 /// @{
@@ -10,12 +10,8 @@
 /// Stored in an efficient manner with O(n) memory requirements.
 class PermutationMatrix {
 
-#ifdef MATRIX_COUNT_ALLOCATIONS
-    using storage_t = std::vector<size_t, CountingAllocator<size_t>>;
-#else
-    /// Container to store the elements of the matrix internally.
-    using storage_t = std::vector<size_t>;
-#endif
+    /// Container to store the elements of the permutation matrix internally.
+    using storage_t = util::storage_t<size_t>;
 
   public:
     enum Type {

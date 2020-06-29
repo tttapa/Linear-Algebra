@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <HouseholderQR.hpp>
-#include <Matrix.hpp>
+#include <linalg/Matrix.hpp>
 
 #include "CountAllocationsTests.hpp"
 
@@ -9,16 +8,16 @@
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 TEST(Vector, dotProduct) {
-    Vector a        = {3, 5, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {3, 5, 7};
+    Vector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
-    double result   = a.dot(b);
+    double result = a.dot(b);
     EXPECT_EQ(result, expected);
 }
 TEST(Vector, dotProductMoveA) {
     RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {3, 5, 7};
+    Vector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = std::move(a).dot(b);
@@ -28,8 +27,8 @@ TEST(Vector, dotProductMoveA) {
 }
 TEST(Vector, dotProductMoveB) {
     RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {3, 5, 7};
+    Vector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = a.dot(std::move(b));
@@ -39,8 +38,8 @@ TEST(Vector, dotProductMoveB) {
 }
 TEST(Vector, dotProductMoveAB) {
     RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {3, 5, 7};
+    Vector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = std::move(a).dot(std::move(b));
@@ -50,16 +49,16 @@ TEST(Vector, dotProductMoveAB) {
 }
 
 TEST(Vector, dotProductStatic) {
-    Vector a        = {3, 5, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {3, 5, 7};
+    Vector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
-    double result   = Vector::dot(a, b);
+    double result = Vector::dot(a, b);
     EXPECT_EQ(result, expected);
 }
 TEST(Vector, dotProductStaticMoveA) {
     RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {3, 5, 7};
+    Vector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = Vector::dot(std::move(a), b);
@@ -69,8 +68,8 @@ TEST(Vector, dotProductStaticMoveA) {
 }
 TEST(Vector, dotProductStaticMoveB) {
     RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {3, 5, 7};
+    Vector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = Vector::dot(a, std::move(b));
@@ -80,8 +79,8 @@ TEST(Vector, dotProductStaticMoveB) {
 }
 TEST(Vector, dotProductStaticMoveAB) {
     RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {3, 5, 7};
+    Vector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = Vector::dot(std::move(a), std::move(b));
@@ -91,16 +90,16 @@ TEST(Vector, dotProductStaticMoveAB) {
 }
 
 TEST(Vector, crossProduct) {
-    Vector a        = {2, 3, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
     Vector expected = {-40, 43, -7};
-    Vector result   = a.cross(b);
+    Vector result = a.cross(b);
     EXPECT_EQ(result, expected);
 }
 TEST(Vector, crossProductMoveA) {
     RESET_ALLOC_COUNT();
-    Vector a        = {2, 3, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
     Vector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     Vector result = std::move(a).cross(b);
@@ -110,8 +109,8 @@ TEST(Vector, crossProductMoveA) {
 }
 TEST(Vector, crossProductMoveB) {
     RESET_ALLOC_COUNT();
-    Vector a        = {2, 3, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
     Vector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     Vector result = a.cross(std::move(b));
@@ -121,8 +120,8 @@ TEST(Vector, crossProductMoveB) {
 }
 TEST(Vector, crossProductMoveAB) {
     RESET_ALLOC_COUNT();
-    Vector a        = {2, 3, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
     Vector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     Vector result = std::move(a).cross(std::move(b));
@@ -132,16 +131,16 @@ TEST(Vector, crossProductMoveAB) {
 }
 
 TEST(Vector, crossProductStatic) {
-    Vector a        = {2, 3, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
     Vector expected = {-40, 43, -7};
-    Vector result   = Vector::cross(a, b);
+    Vector result = Vector::cross(a, b);
     EXPECT_EQ(result, expected);
 }
 TEST(Vector, crossProductStaticMoveA) {
     RESET_ALLOC_COUNT();
-    Vector a        = {2, 3, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
     Vector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     Vector result = Vector::cross(std::move(a), b);
@@ -151,8 +150,8 @@ TEST(Vector, crossProductStaticMoveA) {
 }
 TEST(Vector, crossProductStaticMoveB) {
     RESET_ALLOC_COUNT();
-    Vector a        = {2, 3, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
     Vector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     Vector result = Vector::cross(a, std::move(b));
@@ -162,8 +161,8 @@ TEST(Vector, crossProductStaticMoveB) {
 }
 TEST(Vector, crossProductStaticMoveAB) {
     RESET_ALLOC_COUNT();
-    Vector a        = {2, 3, 7};
-    Vector b        = {11, 13, 17};
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
     Vector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     Vector result = Vector::cross(std::move(a), std::move(b));
@@ -171,21 +170,49 @@ TEST(Vector, crossProductStaticMoveAB) {
     EXPECT_ALLOC_ALIVE(2); // expected, result
     EXPECT_EQ(result, expected);
 }
+TEST(Vector, crossProductStaticInPlace) {
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
+    Vector expected = {-40, 43, -7};
+    Vector::cross_inplace(a, b);
+    EXPECT_EQ(a, expected);
+}
+TEST(Vector, crossProductStaticInPlaceMove) {
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
+    Vector expected = {-40, 43, -7};
+    Vector::cross_inplace(a, std::move(b));
+    EXPECT_EQ(a, expected);
+}
+TEST(Vector, crossProductStaticInPlaceNeg) {
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
+    Vector expected = {40, -43, 7};
+    Vector::cross_inplace_neg(a, b);
+    EXPECT_EQ(a, expected);
+}
+TEST(Vector, crossProductStaticInPlaceMoveNeg) {
+    Vector a = {2, 3, 7};
+    Vector b = {11, 13, 17};
+    Vector expected = {40, -43, 7};
+    Vector::cross_inplace_neg(a, std::move(b));
+    EXPECT_EQ(a, expected);
+}
 
 // RowVector
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 TEST(RowVector, dotProduct) {
-    RowVector a     = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
+    RowVector a = {3, 5, 7};
+    RowVector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
-    double result   = a.dot(b);
+    double result = a.dot(b);
     EXPECT_EQ(result, expected);
 }
 TEST(RowVector, dotProductMoveA) {
     RESET_ALLOC_COUNT();
-    RowVector a     = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
+    RowVector a = {3, 5, 7};
+    RowVector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = std::move(a).dot(b);
@@ -195,8 +222,8 @@ TEST(RowVector, dotProductMoveA) {
 }
 TEST(RowVector, dotProductMoveB) {
     RESET_ALLOC_COUNT();
-    RowVector a     = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
+    RowVector a = {3, 5, 7};
+    RowVector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = a.dot(std::move(b));
@@ -206,8 +233,8 @@ TEST(RowVector, dotProductMoveB) {
 }
 TEST(RowVector, dotProductMoveAB) {
     RESET_ALLOC_COUNT();
-    RowVector a     = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
+    RowVector a = {3, 5, 7};
+    RowVector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = std::move(a).dot(std::move(b));
@@ -217,16 +244,16 @@ TEST(RowVector, dotProductMoveAB) {
 }
 
 TEST(RowVector, dotProductStatic) {
-    RowVector a     = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
+    RowVector a = {3, 5, 7};
+    RowVector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
-    double result   = RowVector::dot(a, b);
+    double result = RowVector::dot(a, b);
     EXPECT_EQ(result, expected);
 }
 TEST(RowVector, dotProductStaticMoveA) {
     RESET_ALLOC_COUNT();
-    RowVector a     = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
+    RowVector a = {3, 5, 7};
+    RowVector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = RowVector::dot(std::move(a), b);
@@ -236,8 +263,8 @@ TEST(RowVector, dotProductStaticMoveA) {
 }
 TEST(RowVector, dotProductStaticMoveB) {
     RESET_ALLOC_COUNT();
-    RowVector a     = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
+    RowVector a = {3, 5, 7};
+    RowVector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = RowVector::dot(a, std::move(b));
@@ -247,8 +274,8 @@ TEST(RowVector, dotProductStaticMoveB) {
 }
 TEST(RowVector, dotProductStaticMoveAB) {
     RESET_ALLOC_COUNT();
-    RowVector a     = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
+    RowVector a = {3, 5, 7};
+    RowVector b = {11, 13, 17};
     double expected = 3 * 11 + 5 * 13 + 7 * 17;
     EXPECT_ALLOC_COUNT(2);
     double result = RowVector::dot(std::move(a), std::move(b));
@@ -258,16 +285,16 @@ TEST(RowVector, dotProductStaticMoveAB) {
 }
 
 TEST(RowVector, crossProduct) {
-    RowVector a        = {2, 3, 7};
-    RowVector b        = {11, 13, 17};
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
     RowVector expected = {-40, 43, -7};
-    RowVector result   = a.cross(b);
+    RowVector result = a.cross(b);
     EXPECT_EQ(result, expected);
 }
 TEST(RowVector, crossProductMoveA) {
     RESET_ALLOC_COUNT();
-    RowVector a        = {2, 3, 7};
-    RowVector b        = {11, 13, 17};
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
     RowVector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     RowVector result = std::move(a).cross(b);
@@ -277,8 +304,8 @@ TEST(RowVector, crossProductMoveA) {
 }
 TEST(RowVector, crossProductMoveB) {
     RESET_ALLOC_COUNT();
-    RowVector a        = {2, 3, 7};
-    RowVector b        = {11, 13, 17};
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
     RowVector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     RowVector result = a.cross(std::move(b));
@@ -288,8 +315,8 @@ TEST(RowVector, crossProductMoveB) {
 }
 TEST(RowVector, crossProductMoveAB) {
     RESET_ALLOC_COUNT();
-    RowVector a        = {2, 3, 7};
-    RowVector b        = {11, 13, 17};
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
     RowVector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     RowVector result = std::move(a).cross(std::move(b));
@@ -299,16 +326,16 @@ TEST(RowVector, crossProductMoveAB) {
 }
 
 TEST(RowVector, crossProductStatic) {
-    RowVector a        = {2, 3, 7};
-    RowVector b        = {11, 13, 17};
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
     RowVector expected = {-40, 43, -7};
-    RowVector result   = RowVector::cross(a, b);
+    RowVector result = RowVector::cross(a, b);
     EXPECT_EQ(result, expected);
 }
 TEST(RowVector, crossProductStaticMoveA) {
     RESET_ALLOC_COUNT();
-    RowVector a        = {2, 3, 7};
-    RowVector b        = {11, 13, 17};
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
     RowVector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     RowVector result = RowVector::cross(std::move(a), b);
@@ -318,8 +345,8 @@ TEST(RowVector, crossProductStaticMoveA) {
 }
 TEST(RowVector, crossProductStaticMoveB) {
     RESET_ALLOC_COUNT();
-    RowVector a        = {2, 3, 7};
-    RowVector b        = {11, 13, 17};
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
     RowVector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     RowVector result = RowVector::cross(a, std::move(b));
@@ -329,12 +356,40 @@ TEST(RowVector, crossProductStaticMoveB) {
 }
 TEST(RowVector, crossProductStaticMoveAB) {
     RESET_ALLOC_COUNT();
-    RowVector a        = {2, 3, 7};
-    RowVector b        = {11, 13, 17};
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
     RowVector expected = {-40, 43, -7};
     EXPECT_ALLOC_COUNT(3);
     RowVector result = RowVector::cross(std::move(a), std::move(b));
     EXPECT_ALLOC_COUNT(3);
     EXPECT_ALLOC_ALIVE(2); // expected, result
     EXPECT_EQ(result, expected);
+}
+TEST(RowVector, crossProductStaticInPlace) {
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
+    RowVector expected = {-40, 43, -7};
+    RowVector::cross_inplace(a, b);
+    EXPECT_EQ(a, expected);
+}
+TEST(RowVector, crossProductStaticInPlaceMove) {
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
+    RowVector expected = {-40, 43, -7};
+    RowVector::cross_inplace(a, std::move(b));
+    EXPECT_EQ(a, expected);
+}
+TEST(RowVector, crossProductStaticInPlaceNeg) {
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
+    RowVector expected = {40, -43, 7};
+    RowVector::cross_inplace_neg(a, b);
+    EXPECT_EQ(a, expected);
+}
+TEST(RowVector, crossProductStaticInPlaceMoveNeg) {
+    RowVector a = {2, 3, 7};
+    RowVector b = {11, 13, 17};
+    RowVector expected = {40, -43, 7};
+    RowVector::cross_inplace_neg(a, std::move(b));
+    EXPECT_EQ(a, expected);
 }

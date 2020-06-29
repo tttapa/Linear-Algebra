@@ -1,4 +1,4 @@
-#include "PermutationMatrix.hpp"
+#include <linalg/PermutationMatrix.hpp>
 
 #include <iomanip>
 #include <iostream>
