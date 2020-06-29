@@ -56,6 +56,8 @@ add_custom_target(documentation
 # Add coverage target
 if (CMAKE_BUILD_TYPE STREQUAL "Coverage")
     add_custom_target(coverage 
-        ${CMAKE_CURRENT_LIST_DIR}/scripts/coverage.sh ${CMAKE_CXX_COMPILER_ID}
+        ${CMAKE_CURRENT_LIST_DIR}/scripts/coverage.sh
+        ${CMAKE_CXX_COMPILER_ID}
+        ${CMAKE_CXX_COMPILER_VERSION}
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
