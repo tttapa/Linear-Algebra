@@ -1,5 +1,5 @@
 [![Build Status](https://github.com/tttapa/Linear-Algebra/workflows/CI%20Tests/badge.svg)](https://github.com/tttapa/Linear-Algebra/actions)
-[![Test Coverage](https://img.shields.io/endpoint?url=https://tttapa.github.io/Linear-Algebra/Coverage/shield.io.coverage.json)](https://tttapa.github.io/Linear-Algebra/Coverage/index.html)
+[![Test Coverage](https://img.shields.io/endpoint?url=https://tttapa.github.io/Linear-Algebra/arduino/Coverage/shield.io.coverage.json)](https://tttapa.github.io/Linear-Algebra/arduino/Coverage/index.html)
 [![GitHub](https://img.shields.io/github/stars/tttapa/Linear-Algebra?label=GitHub&logo=github)](https://github.com/tttapa/Linear-Algebra/tree/arduino)
 
 
