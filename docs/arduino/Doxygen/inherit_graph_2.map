@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d6/da1/classVector.html" title="A column vector (n×1 matrix)." alt="" coords="5,31,68,57"/>
-<area shape="rect" id="node2" href="$d3/d3f/classMatrix.html" title="General matrix class." alt="" coords="116,31,180,57"/>
-<area shape="rect" id="node3" href="$d2/d78/classRowVector.html" title="A row vector (1×n matrix)." alt="" coords="237,5,328,32"/>
-<area shape="rect" id="node4" href="$d3/d61/classSquareMatrix.html" title="Square matrix class." alt="" coords="228,56,337,83"/>
-</map>
