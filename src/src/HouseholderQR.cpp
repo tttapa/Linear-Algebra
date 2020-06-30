@@ -205,7 +205,7 @@ void HouseholderQR::apply_QT_inplace(Matrix &B) const {
 
 /**
  * ## Implementation
- * @snippet this HouseholderQR::apply_QT_inplace
+ * @snippet this HouseholderQR::apply_Q_inplace
  */
 //! <!-- [HouseholderQR::apply_Q_inplace] -->
 void HouseholderQR::apply_Q_inplace(Matrix &X) const {
