@@ -676,19 +676,6 @@ RowVector operator*(RowVector &&a, Matrix &&B) {
     return RowVector(static_cast<Matrix &&>(a) * std::move(B));
 }
 
-double operator*(const Vector &a, const RowVector &b) {
-    return Vector::dot_unchecked(a, b);
-}
-double operator*(Vector &&a, const RowVector &b) {
-    return Vector::dot_unchecked(std::move(a), b);
-}
-double operator*(const Vector &a, RowVector &&b) {
-    return Vector::dot_unchecked(a, std::move(b));
-}
-double operator*(Vector &&a, RowVector &&b) {
-    return Vector::dot_unchecked(std::move(a), std::move(b));
-}
-
 double operator*(const RowVector &a, const Vector &b) {
     return Vector::dot_unchecked(a, b);
 }

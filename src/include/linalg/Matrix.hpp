@@ -647,15 +647,6 @@ RowVector operator*(const RowVector &a, Matrix &&B);
 RowVector operator*(RowVector &&a, Matrix &&B);
 
 /// Vector-vector multiplication.
-double operator*(const Vector &a, const RowVector &b);
-/// Vector-vector multiplication.
-double operator*(Vector &&a, const RowVector &b);
-/// Vector-vector multiplication.
-double operator*(const Vector &a, RowVector &&b);
-/// Vector-vector multiplication.
-double operator*(Vector &&a, RowVector &&b);
-
-/// Vector-vector multiplication.
 double operator*(const RowVector &a, const Vector &b);
 /// Vector-vector multiplication.
 double operator*(RowVector &&a, const Vector &b);
