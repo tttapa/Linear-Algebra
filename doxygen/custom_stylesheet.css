@@ -31,18 +31,23 @@ div.memproto, div.memdoc, div.directory, div.dyncontent {
 body {
     background-color: #DDD;
     width: 100%;
-    font-family: 'Roboto';
+    font-family: 'Roboto', 'sans-serif';
     font-weight: 400;
 }
 h1, h2, h3, h4, h5,
 h2.groupheader, .title, #projectname {
-    font-family: 'Roboto';
+    font-family: 'Roboto', 'sans-serif';
     font-weight: 300;
 }
 * {
     max-width: 100%;
 }
-b {
+/* These were originally "bold" which is too bold */
+b, dt, caption, div.groupHeader, td.indexkey, th.dirtab,
+.memproto, dl.reflist dt,
+.params .paramname, .retval .paramname, .tparams .paramname, .exception .paramname,
+.icon, dl.citelist dt, .inherit_header,
+#powerTip div.ttname a, #powerTip div.ttname {
     font-weight: 500;
 }
 a.el {
