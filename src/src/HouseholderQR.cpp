@@ -186,13 +186,18 @@ void HouseholderQR::apply_QT_inplace(Matrix &B) const {
     assert(is_factored());
     assert(RW.rows() == B.rows());
     // Apply the Householder reflectors to each column of B.
-    for (size_t c = 0; c < B.cols(); ++c) {
-        for (size_t r = 0; r < RW.cols(); ++r) {
+    for (size_t i = 0; i < B.cols(); ++i) {
+        // Recall that the Householder reflector H is applied as follows:
+        //     bᵢ'[k+1:m] = H·bᵢ[k+1:m]
+        //                = bᵢ[k+1:m] - wₖ·wₖᵀ·bᵢ[k+1:m]
+        for (size_t k = 0; k < RW.cols(); ++k) {
+            // Compute wₖᵀ·bᵢ
             double dot_product = 0;
-            for (size_t i = r; i < RW.rows(); ++i)
-                dot_product += RW(i, r) * B(i, c);
-            for (size_t i = r; i < RW.rows(); ++i)
-                B(i, c) -= RW(i, r) * dot_product;
+            for (size_t r = k; r < RW.rows(); ++r)
+                dot_product += RW(r, k) * B(r, i);
+            // Subtract wₖ·wₖᵀ·bᵢ
+            for (size_t r = k; r < RW.rows(); ++r)
+                B(r, i) -= RW(r, k) * dot_product;
         }
     }
 }
@@ -206,14 +211,19 @@ void HouseholderQR::apply_QT_inplace(Matrix &B) const {
 void HouseholderQR::apply_Q_inplace(Matrix &X) const {
     assert(is_factored());
     assert(RW.rows() == X.rows());
-    // Apply the Householder reflectors in reverse order to each column of B.
-    for (size_t c = 0; c < X.cols(); ++c) {
-        for (size_t r = RW.cols(); r-- > 0;) {
+    // Apply the Householder reflectors in reverse order to each column of X.
+    for (size_t i = 0; i < X.cols(); ++i) {
+        // Recall that the Householder reflector H is applied as follows:
+        //     xᵢ'[k+1:m] = H·xᵢ[k+1:m]
+        //                = xᵢ[k+1:m] - wₖ·wₖᵀ·xᵢ[k+1:m]
+        for (size_t k = RW.cols(); k-- > 0;) {
+            // Compute wₖᵀ·xᵢ
             double dot_product = 0;
-            for (size_t i = r; i < RW.rows(); ++i)
-                dot_product += RW(i, r) * X(i, c);
-            for (size_t i = r; i < RW.rows(); ++i)
-                X(i, c) -= RW(i, r) * dot_product;
+            for (size_t r = k; r < RW.rows(); ++r)
+                dot_product += RW(r, k) * X(r, i);
+            // Subtract wₖ·wₖᵀ·xᵢ
+            for (size_t r = k; r < RW.rows(); ++r)
+                X(r, i) -= RW(r, k) * dot_product;
         }
     }
 }
