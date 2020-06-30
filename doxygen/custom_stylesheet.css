@@ -42,6 +42,9 @@ h2.groupheader, .title, #projectname {
 * {
     max-width: 100%;
 }
+b {
+    font-weight: 500;
+}
 a.el {
     font-weight: 500;
 }
