@@ -5,6 +5,7 @@ add_library(linalg SHARED
     "src/NoPivotLU.cpp"
     "src/RowPivotLU.cpp"
 )
+add_library(LinearAlgebra::linalg ALIAS linalg)
 set_target_properties(linalg PROPERTIES EXPORT_NAME LinearAlgebra::linalg)
 target_include_directories(linalg
     PUBLIC

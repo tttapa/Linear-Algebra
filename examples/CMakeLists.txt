@@ -1,1 +1,2 @@
-add_subdirectory(QR-perftest)
+add_subdirectory(QR-PerfTest)
+add_subdirectory(Basics)

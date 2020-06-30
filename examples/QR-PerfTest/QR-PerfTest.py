@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Calls the qr-perftest executable with many different matrix sizes and plots the
+Calls the QR-PerfTest executable with many different matrix sizes and plots the
 comparison between the naive implementation and Eigen's implementation.
 """
 
@@ -18,7 +18,7 @@ def test(n):
     results = np.zeros((4, N))
     for i in range(N):
         executable = join(dir_path, '..', '..', 'build', 'examples',
-                          'QR-perftest', 'qr-perftest')
+                          'QR-PerfTest', 'QR-PerfTest')
         result = check_output([executable, str(n)]).decode('utf-8')
         float_pattern = re.compile(r'\d+(.\d+)?(?:e[+-]?\d+)?')
         results[:, i] = np.array([

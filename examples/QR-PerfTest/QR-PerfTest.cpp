@@ -1,5 +1,5 @@
 /**
- * @example qr-perftest.cpp
+ * @example QR-PerfTest.cpp
  * Compares the performance of the naive included QR algorithm with
  * Eigen's implementation.
  * 
