@@ -4,6 +4,7 @@
 
 set -ex
 
+# This is my own fork of doxygen
 version="scalable-search-bar" # Release tag on GitHub
 prefix="${1:-$HOME/.local}"
 
