@@ -132,12 +132,14 @@ void Matrix::fill_identity() {
         (*this)(i, i) = 1;
 }
 
+#ifndef NO_RANDOM_SUPPORT
 void Matrix::fill_random(double min, double max,
                          std::default_random_engine::result_type seed) {
     std::default_random_engine gen(seed);
     std::uniform_real_distribution<double> dist(min, max);
     std::generate(storage.begin(), storage.end(), [&] { return dist(gen); });
 }
+#endif
 
 #pragma endregion // -----------------------------------------------------------
 
@@ -166,12 +168,14 @@ Matrix Matrix::identity(size_t rows, size_t cols) {
 
 Matrix Matrix::identity(size_t rows) { return identity(rows, rows); }
 
+#ifndef NO_RANDOM_SUPPORT
 Matrix Matrix::random(size_t rows, size_t cols, double min, double max,
                       std::default_random_engine::result_type seed) {
     Matrix m(rows, cols);
     m.fill_random(min, max, seed);
     return m;
 }
+#endif
 
 #pragma endregion // -----------------------------------------------------------
 
@@ -230,6 +234,8 @@ double Matrix::normFro() && {
 
 #pragma region // Printing -----------------------------------------------------
 
+#ifndef NO_IOSTREAM_SUPPORT
+
 #include <iomanip>
 #include <iostream>
 
@@ -250,6 +256,8 @@ std::ostream &operator<<(std::ostream &os, const Matrix &M) {
     M.print(os);
     return os;
 }
+
+#endif
 
 #pragma endregion // -----------------------------------------------------------
 
@@ -284,10 +292,12 @@ Vector Vector::constant(size_t size, double value) {
     return Vector(Matrix::constant(size, 1, value));
 }
 
+#ifndef NO_RANDOM_SUPPORT
 Vector Vector::random(size_t size, double min, double max,
                       std::default_random_engine::result_type seed) {
     return Vector(Matrix::random(size, 1, min, max, seed));
 }
+#endif
 
 #pragma endregion // -----------------------------------------------------------
 
@@ -447,10 +457,12 @@ RowVector RowVector::constant(size_t size, double value) {
     return RowVector(Matrix::constant(1, size, value));
 }
 
+#ifndef NO_RANDOM_SUPPORT
 RowVector RowVector::random(size_t size, double min, double max,
                             std::default_random_engine::result_type seed) {
     return RowVector(Matrix::random(1, size, min, max, seed));
 }
+#endif
 
 #pragma endregion // -----------------------------------------------------------
 
@@ -586,11 +598,14 @@ SquareMatrix SquareMatrix::identity(size_t rows) {
     m.fill_identity();
     return m;
 }
+
+#ifndef NO_RANDOM_SUPPORT
 SquareMatrix
 SquareMatrix::random(size_t rows, double min, double max,
                      std::default_random_engine::result_type seed) {
     return SquareMatrix(Matrix::random(rows, rows, min, max, seed));
 }
+#endif
 
 #pragma endregion // -----------------------------------------------------------
 
