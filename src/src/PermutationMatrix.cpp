@@ -1,4 +1,4 @@
-#include "PermutationMatrix.hpp"
+#include <linalg/PermutationMatrix.hpp>
 
 #ifndef NO_RANDOM_SUPPORT
 PermutationMatrix::Permutation PermutationMatrix::random_permutation(

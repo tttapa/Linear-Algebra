@@ -1,5 +1,5 @@
 /**
- * @example qr-perftest.cpp
+ * @example QR-PerfTest.cpp
  * Compares the performance of the naive included QR algorithm with
  * Eigen's implementation.
  * 
@@ -30,7 +30,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "HouseholderQR.hpp"
+#include <linalg/HouseholderQR.hpp>
 #include <Eigen/QR>
 using EigenMat =
     Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::ColMajor>;

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <PermutationMatrix.hpp>
+#include <linalg/PermutationMatrix.hpp>
 
 static PermutationMatrix::Permutation long_permutation = {
     544, 387,  2,    383, 807, 707,  34,   681,  109,  268, 570,  989,  491,

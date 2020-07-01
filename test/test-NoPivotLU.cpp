@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include <NoPivotLU.hpp>
-#include <Matrix.hpp>
+#include <linalg/NoPivotLU.hpp>
+#include <linalg/Matrix.hpp>
 
 #include "CountAllocationsTests.hpp"
 

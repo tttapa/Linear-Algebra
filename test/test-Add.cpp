@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <Matrix.hpp>
+#include <linalg/Matrix.hpp>
 
 #include "CountAllocationsTests.hpp"
 

@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <HouseholderQR.hpp>
-#include <Matrix.hpp>
+#include <linalg/Matrix.hpp>
 
 #include "CountAllocationsTests.hpp"
 
@@ -95,47 +94,6 @@ TEST(SquareMatrix, matrixMultiplyMoveAB) {
 
 // Vector
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-TEST(Vector, matrixMultiply) {
-    Vector a        = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
-    double expected = 3 * 11 + 5 * 13 + 7 * 17;
-    double result   = a * b;
-    EXPECT_EQ(result, expected);
-}
-TEST(Vector, matrixMultiplyMoveA) {
-    RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
-    double expected = 3 * 11 + 5 * 13 + 7 * 17;
-    EXPECT_ALLOC_COUNT(2);
-    double result = std::move(a) * b;
-    EXPECT_ALLOC_COUNT(2);
-    EXPECT_ALLOC_ALIVE(1); // b
-    EXPECT_EQ(result, expected);
-}
-TEST(Vector, matrixMultiplyMoveB) {
-    RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
-    double expected = 3 * 11 + 5 * 13 + 7 * 17;
-    EXPECT_ALLOC_COUNT(2);
-    double result = a * std::move(b);
-    EXPECT_ALLOC_COUNT(2);
-    EXPECT_ALLOC_ALIVE(1); // a
-    EXPECT_EQ(result, expected);
-}
-TEST(Vector, matrixMultiplyMoveAB) {
-    RESET_ALLOC_COUNT();
-    Vector a        = {3, 5, 7};
-    RowVector b     = {11, 13, 17};
-    double expected = 3 * 11 + 5 * 13 + 7 * 17;
-    EXPECT_ALLOC_COUNT(2);
-    double result = std::move(a) * std::move(b);
-    EXPECT_ALLOC_COUNT(2);
-    EXPECT_ALLOC_ALIVE(0);
-    EXPECT_EQ(result, expected);
-}
 
 TEST(Vector, matrixVectorMultiply) {
     Matrix a        = {{11, 12, 13}, {21, 22, 23}};

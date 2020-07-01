@@ -2,6 +2,7 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
         "*.dox": "cpp",
+        "*.ipp": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",

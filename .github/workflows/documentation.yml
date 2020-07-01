@@ -17,10 +17,10 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: |
-          "/tmp/doxygen"
-          "/tmp/gtest"
-          "/tmp/lcov"
-        key: ${{ runner.os }}
+          /tmp/doxygen
+          /tmp/gtest
+          /tmp/lcov
+        key: ${{ runner.os }}-doc-${{ hashFiles('scripts/ci/**') }}
     
     - name: Install Graphviz/Dot and LCOV Perl dependencies
       run: sudo apt-get install graphviz libjson-perl libperlio-gzip-perl perl
