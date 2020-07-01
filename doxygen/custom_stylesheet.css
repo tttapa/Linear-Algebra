@@ -278,12 +278,6 @@ div#powerTip {
 
 /* ---- Start search box ---- */
 
-@media only screen and (max-width: 767px) /* and (orientation : portrait) */ {
-    ul#main-menu li:last-child {
-        height: 2.4em;
-    }
-}
-
 #MSearchResultsWindow {
     border: 1px solid #96A7C8;
     background-color: #F9FAFC;
@@ -291,6 +285,13 @@ div#powerTip {
     border-top: none;
     margin-top: 7px;
     box-shadow: 1px 1px 2px 0px #777;
+}
+
+@media only screen and (max-width: 767px) /* and (orientation : portrait) */ {
+    #MSearchResultsWindow {
+        border-radius: 0;
+        margin-top: 0;
+    }
 }
 
 /* ---- End search box ---- */
