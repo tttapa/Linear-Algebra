@@ -39,6 +39,17 @@ h2.groupheader, .title, #projectname {
     font-family: 'Roboto', 'sans-serif';
     font-weight: 300;
 }
+div.contents > div.textblock > h1 {
+    border-bottom: 1px solid #c8d0e2;
+    padding-bottom: 5px;
+    margin-top: 1em;
+}
+div.contents > div.textblock > hr {
+    margin-right: 15px; /* To match width of doxygen headers and code blocks */
+}
+.title {
+    font-size: 2em;
+}
 * {
     max-width: 100%;
 }
