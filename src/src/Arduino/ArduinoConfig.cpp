@@ -1,4 +1,4 @@
-#include "ArduinoConfig.hpp"
+#include <include/linalg/Arduino/ArduinoConfig.hpp>
 
 #ifdef NO_FUNEXCEPT_DEFINITIONS
 namespace std {

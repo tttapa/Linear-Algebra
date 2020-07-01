@@ -1,4 +1,8 @@
+#ifndef ARDUINO
 #include <linalg/NoPivotLU.hpp>
+#else
+#include <include/linalg/NoPivotLU.hpp>
+#endif
 
 #include <cassert>
 

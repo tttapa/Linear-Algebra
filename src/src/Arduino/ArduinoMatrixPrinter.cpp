@@ -4,7 +4,7 @@
  *          std::ostream or printf.
  */
 
-#include <Arduino/ArduinoConfig.hpp>
+#include <include/linalg/Arduino/ArduinoConfig.hpp>
 
 #ifdef AVR // AVR has no printf float support, so use dtostre.
 
@@ -26,6 +26,7 @@ void format_double(double d, char *buffer, uint8_t width, uint8_t precision) {
 
 #else // If printf float support available, use it.
 #include <stdio.h>
+#include <stdint.h>
 
 namespace detail {
 void format_double(double d, char *buf, uint8_t width, uint8_t precision) {
@@ -41,7 +42,7 @@ void format_double(double d, char *buf, uint8_t width, uint8_t precision) {
 
 #ifndef NO_ARDUINO_PRINT_SUPPORT
 
-#include <Matrix.hpp>
+#include <include/linalg/Matrix.hpp>
 #include <new>
 
 void Matrix::print(Print &print, uint8_t precision, uint8_t width) const {

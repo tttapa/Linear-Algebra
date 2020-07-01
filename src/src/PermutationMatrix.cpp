@@ -1,4 +1,8 @@
+#ifndef ARDUINO
 #include <linalg/PermutationMatrix.hpp>
+#else
+#include <include/linalg/PermutationMatrix.hpp>
+#endif
 
 #ifndef NO_RANDOM_SUPPORT
 PermutationMatrix::Permutation PermutationMatrix::random_permutation(

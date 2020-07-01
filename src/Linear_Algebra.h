@@ -2,4 +2,4 @@
 
 // Dummy header for the Arduino builder
 
-#include "Matrix.hpp"
+#include "include/linalg/Matrix.hpp"

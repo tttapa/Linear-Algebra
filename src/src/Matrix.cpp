@@ -1,4 +1,8 @@
+#ifndef ARDUINO
 #include <linalg/Matrix.hpp>
+#else
+#include <include/linalg/Matrix.hpp>
+#endif
 
 #pragma region // Constructors -------------------------------------------------
 

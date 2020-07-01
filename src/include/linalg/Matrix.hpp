@@ -1,6 +1,6 @@
 #pragma once
 
-#include <linalg/Arduino/ArduinoConfig.hpp>
+#include "Arduino/ArduinoConfig.hpp"
 
 #include <algorithm>  // std::fill, std::transform
 #include <cassert>    // assert

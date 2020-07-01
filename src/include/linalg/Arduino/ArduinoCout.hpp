@@ -11,7 +11,7 @@
  * output of the Arduino using Serial.write.
  */
 
-#include <Arduino/ArduinoConfig.hpp>
+#include "ArduinoConfig.hpp"
 
 #ifndef NO_IOSTREAM_SUPPORT
 

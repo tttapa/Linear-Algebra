@@ -8,7 +8,7 @@
 
 #ifdef ARDUINO
 
-#include <Arduino/ArduinoMacroFix.hpp>
+#include "ArduinoMacroFix.hpp"
 
 #ifdef AVR
 

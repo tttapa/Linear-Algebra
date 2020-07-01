@@ -1,4 +1,8 @@
+#ifndef ARDUINO
 #include <linalg/RowPivotLU.hpp>
+#else
+#include <include/linalg/RowPivotLU.hpp>
+#endif
 
 #include <cassert>
 

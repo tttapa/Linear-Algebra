@@ -68,8 +68,11 @@
 
 #include <Linear_Algebra.h> // Include the library first
 
-#include <HouseholderQR.hpp> // Then include the necessary headers
-#include <Matrix.hpp>
+#include <Linear_Algebra.h> // Include the library first
+
+// Then include the necessary headers:
+#include <include/linalg/HouseholderQR.hpp> 
+#include <include/linalg/Matrix.hpp>
 
 void setup() {
   Serial.begin(115200);

@@ -1,6 +1,8 @@
+#ifndef ARDUINO
 #include <linalg/NoPivotLU.hpp>
-
-#include <cassert>
+#else
+#include <include/linalg/NoPivotLU.hpp>
+#endif
 
 /**
  * @pre     `LU` contains the matrix A to be factorized

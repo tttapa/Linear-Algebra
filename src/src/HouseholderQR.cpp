@@ -1,4 +1,8 @@
+#ifndef ARDUINO
 #include <linalg/HouseholderQR.hpp>
+#else
+#include <include/linalg/HouseholderQR.hpp>
+#endif
 
 #include <cassert>
 

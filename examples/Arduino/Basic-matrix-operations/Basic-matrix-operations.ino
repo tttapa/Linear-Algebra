@@ -73,10 +73,12 @@
 
 #include <Linear_Algebra.h> // Include the library first
 
-#include <HouseholderQR.hpp> // Then include the necessary headers
-#include <Matrix.hpp>
+// Then include the necessary headers:
+#include <include/linalg/HouseholderQR.hpp> 
+#include <include/linalg/Matrix.hpp>
 
-#include <Arduino/ArduinoCout.hpp> // For printing using arduino::cout
+// For printing using arduino::cout:
+#include <include/linalg/Arduino/ArduinoCout.hpp>
 using arduino::cout;
 
 void setup() {
