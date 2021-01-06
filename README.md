@@ -17,6 +17,11 @@ and precision, but the code is often hard to read.
 The [**modules**](https://tttapa.github.io/Linear-Algebra/Doxygen/modules.html)
 page is the best place to start.
 
+Direct links to the algorithms:
+ - [LU factorization without pivoting](https://tttapa.github.io/Linear-Algebra/Doxygen/d2/d7b/classNoPivotLU.html#a756ec297e96edf953ce640744892a0cc)
+ - [LU factorization with row pivoting](https://tttapa.github.io/Linear-Algebra/Doxygen/d6/d1a/classRowPivotLU.html#a756ec297e96edf953ce640744892a0cc)
+ - [QR factorization using Householder reflectors](https://tttapa.github.io/Linear-Algebra/Doxygen/d1/dac/classHouseholderQR.html#a756ec297e96edf953ce640744892a0cc)
+
 ## Arduino
 
 This library has an Arduino version as well. It's available on the 
