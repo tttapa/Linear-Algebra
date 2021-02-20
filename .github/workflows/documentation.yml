@@ -28,13 +28,13 @@ jobs:
     - name: Install LCOV
       run: |
         ./scripts/ci/install-lcov.sh /tmp/lcov
-        echo "::add-path::/tmp/lcov/bin"
+        echo "/tmp/lcov/bin" >> $GITHUB_PATH
 
     # Download and build doxygen (if not cached already)
     - name: Install Doxygen
       run: |
         ./scripts/ci/install-doxygen.sh /tmp/doxygen
-        echo "::add-path::/tmp/doxygen/bin"
+        echo "/tmp/doxygen/bin" >> $GITHUB_PATH
 
     - name: Show Doxygen version
       run: |
