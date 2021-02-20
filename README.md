@@ -21,9 +21,9 @@ Also see the [**installation instructions**](https://tttapa.github.io/Linear-Alg
 and the [**examples**](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/examples.html).
 
 Direct links to the algorithms:
- - [LU factorization without pivoting](https://tttapa.github.io/Linear-Algebra/Doxygen/d2/d7b/classNoPivotLU.html#a756ec297e96edf953ce640744892a0cc)
- - [LU factorization with row pivoting](https://tttapa.github.io/Linear-Algebra/Doxygen/d6/d1a/classRowPivotLU.html#a756ec297e96edf953ce640744892a0cc)
- - [QR factorization using Householder reflectors](https://tttapa.github.io/Linear-Algebra/Doxygen/d1/dac/classHouseholderQR.html#a756ec297e96edf953ce640744892a0cc)
+ - [LU factorization without pivoting](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/d2/d7b/classNoPivotLU.html#a756ec297e96edf953ce640744892a0cc)
+ - [LU factorization with row pivoting](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/d6/d1a/classRowPivotLU.html#a756ec297e96edf953ce640744892a0cc)
+ - [QR factorization using Householder reflectors](https://tttapa.github.io/Linear-Algebra/arduino/Doxygen/d1/dac/classHouseholderQR.html#a756ec297e96edf953ce640744892a0cc)
 
 ## Arduino
 
@@ -36,23 +36,19 @@ tried this.
 The main platforms used for testing are ESP32 (currently version 1.0.4 of the
 Arduino ESP32 Core) and Teensy 4.0.
 
-|    Board            | Supported | Comments                                             |
-|:--------------------|:---------:|:-----------------------------------------------------|
-| ESP32               |     ✔     | Full support.                                        |
-| ESP8266             |     ✔     | Full support.                                        |
-| Teensy 3.x          |     ✔     | No `std::iostream` support                           |
-| Teensy 4.x          |     ✔     | No `std::cout` support, use `arduino::cout` instead. |
-| Arduino Zero        |     ✔*    | `std::cout` support unknown.                         |
-| Arduino Nano 33 BLE |     ✔*    | `std::cout` support unknown.                         |
-| AVR (Uno, Mega ...) |    ❌     | No STL support.                                      |
-| Arduino Due         |    ❌     | Toolchain's STL is configured incorrectly.           |
+|    Board            | Supported | Comments                                                           |
+|:--------------------|:---------:|:-------------------------------------------------------------------|
+| ESP32               |     ✔     | Full support.                                                      |
+| ESP8266             |     ✔     | Full support.                                                      |
+| Teensy 3.x          |     ✔     | No `std::iostream` support.                                        |
+| Teensy 4.x          |     ✔     | No `std::cout` support, use `arduino::cout` instead.               |
+| Arduino Nano 33 BLE |     ✔     | `std::cout` prints to `Serial1`, use `arduino::cout` for `Serial`. |
+| Arduino Zero        |     ✔*    | `std::cout` support unknown.                                       |
+| AVR (Uno, Mega ...) |    ❌     | No STL support.                                                    |
+| Arduino Due         |    ❌     | Toolchain's STL is configured incorrectly.                         |
 
 (*) Compiled but untested. If you own such a board, feel free to open an issue
 to let me know if it works or not!
-
-For the STL to work correctly on Teensy 4.x, you need a Teensyduino version that
-includes [this patch](https://github.com/PaulStoffregen/cores/commit/2f8568659cb7553ca12e5ca2d0358df9d30427a6) 
-to the linker scripts.
 
 ## Disclaimer
 
