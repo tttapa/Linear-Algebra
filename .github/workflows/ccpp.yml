@@ -5,14 +5,15 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     
     steps:
     - uses: actions/checkout@v1
     - uses: actions/cache@v2
       with:
         path: "/tmp/gtest"
-        key: ${{ runner.os }}
+        key: ${{ runner.os }}-gtest-${{ hashFiles('scripts/ci/install-gtest.sh') }}-${{ github.sha }}
+        restore-keys: ${{ runner.os }}-gtest-${{ hashFiles('scripts/ci/install-gtest.sh') }}-
     - name: Install Google Test
       run: ./ci/install-gtest.sh /tmp/gtest
       working-directory: scripts
