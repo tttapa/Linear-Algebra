@@ -1,0 +1,83 @@
+name: Examples
+
+on: push
+
+jobs:
+  compile-examples:
+    name: Examples
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        board: [Nano 33 BLE, Nano 33 IoT, ESP32, ESP8266] # TODO: Teensy 3.x 4.x
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          
+      - name: Cache Arduino CLI
+        uses: actions/cache@v2.1.4
+        with:
+          path: |
+            ~/.local/bin
+          key: ${{ runner.os }}-local-bin
+          
+      - name: Cache Arduino Cores and Libraries
+        uses: actions/cache@v2.1.4
+        with:
+          path: |
+            ~/.arduino15
+            ~/Arduino/libraries
+          key: ${{ runner.os }}-arduino-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-arduino-
+
+      - name: Cache Compiled Arduino Cores and Sketches
+        uses: actions/cache@v2.1.4
+        with:
+          path: |
+            /tmp/arduino-sketch-*
+            /tmp/core-*
+          key: ${{ runner.os }}-arduino-compiled-${{ matrix.board }}-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-arduino-compiled-${{ matrix.board }}-
+
+      - name: Update $PATH
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install Arduino CLI
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          which arduino-cli || { curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR="$HOME/.local/bin" sh; }
+          cp "$GITHUB_WORKSPACE/tools/arduino-cli.yaml" "$HOME/.arduino15"
+          arduino-cli core update-index
+
+      - name: Install Arduino Boards
+        run: |
+          arduino-cli core install arduino:mbed arduino:samd esp32:esp32 esp8266:esp8266
+          arduino-cli core upgrade
+          arduino-cli cache clean
+
+      - name: Install Arduino Libraries
+        run: |
+          mkdir -p "$HOME/Arduino/libraries" && cd "$_"
+          ln -snf "$GITHUB_WORKSPACE" "$HOME/Arduino/libraries/Linear-Algebra"
+
+      - name: Cache Python Packages 
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.venv
+          key: ${{ runner.os }}-python-venv-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-python-venv-
+
+      - name: Install Python Packages
+        run: |
+          [ -d "$HOME/.venv" ] || python3 -m venv "$HOME/.venv"
+          source "$HOME/.venv/bin/activate"
+          python3 -m pip install -U pyyaml pyserial
+
+      - name: Compile Examples
+        run: |
+          source "$HOME/.venv/bin/activate"
+          python3 "$GITHUB_WORKSPACE/tools/arduino-example-builder.py" "${{ matrix.board }}" --examples_dir "$HOME/Arduino/libraries/Linear-Algebra/examples/Arduino"

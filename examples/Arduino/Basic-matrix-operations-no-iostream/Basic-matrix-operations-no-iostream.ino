@@ -1,6 +1,7 @@
 /**
  * @example Basic-matrix-operations-no-iostream.ino
  * @brief   Arduino sketch that demonstrates some of the basic features.
+ * @boards  Nano 33 IoT, Teensy 3.x
  * 
  * ---
  * 

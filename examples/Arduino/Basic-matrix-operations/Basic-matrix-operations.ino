@@ -1,6 +1,7 @@
 /**
  * @example Basic-matrix-operations.ino
  * @brief   Arduino sketch that demonstrates some of the basic features.
+ * @boards  Nano 33 BLE, Teensy 4.x, ESP8266, ESP32
  * 
  * ---
  * 
