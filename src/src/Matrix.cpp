@@ -4,7 +4,7 @@
 #include <include/linalg/Matrix.hpp>
 #endif
 
-#pragma region // Constructors -------------------------------------------------
+//#region Constructors ---------------------------------------------------------
 
 Matrix::Matrix(storage_t &&storage, size_t rows, size_t cols)
     : rows_(rows), //
@@ -27,9 +27,9 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> init) {
     *this = init;
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion // ----------------------------------------------------------------
 
-#pragma region // Assignment ---------------------------------------------------
+//#region Assignment -----------------------------------------------------------
 
 Matrix &Matrix::operator=(Matrix &&other) {
     // By explicitly defining move assignment, we can be sure that the object
@@ -71,9 +71,9 @@ Matrix::operator=(std::initializer_list<std::initializer_list<double>> init) {
     return *this;
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Matrix size --------------------------------------------------
+//#region Matrix size ----------------------------------------------------------
 
 void Matrix::reshape(size_t newrows, size_t newcols) {
     assert(newrows * newcols == rows() * cols());
@@ -87,9 +87,9 @@ Matrix Matrix::reshaped(size_t newrows, size_t newcols) const {
     return result;
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Element access -----------------------------------------------
+//#region Element access -------------------------------------------------------
 
 double &Matrix::operator()(size_t row, size_t col) {
 #if COL_MAJ_ORDER == 1
@@ -107,9 +107,9 @@ const double &Matrix::operator()(size_t row, size_t col) const {
 #endif
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Memory management --------------------------------------------
+//#region Memory management ----------------------------------------------------
 
 void Matrix::clear_and_deallocate() {
     this->rows_ = 0;
@@ -118,9 +118,9 @@ void Matrix::clear_and_deallocate() {
     // temporary storage goes out of scope and deallocates original storage
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Filling matrices ---------------------------------------------
+//#region Filling matrices -----------------------------------------------------
 
 void Matrix::fill(double value) {
     std::fill(storage.begin(), storage.end(), value);
@@ -141,9 +141,9 @@ void Matrix::fill_random(double min, double max,
 }
 #endif
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Creating special matrices ------------------------------------
+//#region Creating special matrices --------------------------------------------
 
 Matrix Matrix::ones(size_t rows, size_t cols) {
     return constant(rows, cols, 1);
@@ -177,9 +177,9 @@ Matrix Matrix::random(size_t rows, size_t cols, double min, double max,
 }
 #endif
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Swapping rows and columns ------------------------------------
+//#region Swapping rows and columns --------------------------------------------
 
 void Matrix::swap_columns(size_t a, size_t b) {
     for (size_t r = 0; r < rows(); ++r)
@@ -191,9 +191,9 @@ void Matrix::swap_rows(size_t a, size_t b) {
         std::swap((*this)(a, c), (*this)(b, c));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Equality -----------------------------------------------------
+//#region Equality -------------------------------------------------------------
 
 bool Matrix::operator==(const Matrix &other) const {
     // When comparing two matrices with a different size, this is most likely
@@ -207,9 +207,9 @@ bool Matrix::operator==(const Matrix &other) const {
     return res.first == end();
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Norms --------------------------------------------------------
+//#region Norms ----------------------------------------------------------------
 
 /**
  * ## Implementation
@@ -230,9 +230,9 @@ double Matrix::normFro() && {
     return std::sqrt(Vector::dot_unchecked(std::move(*this), *this));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Printing -----------------------------------------------------
+//#region Printing -------------------------------------------------------------
 
 #ifndef NO_IOSTREAM_SUPPORT
 
@@ -259,12 +259,12 @@ std::ostream &operator<<(std::ostream &os, const Matrix &M) {
 
 #endif
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
 //                                   Vector                                   //
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 
-#pragma region // Constructors and assignment ----------------------------------
+//#region Constructors and assignment ------------------------------------------
 
 Vector::Vector(const Matrix &matrix)
     : Matrix(matrix.storage, matrix.num_elems(), 1) {}
@@ -280,9 +280,9 @@ Vector &Vector::operator=(std::initializer_list<double> init) {
     return *this;
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Creating special vectors -------------------------------------
+//#region Creating special vectors ---------------------------------------------
 
 Vector Vector::ones(size_t size) { return Vector(Matrix::ones(size, 1)); }
 
@@ -299,9 +299,9 @@ Vector Vector::random(size_t size, double min, double max,
 }
 #endif
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Dot products -------------------------------------------------
+//#region Dot products ---------------------------------------------------------
 
 double Vector::dot_unchecked(const Matrix &a, const Matrix &b) {
     assert(a.num_elems() == b.num_elems());
@@ -342,9 +342,9 @@ double Vector::dot(Vector &&a, Vector &&b) {
     return dot_unchecked(std::move(a), std::move(b));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Cross products -----------------------------------------------
+//#region Cross products -------------------------------------------------------
 
 void Vector::cross_inplace_unchecked(Matrix &a, const Matrix &b) {
     assert(a.num_elems() == 3);
@@ -406,9 +406,9 @@ Vector &&Vector::cross(Vector &&a, Vector &&b) {
     return std::move(a);
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Vector norms -------------------------------------------------
+//#region Vector norms ---------------------------------------------------------
 
 double Vector::norm2() const & {
     // Compute the dot product of the vector with itself. This is the sum of
@@ -423,12 +423,12 @@ double Vector::norm2() && {
     return std::sqrt(dot(std::move(*this)));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
 //                                 RowVector                                  //
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 
-#pragma region // Constructors and assignment ----------------------------------
+//#region Constructors and assignment ------------------------------------------
 
 RowVector::RowVector(const Matrix &matrix)
     : Matrix(matrix.storage, 1, matrix.num_elems()) {}
@@ -441,9 +441,9 @@ RowVector &RowVector::operator=(std::initializer_list<double> init) {
     return *this;
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Creating special row vectors ---------------------------------
+//#region Creating special row vectors -----------------------------------------
 
 RowVector RowVector::ones(size_t size) {
     return RowVector(Matrix::ones(1, size));
@@ -464,9 +464,9 @@ RowVector RowVector::random(size_t size, double min, double max,
 }
 #endif
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Dot products -------------------------------------------------
+//#region Dot products ---------------------------------------------------------
 
 double RowVector::dot(const RowVector &a, const RowVector &b) {
     return Vector::dot_unchecked(a, b);
@@ -484,9 +484,9 @@ double RowVector::dot(RowVector &&a, RowVector &&b) {
     return Vector::dot_unchecked(std::move(a), std::move(b));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Cross products -----------------------------------------------
+//#region Cross products -------------------------------------------------------
 
 void RowVector::cross_inplace(RowVector &a, const RowVector &b) {
     Vector::cross_inplace_unchecked(a, b);
@@ -534,20 +534,20 @@ RowVector &&RowVector::cross(RowVector &&b) && {
     return cross(std::move(*this), std::move(b));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Norms --------------------------------------------------------
+//#region Norms ----------------------------------------------------------------
 
 double RowVector::norm2() const & { return std::sqrt(dot(*this)); }
 
 double RowVector::norm2() && { return std::sqrt(dot(std::move(*this))); }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
 //                                SquareMatrix                                //
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 
-#pragma region // Constructors and assignment ----------------------------------
+//#region Constructors and assignment ------------------------------------------
 
 SquareMatrix::SquareMatrix(
     std::initializer_list<std::initializer_list<double>> init) {
@@ -569,9 +569,9 @@ SquareMatrix &SquareMatrix::operator=(
     return *this;
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Transposition ------------------------------------------------
+//#region Transposition --------------------------------------------------------
 
 void SquareMatrix::transpose_inplace(Matrix &A) {
     assert(A.cols() == A.rows() && "Matrix should be square.");
@@ -580,9 +580,9 @@ void SquareMatrix::transpose_inplace(Matrix &A) {
             std::swap(A(n, m), A(m, n));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Special matrices ---------------------------------------------
+//#region Special matrices -----------------------------------------------------
 
 SquareMatrix SquareMatrix::ones(size_t rows) {
     return SquareMatrix(Matrix::ones(rows, rows));
@@ -607,12 +607,12 @@ SquareMatrix::random(size_t rows, double min, double max,
 }
 #endif
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
 //                             Matrix operations                              //
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 
-#pragma region // Matrix multiplication ----------------------------------------
+//#region Matrix multiplication ------------------------------------------------
 
 /**
  * ## Implementation
@@ -708,9 +708,9 @@ double operator*(RowVector &&a, Vector &&b) {
     return Vector::dot_unchecked(std::move(a), std::move(b));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Addition -----------------------------------------------------
+//#region Addition -------------------------------------------------------------
 
 /**
  * ## Implementation
@@ -798,9 +798,9 @@ SquareMatrix operator+(const SquareMatrix &a, const SquareMatrix &b) {
                         static_cast<const Matrix &>(b));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Subtraction --------------------------------------------------
+//#region Subtraction ----------------------------------------------------------
 
 /**
  * ## Implementation
@@ -889,9 +889,9 @@ SquareMatrix operator-(const SquareMatrix &a, const SquareMatrix &b) {
                         static_cast<const Matrix &>(b));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Negation -----------------------------------------------------
+//#region Negation -------------------------------------------------------------
 
 /**
  * @brief   Matrix negation.
@@ -933,9 +933,9 @@ SquareMatrix operator-(const SquareMatrix &a) {
     return SquareMatrix(-static_cast<const Matrix &>(a));
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Scalar multiplication ----------------------------------------
+//#region Scalar multiplication ------------------------------------------------
 
 /**
  * ## Implementation
@@ -991,9 +991,9 @@ SquareMatrix &&operator*(double s, SquareMatrix &&a) {
     return std::move(a) * s;
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Scalar division ----------------------------------------------
+//#region Scalar division ------------------------------------------------------
 
 /**
  * ## Implementation
@@ -1038,9 +1038,9 @@ SquareMatrix &&operator/(SquareMatrix &&a, double s) {
     return std::move(a);
 }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
 
-#pragma region // Transposition ------------------------------------------------
+//#region Transposition --------------------------------------------------------
 
 /**
  * ## Implementation
@@ -1103,4 +1103,4 @@ RowVector transpose(Vector &&in) { return RowVector(std::move(in)); }
 Vector transpose(const RowVector &in) { return Vector(in); }
 Vector transpose(RowVector &&in) { return Vector(std::move(in)); }
 
-#pragma endregion // -----------------------------------------------------------
+//#endregion -------------------------------------------------------------------
