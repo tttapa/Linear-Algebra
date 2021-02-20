@@ -1,0 +1,11 @@
+<map id="Matrix and vector operations" name="Matrix and vector operations">
+<area shape="rect" id="node1" href="$d2/dd7/group__ScalMul.html" title="Multiplication by a scalar." alt="" coords="472,5,628,31"/>
+<area shape="rect" id="node2" href="$d3/dcb/group__MatTrans.html" title="Matrix and vector transposition." alt="" coords="496,55,604,80"/>
+<area shape="rect" id="node3" href="$dc/df7/group__MatSub.html" title="Matrix and vector subtraction." alt="" coords="502,104,598,129"/>
+<area shape="rect" id="node4" title="Matrix and vector operations, such as addition, multiplication, cross products, transposition ...." alt="" coords="212,153,423,179"/>
+<area shape="rect" id="node5" href="$da/d14/group__MatAdd.html" title="Matrix and vector addition." alt="" coords="512,153,588,179"/>
+<area shape="rect" id="node6" href="$d4/da7/group__ScalDiv.html" title="Division by a scalar." alt="" coords="491,203,609,228"/>
+<area shape="rect" id="node7" href="$d1/de0/group__MatNeg.html" title="Matrix and vector negation." alt="" coords="509,252,591,277"/>
+<area shape="rect" id="node8" href="$df/d18/group__MatMul.html" title="Matrix&#45;matrix, matrix&#45;vector and vector&#45;vector multiplication." alt="" coords="471,301,629,327"/>
+<area shape="rect" id="node9" href="$db/d95/group__MatVec.html" title="Matrix and vector containers." alt="" coords="5,153,164,179"/>
+</map>

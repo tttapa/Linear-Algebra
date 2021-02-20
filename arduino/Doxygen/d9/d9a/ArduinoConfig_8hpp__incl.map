@@ -1,0 +1,5 @@
+<map id="ArduinoConfig.hpp" name="ArduinoConfig.hpp">
+<area shape="rect" id="node1" title="Preprocessor logic for configuring the library to make it compatible with the Arduino environment." alt="" coords="14,5,155,32"/>
+<area shape="rect" id="node2" href="$df/d96/ArduinoMacroFix_8hpp.html" title="Fixes for problematic macros defined by the Arduino Core." alt="" coords="5,80,164,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="43,155,127,181"/>
+</map>
