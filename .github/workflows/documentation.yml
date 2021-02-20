@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     # Checks-out the repository under $GITHUB_WORKSPACE
@@ -20,7 +20,8 @@ jobs:
           /tmp/doxygen
           /tmp/gtest
           /tmp/lcov
-        key: ${{ runner.os }}-doc-${{ hashFiles('scripts/ci/**') }}
+        key: ${{ runner.os }}-doc-${{ hashFiles('scripts/ci/**') }}-${{ github.sha }}
+        restore-keys: ${{ runner.os }}-doc-${{ hashFiles('scripts/ci/**') }}-
     
     - name: Install Graphviz/Dot and LCOV Perl dependencies
       run: sudo apt-get install graphviz libjson-perl libperlio-gzip-perl perl

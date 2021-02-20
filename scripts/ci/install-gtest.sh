@@ -4,7 +4,7 @@
 
 set -ex
 
-version="release-1.10.0" # Release tag on GitHub
+version="master" # Release tag on GitHub
 prefix="${1:-$HOME/.local}"
 
 [ -e "$prefix/lib/cmake/GTest/GTestConfig.cmake" ] \
